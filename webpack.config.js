@@ -1,5 +1,5 @@
 const path = require("path");
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = {
   mode: 'development',
@@ -9,9 +9,9 @@ const config = {
     filename: "okchart.js"
   },
   devtool: 'inline-source-map',
-  plugins: [
-    new CleanWebpackPlugin(['dist'])
-  ],
+  // plugins: [
+  //   new CleanWebpackPlugin(['dist'])
+  // ],
   module: {
     rules: [
       {
