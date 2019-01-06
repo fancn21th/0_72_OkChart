@@ -2,13 +2,16 @@ const path = require("path");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = {
-  mode: 'development',
-  entry: ["./src/index.js"],
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: "okchart.js"
+  mode: "development",
+  entry: {
+    okchart: "./src/index.js",
+    client: "./src/client.js"
   },
-  devtool: 'inline-source-map',
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].bundle.js"
+  },
+  devtool: "inline-source-map",
   // plugins: [
   //   new CleanWebpackPlugin(['dist'])
   // ],
@@ -30,7 +33,7 @@ const config = {
     extensions: [".js"]
   },
   devServer: {
-    contentBase: path.join(__dirname, "build"),
+    contentBase: path.join(__dirname, "build")
   }
 };
 module.exports = config;
