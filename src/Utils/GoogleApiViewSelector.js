@@ -7,11 +7,14 @@ const GoogleApiViewSelector = function ({
 }
 
 GoogleApiViewSelector.prototype = {
-  init: function (containerId) {
-    new this.gapi.analytics.ViewSelector({
-        container: this.containerId,
-      })
-      .execute()
+  init: function (callback) {
+    const selector = new this.gapi.analytics.ViewSelector({
+      container: this.containerId,
+    })
+
+    selector.execute()
+
+    selector.on('change', callback)
   }
 };
 

@@ -11,12 +11,16 @@ Presenter.prototype = {
       self.refresh(data);
     });
 
-    this.model.getPvUv({
-      metrics: 'ga:pageviews',
-      dimensions: 'ga:date',
-      'start-date': '30daysAgo',
-      'end-date': 'yesterday'
-    });
+    this.view.authenticator.init()
+    this.view.viewSelector.init(ids => {
+      this.model.getPvUv({
+        'ids': ids,
+        metrics: 'ga:pageviews',
+        dimensions: 'ga:date',
+        'start-date': '30daysAgo',
+        'end-date': 'yesterday'
+      });
+    })
   },
 
   refresh: function (data) {
