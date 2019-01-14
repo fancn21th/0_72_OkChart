@@ -1,14 +1,16 @@
 {
   "name": "okchart",
   "version": "1.0.0",
-  "description": "a okchart component",
+  "description": "a chart component for okchem.com",
   "scripts": {
     "start": "webpack-dev-server --open",
     "watch": "webpack --watch",
     "build": "webpack"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "okchem chart"
+  ],
+  "author": "fancn21th",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -20,5 +22,7 @@
     "webpack-cli": "^3.2.0",
     "webpack-dev-server": "^3.1.14"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@antv/g2": "^3.4.10"
+  }
 }

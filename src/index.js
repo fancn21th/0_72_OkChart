@@ -1,5 +1,9 @@
-import './charts/types/chart-type'
-import './charts/okchart'
+import GoogleApiQuery from './Utils/GoogleApiQuery'
+import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
+import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
+import PvUvModel from './Model/m-pv-uv'
+import PvUvView from './View/v-pv-uv'
+import PvUvPresenter from './Presenter/p-pv-uv'
 
 // orchestration
 (function (win, doc) {
@@ -20,5 +24,31 @@ import './charts/okchart'
       g.load('analytics');
     };
   }(win, doc, 'script'));
+
+  gapi.analytics.ready(function () {
+    // google api wrapper
+    const googleApiQuery = new GoogleApiQuery(gapi);
+    const googleApiAuthenticator = new GoogleApiAuthenticator({
+      gapi,
+      containerId: 'embed-api-auth-container',
+      clientId: '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com'
+    });
+    const googleApiViewSelector = new GoogleApiViewSelector({
+      gapi,
+      containerId: 'view-selector-container',
+    });
+    // model
+    const pvUvModel = new PvUvModel(googleApiQuery);
+    // view
+    const elements = {
+      chartContainer: doc.getElementById('chart-container'),
+      authenticator: googleApiAuthenticator,
+      viewSelector: googleApiViewSelector
+    }
+    const pvUvView = new PvUvView(elements)
+    // presenter
+    const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
+    pvUvPresenter.init()
+  });
 
 })(window, document);
