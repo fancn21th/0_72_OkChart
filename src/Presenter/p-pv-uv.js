@@ -1,4 +1,4 @@
-var Presenter = function (model, view) {
+const Presenter = function (model, view) {
   this.model = model;
   this.view = view;
 };

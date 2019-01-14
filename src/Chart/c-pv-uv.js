@@ -1,6 +1,6 @@
 import G2 from '@antv/g2';
 
-var PvUvChart = function ({
+const PvUvChart = function ({
   chartContainerId
 }) {
   this.chartContainerId = chartContainerId;

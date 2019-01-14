@@ -1,4 +1,4 @@
-var View = function ({
+const View = function ({
   chart,
   authenticator,
   viewSelector,
@@ -10,6 +10,7 @@ var View = function ({
 
 View.prototype = {
   render: function (data) {
+    console.log(data)
     this.chart.render(data)
   }
 }
