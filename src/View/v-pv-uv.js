@@ -10,7 +10,7 @@ var View = function ({
 
 View.prototype = {
   render: function (data) {
-    this.chartContainer.innerHTML = data
+    console.log(data)
   }
 }
 

@@ -7,8 +7,8 @@ const Model = function (query) {
 
 Model.prototype = {
   getPvUv: function (params) {
-    this.query.query(params).then(data => {
-      this.pv_uv.notify(data);
+    this.query.query(params).then(response => {
+      this.pv_uv.notify(response.rows);
     })
   },
 };
