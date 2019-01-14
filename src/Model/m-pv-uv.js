@@ -1,4 +1,5 @@
 import Observer from '../Utils/Observer'
+import convert from '../DataConverter/dc-pv-uv'
 
 const Model = function (query) {
   this.query = query;
@@ -8,7 +9,7 @@ const Model = function (query) {
 Model.prototype = {
   getPvUv: function (params) {
     this.query.query(params).then(response => {
-      this.pv_uv.notify(response.rows);
+      this.pv_uv.notify(convert(response.rows));
     })
   },
 };

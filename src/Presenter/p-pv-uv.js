@@ -11,6 +11,7 @@ Presenter.prototype = {
       self.refresh(data);
     });
 
+    this.view.chart.init()
     this.view.authenticator.init()
     this.view.viewSelector.init(ids => {
       this.model.getPvUv({

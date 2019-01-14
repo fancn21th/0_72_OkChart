@@ -4,6 +4,7 @@ import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
 import PvUvModel from './Model/m-pv-uv'
 import PvUvView from './View/v-pv-uv'
 import PvUvPresenter from './Presenter/p-pv-uv'
+import PvUvChart from './Chart/c-pv-uv'
 
 // orchestration
 (function (win, doc) {
@@ -37,11 +38,15 @@ import PvUvPresenter from './Presenter/p-pv-uv'
       gapi,
       containerId: 'view-selector-container',
     });
+    // chart
+    const pvUvChart = new PvUvChart({
+      chartContainerId: 'chart-container'
+    })
     // model
     const pvUvModel = new PvUvModel(googleApiQuery);
     // view
     const elements = {
-      chartContainer: doc.getElementById('chart-container'),
+      chart: pvUvChart,
       authenticator: googleApiAuthenticator,
       viewSelector: googleApiViewSelector
     }
