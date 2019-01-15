@@ -1,6 +1,9 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {
+  BundleAnalyzerPlugin
+} = require('webpack-bundle-analyzer');
 
 const config = {
   mode: "development",
@@ -17,7 +20,8 @@ const config = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: 'src/assets/index.html'
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [{

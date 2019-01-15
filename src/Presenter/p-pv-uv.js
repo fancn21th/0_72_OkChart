@@ -6,7 +6,7 @@ const Presenter = function (model, view) {
 Presenter.prototype = {
   init: function () {
     const self = this;
-
+    // hook up to the observer object
     this.model.pv_uv.attach(function (data) {
       self.refresh(data);
     });

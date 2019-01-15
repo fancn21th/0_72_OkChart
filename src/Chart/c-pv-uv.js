@@ -1,5 +1,6 @@
 import G2 from '@antv/g2';
 
+// function 1: constructor
 const PvUvChart = function ({
   chartContainerId
 }) {
@@ -8,6 +9,7 @@ const PvUvChart = function ({
 };
 
 PvUvChart.prototype = {
+  // function 2: initilization
   init: function () {
     this.chart = new G2.Chart({
       container: this.chartContainerId,
@@ -15,6 +17,7 @@ PvUvChart.prototype = {
       height: 400
     });
   },
+  // function 3: render
   render: function (data) {
     this.chart.source(data);
     this.chart.scale('value', {
@@ -28,7 +31,7 @@ PvUvChart.prototype = {
         type: 'line'
       }
     });
-    this.chart.line().position('day*value');
+    this.chart.line().position('day*value').shape('smooth');
     this.chart.point().position('day*value').size(4).shape('circle').style({
       stroke: '#fff',
       lineWidth: 1
