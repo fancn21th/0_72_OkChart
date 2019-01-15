@@ -8,7 +8,7 @@ const PvUvChart = function({ chartContainerId }) {
 }
 
 PvUvChart.prototype = {
-  // function 2: initilization
+  // function 2: initialization
   init: function() {
     this.chart = new Chart({
       container: this.chartContainerId,
