@@ -6,7 +6,7 @@ const config = {
   mode: "development",
   entry: {
     okchart: "./src/index.js",
-    client: "./src/client.js"
+    client: "./src/assets/client.js"
   },
   output: {
     path: path.resolve(__dirname, "dist"),
