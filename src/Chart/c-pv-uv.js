@@ -12,7 +12,7 @@ PvUvChart.prototype = {
     this.chart = new G2.Chart({
       container: this.chartContainerId,
       forceFit: true,
-      height: window.innerHeight
+      height: 400
     });
   },
   render: function (data) {

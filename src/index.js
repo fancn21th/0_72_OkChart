@@ -6,6 +6,8 @@ import PvUvView from './View/v-pv-uv'
 import PvUvPresenter from './Presenter/p-pv-uv'
 import PvUvChart from './Chart/c-pv-uv'
 
+import './assets/css/main.css'
+
 // orchestration
 (function (win, doc) {
   // Load the Embed API library once
@@ -32,7 +34,7 @@ import PvUvChart from './Chart/c-pv-uv'
     const googleApiAuthenticator = new GoogleApiAuthenticator({
       gapi,
       containerId: 'embed-api-auth-container',
-      clientId: ''
+      clientId: '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com'
     });
     const googleApiViewSelector = new GoogleApiViewSelector({
       gapi,
