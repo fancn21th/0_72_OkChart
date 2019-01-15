@@ -9,53 +9,53 @@ import PvUvChart from './Chart/c-pv-uv'
 import './assets/css/main.css'
 
 // orchestration
-(function (win, doc) {
+;(function(win, doc) {
   // Load the Embed API library once
-  (function (w, d, s, g, js, fs) {
-    g = w.gapi || (w.gapi = {});
+  ;(function(w, d, s, g, js, fs) {
+    g = w.gapi || (w.gapi = {})
     g.analytics = {
       q: [],
-      ready: function (f) {
-        this.q.push(f);
-      }
-    };
-    js = d.createElement(s);
-    fs = d.getElementsByTagName(s)[0];
-    js.src = 'https://apis.google.com/js/platform.js';
-    fs.parentNode.insertBefore(js, fs);
-    js.onload = function () {
-      g.load('analytics');
-    };
-  }(win, doc, 'script'));
+      ready: function(f) {
+        this.q.push(f)
+      },
+    }
+    js = d.createElement(s)
+    fs = d.getElementsByTagName(s)[0]
+    js.src = 'https://apis.google.com/js/platform.js'
+    fs.parentNode.insertBefore(js, fs)
+    js.onload = function() {
+      g.load('analytics')
+    }
+  })(win, doc, 'script')
 
-  gapi.analytics.ready(function () {
+  gapi.analytics.ready(function() {
     // google api wrapper
-    const googleApiQuery = new GoogleApiQuery(gapi);
+    const googleApiQuery = new GoogleApiQuery(gapi)
     const googleApiAuthenticator = new GoogleApiAuthenticator({
       gapi,
       containerId: 'embed-api-auth-container',
-      clientId: ''
-    });
+      clientId:
+        '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com',
+    })
     const googleApiViewSelector = new GoogleApiViewSelector({
       gapi,
       containerId: 'view-selector-container',
-    });
+    })
     // chart
     const pvUvChart = new PvUvChart({
-      chartContainerId: 'chart-container'
+      chartContainerId: 'chart-container',
     })
     // model
-    const pvUvModel = new PvUvModel(googleApiQuery);
+    const pvUvModel = new PvUvModel(googleApiQuery)
     // view
     const elements = {
       chart: pvUvChart,
       authenticator: googleApiAuthenticator,
-      viewSelector: googleApiViewSelector
+      viewSelector: googleApiViewSelector,
     }
     const pvUvView = new PvUvView(elements)
     // presenter
     const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
     pvUvPresenter.init()
-  });
-
-})(window, document);
+  })
+})(window, document)
