@@ -34,7 +34,7 @@ import './assets/css/main.css'
     const googleApiAuthenticator = new GoogleApiAuthenticator({
       gapi,
       containerId: 'embed-api-auth-container',
-      clientId: '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com'
+      clientId: ''
     });
     const googleApiViewSelector = new GoogleApiViewSelector({
       gapi,
