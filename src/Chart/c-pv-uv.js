@@ -68,10 +68,12 @@ PvUvChart.prototype = {
         type: 'line'
       }
     });
-    this.chart.axis('count', {
+    // 如何格式化坐标轴文本
+    // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy
+    this.chart.axis('day', {
       label: {
-        formatter: function formatter(val) {
-          return val + '+';
+        formatter: val => {
+          return `${val.slice(4, 6)}/${val.slice(6, 8)}`;
         }
       }
     });
