@@ -33,6 +33,13 @@ PvUvChart.prototype = {
       stroke: '#fff',
       lineWidth: 1
     });
+    this.chart.axis('day', {
+      label: {
+        formatter: val => {
+          return `${val.slice(4, 6)}/${val.slice(6, 8)}`;
+        }
+      }
+    });
     this.chart.render();
   }
 }
