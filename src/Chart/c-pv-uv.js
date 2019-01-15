@@ -33,6 +33,8 @@ PvUvChart.prototype = {
       stroke: '#fff',
       lineWidth: 1
     });
+    // 如何格式化坐标轴文本
+    // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy
     this.chart.axis('day', {
       label: {
         formatter: val => {
