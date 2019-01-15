@@ -13,14 +13,16 @@ Presenter.prototype = {
 
     this.view.chart.init()
     this.view.authenticator.init()
-    this.view.viewSelector.init(ids => {
-      this.model.getPvUv({
-        ids: ids,
-        metrics: 'ga:pageviews,ga:uniquePageviews',
-        dimensions: 'ga:date',
-        'start-date': '30daysAgo',
-        'end-date': 'yesterday',
-      })
+    this.view.viewSelector.init({
+      onChange: ids => {
+        this.model.getPvUv({
+          ids: ids,
+          metrics: 'ga:pageviews,ga:uniquePageviews',
+          dimensions: 'ga:date',
+          'start-date': '30daysAgo',
+          'end-date': 'yesterday',
+        })
+      },
     })
   },
 
