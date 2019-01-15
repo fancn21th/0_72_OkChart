@@ -9,6 +9,7 @@ const Model = function (query) {
 Model.prototype = {
   getPvUv: function (params) {
     this.query.query(params).then(response => {
+      console.log(response)
       this.pv_uv.notify(convert(response.rows));
     })
   },

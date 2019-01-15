@@ -1,6 +1,7 @@
 const convert = collection => collection.map(item => ({
   day: item[0],
-  value: parseInt(item[1], 10)
+  pv: parseInt(item[1], 10),
+  uv: parseInt(item[2], 10)
 }))
 
 export default convert

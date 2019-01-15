@@ -26,6 +26,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@antv/data-set": "^0.10.1",
     "@antv/g2": "^3.4.10"
   }
 }

@@ -10,7 +10,6 @@ const View = function ({
 
 View.prototype = {
   render: function (data) {
-    console.log(data)
     this.chart.render(data)
   }
 }
