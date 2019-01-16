@@ -1,1 +1,8 @@
-console.log('Hi, this is client script which is supposed to do something meaningful.')
+okchart.init({
+  clientId: '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com',
+  authContainer: 'embed-api-auth-container',
+  viewSelector: 'view-selector-container',
+  charts: [{
+    container: 'chart-container'
+  }]
+})
