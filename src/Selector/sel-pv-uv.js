@@ -1,5 +1,7 @@
 import Selector from './Base/Selector'
-import DataRangeSelector from './Control/date-range-selector'
+import TimespanSelector from './Control/timespan-selector'
+import DateRangeSelector from './Control/date-range-selector'
+import TimeUnitSelector from './Control/time-unit-selector'
 
 const SelectorPvUv = function ({
   chartContainerId
@@ -8,7 +10,9 @@ const SelectorPvUv = function ({
   this.selector = new Selector({
     chartContainerId,
     selectorList: [
-      new DataRangeSelector()
+      new TimespanSelector(),
+      new DateRangeSelector(),
+      new TimeUnitSelector()
     ]
   })
 }
