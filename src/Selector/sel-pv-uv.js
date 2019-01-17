@@ -1,4 +1,4 @@
-import Selector from './Selector'
+import Selector from './Base/Selector'
 import DataRangeSelector from './Control/date-range-selector'
 
 const SelectorPvUv = function ({
