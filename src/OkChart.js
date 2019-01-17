@@ -5,6 +5,7 @@ import PvUvModel from './Model/m-pv-uv'
 import PvUvView from './View/v-pv-uv'
 import PvUvPresenter from './Presenter/p-pv-uv'
 import PvUvChart from './Chart/c-pv-uv'
+import SelectorPvUv from './Selector/sel-pv-uv'
 
 const OkChart = function ({
   willMount
@@ -42,10 +43,14 @@ OkChart.prototype = {
       // model
       const pvUvModel = new PvUvModel(googleApiQuery)
       // view elements
+      const selectorPvUv = new SelectorPvUv({
+        chartContainerId: char1.container,
+      })
       const elements = {
         chart: pvUvChart,
         authenticator: googleApiAuthenticator,
         viewSelector: googleApiViewSelector,
+        chartSelector: selectorPvUv
       }
       const pvUvView = new PvUvView(elements)
       // presenter

@@ -1,18 +1,19 @@
-const Presenter = function(model, view) {
+const Presenter = function (model, view) {
   this.model = model
   this.view = view
 }
 
 Presenter.prototype = {
-  init: function() {
+  init: function () {
     const self = this
     // hook up to the observer object
-    this.model.pv_uv.attach(function(data) {
+    this.model.pv_uv.attach(function (data) {
       self.refresh(data)
     })
-
+    // initialize all view elements
     this.view.chart.init()
     this.view.authenticator.init()
+    this.view.chartSelector.init()
     this.view.viewSelector.init({
       onChange: ids => {
         this.model.getPvUv({
@@ -26,7 +27,7 @@ Presenter.prototype = {
     })
   },
 
-  refresh: function(data) {
+  refresh: function (data) {
     this.view.render(data)
   },
 }

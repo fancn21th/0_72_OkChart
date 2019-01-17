@@ -1,15 +1,19 @@
-import { Chart } from '@antv/g2'
+import {
+  Chart
+} from '@antv/g2'
 import DataSet from '@antv/data-set'
 
 // function 1: constructor
-const PvUvChart = function({ chartContainerId }) {
+const PvUvChart = function ({
+  chartContainerId
+}) {
   this.chartContainerId = chartContainerId
   this.chart = null
 }
 
 PvUvChart.prototype = {
   // function 2: initialization
-  init: function() {
+  init: function () {
     this.chart = new Chart({
       container: this.chartContainerId,
       forceFit: true,
@@ -17,7 +21,7 @@ PvUvChart.prototype = {
     })
   },
   // function 3: render
-  render: function(data) {
+  render: function (data) {
     var ds = new DataSet()
     var dv = ds.createView().source(data)
     // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
@@ -50,7 +54,7 @@ PvUvChart.prototype = {
       .line()
       .position('day*count')
       .color('pvuv')
-      .shape('smooth')
+      .shape('line')
     this.chart
       .point()
       .position('day*count')
