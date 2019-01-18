@@ -13,7 +13,7 @@ const TimeSpanSelector = function() {
       },
       {
         text: '最近一月',
-        value: '1weekAgo',
+        value: '1monthAgo',
       },
       {
         text: '自定义',
@@ -24,6 +24,11 @@ const TimeSpanSelector = function() {
 }
 
 TimeSpanSelector.prototype = {
+  init: function({ onChange }) {
+    this.selector.onchange = function(e) {
+      onChange({ timespan: e.target.value })
+    }
+  },
   appendTo: function(parentNode) {
     parentNode.appendChild(this.selector)
   },

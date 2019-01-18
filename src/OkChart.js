@@ -7,34 +7,27 @@ import PvUvPresenter from './Presenter/p-pv-uv'
 import PvUvChart from './Chart/c-pv-uv'
 import SelectorPvUv from './Selector/sel-pv-uv'
 
-const OkChart = function ({
-  willMount
-}) {
+const OkChart = function({ willMount }) {
   this.willMount = willMount
 }
 
 OkChart.prototype = {
-  init: function ({
-    clientId,
-    authContainer,
-    viewSelector,
-    charts
-  }) {
+  init: function({ clientId, authContainer, viewSelector, charts }) {
     this.willMount()
 
-    gapi.analytics.ready(function () {
+    gapi.analytics.ready(function() {
       // google api wrapper
       const googleApiQuery = new GoogleApiQuery(gapi)
       const googleApiAuthenticator = new GoogleApiAuthenticator({
         gapi,
         containerId: authContainer,
-        clientId
+        clientId,
       })
       const googleApiViewSelector = new GoogleApiViewSelector({
         gapi,
         containerId: viewSelector,
       })
-      // TODO: update
+      // TODO: Multiple Chart Solution is to be continuted
       const char1 = charts[0]
       // chart
       const pvUvChart = new PvUvChart({
@@ -50,14 +43,14 @@ OkChart.prototype = {
         chart: pvUvChart,
         authenticator: googleApiAuthenticator,
         viewSelector: googleApiViewSelector,
-        chartSelector: selectorPvUv
+        chartSelector: selectorPvUv,
       }
       const pvUvView = new PvUvView(elements)
       // presenter
       const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
       pvUvPresenter.init()
     })
-  }
+  },
 }
 
 export default OkChart

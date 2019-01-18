@@ -20,6 +20,7 @@ const TimeUnitSelector = function() {
 }
 
 TimeUnitSelector.prototype = {
+  init: function({ onChange }) {},
   appendTo: function(parentNode) {
     parentNode.appendChild(this.selector)
   },

@@ -1,6 +1,9 @@
+import dataConverterQuery from '../DataConverter/Query/dc-q-pv-uv'
+
 const Presenter = function(model, view) {
   this.model = model
   this.view = view
+  this.ids = null
 }
 
 Presenter.prototype = {
@@ -13,9 +16,15 @@ Presenter.prototype = {
     // initialize all view elements
     this.view.chart.init()
     this.view.authenticator.init()
-    this.view.chartSelector.init()
+    this.view.chartSelector.init({
+      onChange: data => {
+        console.log(data)
+        this.model.getPvUv(dataConverterQuery(this.ids, data))
+      },
+    })
     this.view.viewSelector.init({
       onChange: ids => {
+        this.ids = ids
         this.model.getPvUv({
           ids: ids,
           metrics: 'ga:pageviews,ga:uniquePageviews',
