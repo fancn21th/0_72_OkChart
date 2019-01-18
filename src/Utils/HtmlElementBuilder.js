@@ -10,4 +10,10 @@ const createSelect = ({ options }) => {
   return select
 }
 
-export { createSelect }
+const createDate = () => {
+  const date = document.createElement('INPUT')
+  date.setAttribute('type', 'date')
+  return date
+}
+
+export { createSelect, createDate }

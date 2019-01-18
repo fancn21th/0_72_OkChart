@@ -1,11 +1,15 @@
-const DateRangeSelector = function () {
-  this.selector = document.createElement('input')
+import { createDate } from '../../Utils/HtmlElementBuilder'
+
+const DateRangeSelector = function() {
+  this.startDate = createDate()
+  this.endDate = createDate()
 }
 
 DateRangeSelector.prototype = {
-  appendTo: function (parentNode) {
-    parentNode.appendChild(this.selector)
-  }
+  appendTo: function(parentNode) {
+    parentNode.appendChild(this.startDate)
+    parentNode.appendChild(this.endDate)
+  },
 }
 
 export default DateRangeSelector
