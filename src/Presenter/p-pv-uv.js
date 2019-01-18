@@ -31,13 +31,11 @@ Presenter.prototype = {
       onChange: ids => {
         this.ids = ids
         // default query
-        this.model.getPvUv({
-          ids: ids,
-          metrics: 'ga:pageviews,ga:uniquePageviews',
-          dimensions: 'ga:date',
-          'start-date': '30daysAgo',
-          'end-date': 'yesterday',
-        })
+        this.model.getPvUv(
+          dataConverterQuery({
+            ids: this.ids,
+          })
+        )
       },
     })
   },

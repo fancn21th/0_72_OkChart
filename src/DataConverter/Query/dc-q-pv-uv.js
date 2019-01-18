@@ -1,6 +1,6 @@
-const convert = ({ ids, timespan, timeUnit = 'date', startDate, endDate }) => {
-  const startDateStr = `${timespan}daysAgo`
-  const dimensionsStr = `ga:${timeUnit}`
+const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
+  const startDateStr = `${timespan || '30'}daysAgo`
+  const dimensionsStr = `ga:${timeUnit || 'date'}`
   return {
     ids,
     metrics: 'ga:pageviews,ga:uniquePageviews',
