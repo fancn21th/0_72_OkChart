@@ -6,7 +6,14 @@ const DateRangeSelector = function() {
 }
 
 DateRangeSelector.prototype = {
-  init: function({ onChange }) {},
+  init: function({ onChange }) {
+    this.startDate.onchange = function(e) {
+      onChange({ startDate: e.target.value })
+    }
+    this.endDate.onchange = function(e) {
+      onChange({ endDate: e.target.value })
+    }
+  },
   appendTo: function(parentNode) {
     parentNode.appendChild(this.startDate)
     parentNode.appendChild(this.endDate)
