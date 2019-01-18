@@ -19,12 +19,18 @@ Presenter.prototype = {
     this.view.chartSelector.init({
       onChange: data => {
         console.log(data)
-        this.model.getPvUv(dataConverterQuery(this.ids, data))
+        this.model.getPvUv(
+          dataConverterQuery({
+            ids: this.ids,
+            ...data,
+          })
+        )
       },
     })
     this.view.viewSelector.init({
       onChange: ids => {
         this.ids = ids
+        // default query
         this.model.getPvUv({
           ids: ids,
           metrics: 'ga:pageviews,ga:uniquePageviews',

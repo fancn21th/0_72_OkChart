@@ -5,7 +5,7 @@ const TimeUnitSelector = function() {
     options: [
       {
         text: '日',
-        value: 'day',
+        value: 'date',
       },
       {
         text: '周',

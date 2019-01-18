@@ -5,15 +5,15 @@ const TimeSpanSelector = function() {
     options: [
       {
         text: '最近一日',
-        value: '1dayAgo',
+        value: '1',
       },
       {
         text: '最近一周',
-        value: '1weekAgo',
+        value: '7',
       },
       {
         text: '最近一月',
-        value: '1monthAgo',
+        value: '30',
       },
       {
         text: '自定义',

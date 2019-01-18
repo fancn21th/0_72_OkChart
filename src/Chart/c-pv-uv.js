@@ -1,19 +1,15 @@
-import {
-  Chart
-} from '@antv/g2'
+import { Chart } from '@antv/g2'
 import DataSet from '@antv/data-set'
 
 // function 1: constructor
-const PvUvChart = function ({
-  chartContainerId
-}) {
+const PvUvChart = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chart = null
 }
 
 PvUvChart.prototype = {
   // function 2: initialization
-  init: function () {
+  init: function() {
     this.chart = new Chart({
       container: this.chartContainerId,
       forceFit: true,
@@ -21,7 +17,7 @@ PvUvChart.prototype = {
     })
   },
   // function 3: render
-  render: function (data) {
+  render: function(data) {
     var ds = new DataSet()
     var dv = ds.createView().source(data)
     // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
@@ -43,13 +39,13 @@ PvUvChart.prototype = {
     })
     // 如何格式化坐标轴文本
     // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy
-    this.chart.axis('day', {
-      label: {
-        formatter: val => {
-          return `${val.slice(4, 6)}/${val.slice(6, 8)}`
-        },
-      },
-    })
+    // this.chart.axis('day', {
+    //   label: {
+    //     formatter: val => {
+    //       return `${val.slice(4, 6)}/${val.slice(6, 8)}`
+    //     },
+    //   },
+    // })
     this.chart
       .line()
       .position('day*count')
