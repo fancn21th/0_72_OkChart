@@ -9,11 +9,11 @@ const TimeUnitSelector = function() {
       },
       {
         text: '周',
-        value: 'week',
+        value: 'yearWeek',
       },
       {
         text: '月',
-        value: 'month',
+        value: 'yearMonth',
       },
     ],
   })

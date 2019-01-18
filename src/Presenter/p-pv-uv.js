@@ -18,7 +18,6 @@ Presenter.prototype = {
     this.view.authenticator.init()
     this.view.chartSelector.init({
       onChange: data => {
-        console.log(data)
         this.model.getPvUv(
           dataConverterQuery({
             ids: this.ids,
