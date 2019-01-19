@@ -27,18 +27,21 @@ OkChart.prototype = {
         gapi,
         containerId: viewSelector,
       })
+      // model
+      const pvUvModel = new PvUvModel(googleApiQuery)
+
+      // view
       // TODO: Multiple Chart Solution is to be continuted
       const char1 = charts[0]
       // chart
       const pvUvChart = new PvUvChart({
         chartContainerId: char1.container,
       })
-      // model
-      const pvUvModel = new PvUvModel(googleApiQuery)
-      // view elements
+      // custom selector
       const selectorPvUv = new SelectorPvUv({
         chartContainerId: char1.container,
       })
+      // view elements
       const elements = {
         chart: pvUvChart,
         authenticator: googleApiAuthenticator,
@@ -46,6 +49,7 @@ OkChart.prototype = {
         chartSelector: selectorPvUv,
       }
       const pvUvView = new PvUvView(elements)
+
       // presenter
       const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
       pvUvPresenter.init()

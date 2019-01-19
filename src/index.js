@@ -1,7 +1,6 @@
 import OkChart from './OkChart'
 import './assets/css/main.css'
 
-// orchestration
 ;
 (function (win, doc) {
   const loadGoogleApi = (function (w, d, s, g, js, fs) {
