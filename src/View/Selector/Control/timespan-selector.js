@@ -1,4 +1,4 @@
-import { createSelect } from '../../Utils/HtmlElementBuilder'
+import { createSelect } from '../../../Utils/HtmlElementBuilder'
 
 const TimeSpanSelector = function() {
   this.selector = createSelect({

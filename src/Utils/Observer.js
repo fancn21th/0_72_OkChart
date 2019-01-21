@@ -4,10 +4,11 @@ const Observer = function() {
 
 Observer.prototype = {
   attach: function(eventName, callback) {
-    const observer = this.observers[eventName]
-    if (!observer) this.observers[eventName] = []
-    observer.push(callback)
-    return observer.indexOf(callback)
+    if (!this.observers[eventName]) {
+      this.observers[eventName] = []
+    }
+    this.observers[eventName].push(callback)
+    return this.observers[eventName].indexOf(callback)
   },
 
   dettach: function(eventName, index) {

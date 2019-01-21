@@ -15,7 +15,7 @@ const Page = function({ viewElements, query }) {
 
 Page.prototype = {
   init: function() {
-    // common components on page and not controlled by presenter
+    // common components on page and not under control by presenter
     this.authenticator.init()
     this.viewSelector.init({
       onChange: ids => {
@@ -33,7 +33,7 @@ Page.prototype = {
       })
     })
     // single presenter
-    const dashboardPresenter = new DashboardPresenter(views, models)
+    const dashboardPresenter = new DashboardPresenter(this.views, this.models)
     dashboardPresenter.init()
   },
 }

@@ -7,9 +7,9 @@ const View = function({ chartContainerId }) {
 }
 
 View.prototype = {
-  init: function() {
+  init: function({ onSelectorChange }) {
     this.chart.init()
-    this.selector.init()
+    this.selector.init({ onSelectorChange })
   },
   render: function(data) {
     this.chart.render(data)
