@@ -5,6 +5,7 @@ import buildQueryConverter from '../Factory/buildQueryConverter'
 const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
+  this.querys = {}
   this.ids = null
 }
 
@@ -26,6 +27,7 @@ Presenter.prototype = {
       })
     })
 
+    // hook up to change event of view's selector
     Object.keys(self.views).forEach(key => {
       self.views[key].init({
         onSelectorChange: data => {

@@ -1,4 +1,5 @@
 const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
+  // TODO: debugger console
   console.log(
     `ids:${ids}, timespan:${timespan}, timeUnit:${timeUnit}, startDate:${startDate}, endDate:${endDate},`
   )
