@@ -43,8 +43,16 @@ Presenter.prototype = {
     })
   },
   refresh: function({ key, data }) {
+    if (key && Object.keys(this.views).includes(key)) {
+      this.refreshOneView({ key, data })
+    } else {
+      this.refreshOneView({ data })
+    }
+  },
+  refreshOneView: function({ key, data }) {
     this.views[key].render(data)
   },
+  refreshAllViews: function() {},
 }
 
 export default Presenter

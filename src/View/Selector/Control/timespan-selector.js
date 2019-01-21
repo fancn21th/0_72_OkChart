@@ -25,9 +25,9 @@ const TimeSpanSelector = function() {
 }
 
 TimeSpanSelector.prototype = {
-  init: function({ onChange }) {
+  init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
-      onChange({ timespan: e.target.value })
+      onSelectorChange({ timespan: e.target.value })
     }
   },
   appendTo: function(parentNode) {

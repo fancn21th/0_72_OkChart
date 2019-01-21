@@ -20,7 +20,7 @@ Selector.prototype = {
       onSelectorChange(query)
     }
     this.selectorList.forEach(selector => {
-      selector.init({ onChangeHandler })
+      selector.init({ onSelectorChange: onChangeHandler })
       selector.appendTo(this.chartContainer)
     })
   },

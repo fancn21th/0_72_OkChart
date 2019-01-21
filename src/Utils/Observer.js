@@ -17,6 +17,7 @@ Observer.prototype = {
   },
 
   notify: function(eventName, data) {
+    console.log({ eventName, data })
     const observer = this.observers[eventName]
     observer.forEach(callback => callback(data))
   },
