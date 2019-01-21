@@ -32,7 +32,7 @@ Presenter.prototype = {
           const queryConverter = buildQueryConverter({
             type: key,
           })
-          self.views[key].fetch(
+          self.models[key].fetch(
             queryConverter({
               ids: self.ids,
               ...data,
@@ -44,15 +44,9 @@ Presenter.prototype = {
   },
   refresh: function({ key, data }) {
     if (key && Object.keys(this.views).includes(key)) {
-      this.refreshOneView({ key, data })
-    } else {
-      this.refreshOneView({ data })
+      this.views[key].render(data)
     }
   },
-  refreshOneView: function({ key, data }) {
-    this.views[key].render(data)
-  },
-  refreshAllViews: function() {},
 }
 
 export default Presenter

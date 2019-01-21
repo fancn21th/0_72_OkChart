@@ -9,7 +9,10 @@ Model.prototype = {
   fetch: function(params) {
     this.query.query(params).then(response => {
       console.log(response)
-      events.notify('pv-uv', convert(response.rows))
+      events.notify('pv-uv', {
+        key: 'pv-uv',
+        data: convert(response.rows),
+      })
     })
   },
 }
