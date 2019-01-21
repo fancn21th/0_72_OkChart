@@ -1,19 +1,14 @@
-const View = function ({
-  chart,
-  authenticator,
-  viewSelector,
-  chartSelector,
-}) {
-  this.chart = chart
-  this.authenticator = authenticator
-  this.viewSelector = viewSelector
-  this.chartSelector = chartSelector
-};
-
-View.prototype = {
-  render: function (data) {
-    this.chart.render(data)
-  }
+const PvUv = function({ widgets, selector }) {
+  this.widgets = widgets
+  this.selector = selector
 }
 
-export default View
+PvUv.prototype = {
+  render: function(data) {
+    this.widgets.forEach(widget => {
+      widget.render(data)
+    })
+  },
+}
+
+export default PvUv

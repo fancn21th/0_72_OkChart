@@ -1,11 +1,7 @@
 import GoogleApiQuery from './Utils/GoogleApiQuery'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
-import PvUvModel from './Model/m-pv-uv'
-import PvUvView from './View/v-pv-uv'
-import PvUvPresenter from './Presenter/p-pv-uv'
-import PvUvChart from './Chart/c-pv-uv'
-import SelectorPvUv from './Selector/sel-pv-uv'
+import Dashboard from './Page/p-dashboard'
 
 const OkChart = function({ willMount }) {
   this.willMount = willMount
@@ -27,32 +23,20 @@ OkChart.prototype = {
         gapi,
         containerId: viewSelector,
       })
-      // model
-      const pvUvModel = new PvUvModel(googleApiQuery)
 
-      // view
-      // TODO: Multiple Chart Solution is to be continuted
-      const char1 = charts[0]
-      // chart
-      const pvUvChart = new PvUvChart({
-        chartContainerId: char1.container,
-      })
-      // custom selector
-      const selectorPvUv = new SelectorPvUv({
-        chartContainerId: char1.container,
-      })
       // view elements
-      const elements = {
-        chart: pvUvChart,
+      const viewElements = {
+        charts,
         authenticator: googleApiAuthenticator,
         viewSelector: googleApiViewSelector,
-        chartSelector: selectorPvUv,
       }
-      const pvUvView = new PvUvView(elements)
+      // dashboard page
+      const dashboard = new Dashboard({
+        viewElements,
+        query: googleApiQuery,
+      })
 
-      // presenter
-      const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
-      pvUvPresenter.init()
+      dashboard.init()
     })
   },
 }

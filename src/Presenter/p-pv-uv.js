@@ -1,7 +1,7 @@
+import events from '../Utils/events'
 import dataConverterQuery from '../DataConverter/Query/dc-q-pv-uv'
 
-const Presenter = function(model, view) {
-  this.model = model
+const Presenter = function({ view }) {
   this.view = view
   this.ids = null
 }
@@ -9,8 +9,8 @@ const Presenter = function(model, view) {
 Presenter.prototype = {
   init: function() {
     const self = this
-    // hook up to the observer object
-    this.model.pv_uv.attach(function(data) {
+    // hook up to pv-uv model update¬
+    events.attach('pv-uv', function(data) {
       self.refresh(data)
     })
     // initialize all view elements
