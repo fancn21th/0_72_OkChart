@@ -1,4 +1,4 @@
-import { createSelect } from '../../Utils/HtmlElementBuilder'
+import { createSelect } from '../../../Utils/HtmlElementBuilder'
 
 const TimeSpanSelector = function() {
   this.selector = createSelect({
@@ -25,9 +25,9 @@ const TimeSpanSelector = function() {
 }
 
 TimeSpanSelector.prototype = {
-  init: function({ onChange }) {
+  init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
-      onChange({ timespan: e.target.value })
+      onSelectorChange({ timespan: e.target.value })
     }
   },
   appendTo: function(parentNode) {

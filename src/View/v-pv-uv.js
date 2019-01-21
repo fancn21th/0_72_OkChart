@@ -1,19 +1,19 @@
-const View = function ({
-  chart,
-  authenticator,
-  viewSelector,
-  chartSelector,
-}) {
-  this.chart = chart
-  this.authenticator = authenticator
-  this.viewSelector = viewSelector
-  this.chartSelector = chartSelector
-};
+import PvUvChart from '../View/Chart/c-pv-uv'
+import PvUvSelector from '../View/Selector/sel-pv-uv'
+
+const View = function({ chartContainerId }) {
+  this.chart = new PvUvChart({ chartContainerId })
+  this.selector = new PvUvSelector({ chartContainerId })
+}
 
 View.prototype = {
-  render: function (data) {
+  init: function({ onSelectorChange }) {
+    this.chart.init()
+    this.selector.init({ onSelectorChange })
+  },
+  render: function(data) {
     this.chart.render(data)
-  }
+  },
 }
 
 export default View

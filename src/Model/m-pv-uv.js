@@ -1,16 +1,18 @@
-import Observer from '../Utils/Observer'
+import events from '../Utils/events'
 import convert from '../DataConverter/dc-pv-uv'
 
 const Model = function(query) {
   this.query = query
-  this.pv_uv = new Observer()
 }
 
 Model.prototype = {
-  getPvUv: function(params) {
+  fetch: function(params) {
     this.query.query(params).then(response => {
       console.log(response)
-      this.pv_uv.notify(convert(response.rows))
+      events.notify('pv-uv', {
+        key: 'pv-uv',
+        data: convert(response.rows),
+      })
     })
   },
 }

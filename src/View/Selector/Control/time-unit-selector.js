@@ -1,4 +1,4 @@
-import { createSelect } from '../../Utils/HtmlElementBuilder'
+import { createSelect } from '../../../Utils/HtmlElementBuilder'
 
 const TimeUnitSelector = function() {
   this.selector = createSelect({
@@ -21,9 +21,9 @@ const TimeUnitSelector = function() {
 }
 
 TimeUnitSelector.prototype = {
-  init: function({ onChange }) {
+  init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
-      onChange({ timeUnit: e.target.value })
+      onSelectorChange({ timeUnit: e.target.value })
     }
   },
   appendTo: function(parentNode) {

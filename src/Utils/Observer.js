@@ -1,17 +1,26 @@
-const Observer = function () {
-  this.observers = [];
-};
+const Observer = function() {
+  this.observers = {}
+}
 
 Observer.prototype = {
-  attach: function (callback) {
-    this.observers.push(callback);
+  attach: function(eventName, callback) {
+    if (!this.observers[eventName]) {
+      this.observers[eventName] = []
+    }
+    this.observers[eventName].push(callback)
+    return this.observers[eventName].indexOf(callback)
   },
 
-  notify: function (n) {
-    for (var i = 0, len = this.observers.length; i < len; i++) {
-      this.observers[i](n);
-    }
-  }
-};
+  dettach: function(eventName, index) {
+    const observer = this.observers[eventName]
+    observer.splice(index, 1)
+  },
+
+  notify: function(eventName, data) {
+    console.log({ eventName, data })
+    const observer = this.observers[eventName]
+    observer.forEach(callback => callback(data))
+  },
+}
 
 export default Observer

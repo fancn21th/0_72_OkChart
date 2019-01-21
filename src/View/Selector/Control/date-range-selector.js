@@ -1,4 +1,4 @@
-import { createDate } from '../../Utils/HtmlElementBuilder'
+import { createDate } from '../../../Utils/HtmlElementBuilder'
 
 const DateRangeSelector = function() {
   this.startDate = createDate()
@@ -6,12 +6,12 @@ const DateRangeSelector = function() {
 }
 
 DateRangeSelector.prototype = {
-  init: function({ onChange }) {
+  init: function({ onSelectorChange }) {
     this.startDate.onchange = function(e) {
-      onChange({ startDate: e.target.value })
+      onSelectorChange({ startDate: e.target.value })
     }
     this.endDate.onchange = function(e) {
-      onChange({ endDate: e.target.value })
+      onSelectorChange({ endDate: e.target.value })
     }
   },
   appendTo: function(parentNode) {
