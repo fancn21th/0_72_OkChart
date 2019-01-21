@@ -1,5 +1,5 @@
 import events from '../Utils/events'
-import convert from '../DataConverter/dc-pv-uv'
+import convert from '../Converter/Data/dc-pv-uv'
 
 const Model = function(query) {
   this.query = query
