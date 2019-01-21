@@ -1,14 +1,19 @@
-const PvUv = function({ widgets, selector }) {
-  this.widgets = widgets
-  this.selector = selector
+import PvUvChart from '../View/Chart/c-pv-uv'
+import PvUvSelector from '../View/Selector/sel-pv-uv'
+
+const View = function({ chartContainerId }) {
+  this.chart = new PvUvChart({ chartContainerId })
+  this.selector = new PvUvSelector({ chartContainerId })
 }
 
-PvUv.prototype = {
+View.prototype = {
+  init: function() {
+    this.chart.init()
+    this.selector.init()
+  },
   render: function(data) {
-    this.widgets.forEach(widget => {
-      widget.render(data)
-    })
+    this.chart.render(data)
   },
 }
 
-export default PvUv
+export default View

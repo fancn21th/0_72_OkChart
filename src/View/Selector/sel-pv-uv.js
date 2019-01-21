@@ -3,29 +3,28 @@ import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
 import TimeUnitSelector from './Control/time-unit-selector'
 
-const SelectorPvUv = function({ chartContainerId }) {
+const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
-  this.selector = new Selector({
-    chartContainerId,
-    selectorList: [
-      new TimespanSelector(),
-      new DateRangeSelector(),
-      new TimeUnitSelector(),
-    ],
-  })
+  this.chartContainer = document.getElementById(this.chartContainerId)
+  this.selectorList = [
+    new TimespanSelector(),
+    new DateRangeSelector(),
+    new TimeUnitSelector(),
+  ]
 }
 
-SelectorPvUv.prototype = {
+Selector.prototype = {
   init: function({ onChange }) {
     let query = {}
     const onChangeHandler = data => {
       query = Object.assign(query, data)
       onChange(query)
     }
-    this.selector.init({
-      onChange: onChangeHandler,
+    this.selectorList.forEach(selector => {
+      selector.init({ onChangeHandler })
+      selector.appendTo(this.chartContainer)
     })
   },
 }
 
-export default SelectorPvUv
+export default Selector

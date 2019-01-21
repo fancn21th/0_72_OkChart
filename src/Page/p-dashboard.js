@@ -1,37 +1,40 @@
-import buildWidgets from '../Factory/buildWidgets'
-import PvUvModel from '../Model/m-pv-uv'
-import PvUvPresenter from '../Presenter/p-pv-uv'
-import PvUvView from '../View/v-pv-uv'
+import events from '../Utils/events'
+import buildView from '../Factory/buildView'
+import buildModel from '../Factory/buildModel'
+import DashboardPresenter from '../Presenter/p-dashboard'
 
 const Page = function({ viewElements, query }) {
   const { charts, authenticator, viewSelector } = viewElements
-  this.widgets = buildWidgets(charts)
+  this.charts = charts
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
+  this.views = {}
+  this.models = {}
 }
 
 Page.prototype = {
   init: function() {
-    /*
-      pv-uv
-    */
-    // model
-    const pvUvModel = new PvUvModel(this.query)
-
-    // view
-    const pvUvView = new PvUvView({
-      widgets: this.widgets,
+    // common components on page and not controlled by presenter
+    this.authenticator.init()
+    this.viewSelector.init({
+      onChange: ids => {
+        events.notify('ids', { ids })
+      },
     })
-
-    // presenter
-    const pvUvPresenter = new PvUvPresenter(pvUvModel, pvUvView)
-    pvUvPresenter.init()
-  },
-  render: function(data) {
-    this.widgets.forEach(widget => {
-      widget.render(data)
+    this.charts.forEach(chart => {
+      this.views[chart.type] = buildView({
+        type: chart.type,
+        containerId: chart.container,
+      })
+      this.models[chart.type] = buildModel({
+        type: chart.type,
+        query: this.query,
+      })
     })
+    // single presenter
+    const dashboardPresenter = new DashboardPresenter(views, models)
+    dashboardPresenter.init()
   },
 }
 
