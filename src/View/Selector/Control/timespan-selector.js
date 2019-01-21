@@ -14,6 +14,7 @@ const TimeSpanSelector = function() {
       {
         text: '最近一月',
         value: '30',
+        selected: true,
       },
       {
         text: '自定义',

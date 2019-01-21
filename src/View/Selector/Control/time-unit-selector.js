@@ -6,6 +6,7 @@ const TimeUnitSelector = function() {
       {
         text: '日',
         value: 'date',
+        selected: true,
       },
       {
         text: '周',
