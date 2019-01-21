@@ -1,7 +1,7 @@
 import GoogleApiQuery from './Utils/GoogleApiQuery'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
-import Dashboard from './Page/p-dashboard'
+import Dashboard from './Page/pg-dashboard'
 
 const OkChart = function({ willMount }) {
   this.willMount = willMount

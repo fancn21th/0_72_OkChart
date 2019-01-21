@@ -33,7 +33,10 @@ Page.prototype = {
       })
     })
     // single presenter
-    const dashboardPresenter = new DashboardPresenter(this.views, this.models)
+    const dashboardPresenter = new DashboardPresenter({
+      views: this.views,
+      models: this.models,
+    })
     dashboardPresenter.init()
   },
 }
