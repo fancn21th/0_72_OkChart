@@ -11,7 +11,6 @@ Model.prototype = {
       const data = convert(response.rows)
       // TODO: debugger console
       console.log(response)
-      console.log(data)
       events.notify('pv-uv', {
         key: 'pv-uv',
         data,
