@@ -16,7 +16,14 @@ const Page = function({ viewElements, query }) {
 Page.prototype = {
   init: function() {
     // common components on page and not under control by presenter
-    this.authenticator.init()
+    this.authenticator.init({
+      onSignIn: () => {
+        this.authenticator.hide()
+      },
+      onSignOut: () => {
+        this.authenticator.show()
+      },
+    })
     this.viewSelector.init({
       onChange: ids => {
         events.notify('ids', { ids })

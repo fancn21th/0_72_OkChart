@@ -1,9 +1,13 @@
+#view-selector-container {
+  display: none;
+}
+
 .chart-container {
   width: 100%;
   min-height: 400px;
   border: 1px solid #efefef;
   border-radius: 5px;
-  padding:0 10px 10px;
+  padding: 0 10px 10px;
 }
 
 .rangeSelect {
@@ -14,7 +18,7 @@
   font-size: 12px;
   margin-right: 10px;
   border-radius: 3px;
-  color:#333;
+  color: #333;
   min-width: 120px;
 }
 
@@ -26,6 +30,6 @@
   font-size: 12px;
   margin-right: 10px;
   border-radius: 3px;
-  color:#333;
+  color: #333;
   min-width: 120px;
 }
