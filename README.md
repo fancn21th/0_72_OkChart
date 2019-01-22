@@ -9,3 +9,8 @@
 ## Architecture Design
 
 - MVP
+
+- key
+  - client key - chart key
+  - selector key
+  - model key - event key

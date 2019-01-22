@@ -1,4 +1,4 @@
-import convertPvUvQuery from '../Converter/Query/dc-q-pv-uv'
+import convertPvUvQuery from '../Converter/Query/c-q-pv-uv'
 
 const buildQueryConverter = ({ type }) => {
   switch (type) {
