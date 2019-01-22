@@ -12,7 +12,5 @@
 
 - key
   - client key - chart key
-  - selector key
+  - selector key - view key
   - model key - event key
-  - view has no key
-    - view must specify against which model key it should watch
