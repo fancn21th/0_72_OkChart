@@ -1,5 +1,4 @@
 import events from '../Utils/events'
-import dataConverterQuery from '../Converter/Query/dc-q-pv-uv'
 import buildQueryConverter from '../Factory/buildQueryConverter'
 
 const Presenter = function({ views, models }) {
