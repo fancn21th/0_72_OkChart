@@ -1,6 +1,6 @@
 okchart.init({
   clientId:
-    '432817152044-upkp4te6ptvip6jm1taf8ffil9sd9etb.apps.googleusercontent.com',
+    '62894052188-ndunchslu23481qdh95rdogu39q5bd0l.apps.googleusercontent.com',
   authContainer: 'embed-api-auth-container',
   viewSelector: 'view-selector-container',
   charts: [
