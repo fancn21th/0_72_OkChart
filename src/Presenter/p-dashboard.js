@@ -4,7 +4,7 @@ import buildQueryConverter from '../Factory/buildQueryConverter'
 const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
-  this.queryParams = {}
+  this.selectorData = {}
   this.ids = null
 }
 
@@ -29,27 +29,28 @@ Presenter.prototype = {
     })
 
     // hook up to change event of view's selector
-    Object.keys(self.views).forEach(key => {
-      // default params for each type
-      self.queryParams[key] = {
+    self.views.forEach(view => {
+      const { type: viewType } = view
+      // default selector data for each view's selector
+      self.selectorData[viewType] = {
         ids: self.ids,
       }
-      self.views[key].init({
+      view.init({
         onSelectorChange: data => {
           const queryConverter = buildQueryConverter({
-            type: key,
+            type: viewType,
           })
-          // new param against old param
-          const queryParam = {
-            ...self.queryParams[key], // override old param
+          // new selector data against old one
+          const selectorData = {
+            ...self.selectorData[viewType], // override old selector data
             ids: self.ids,
             ...data,
           }
-          // update old param
-          self.queryParams[key] = queryParam
-          self.models[key].fetch(
+          // update old selector data
+          self.selectorData[viewType] = selectorData
+          self.models[viewType].fetch(
             queryConverter({
-              ...queryParam,
+              ...selectorData,
             })
           )
         },
@@ -57,8 +58,12 @@ Presenter.prototype = {
     })
   },
   refresh: function({ key, data }) {
-    if (key && Object.keys(this.views).includes(key)) {
-      this.views[key].render(data)
+    if (key) {
+      this.views.forEach(view => {
+        if (key === view.type) {
+          view.render(data)
+        }
+      })
     }
   },
   reload: function() {
@@ -66,12 +71,12 @@ Presenter.prototype = {
       const queryConverter = buildQueryConverter({
         type: key,
       })
-      const queryParam = {
-        ...this.queryParams[key],
+      const selectorData = {
+        ...this.selectorData[key],
       }
       this.models[key].fetch(
         queryConverter({
-          ...queryParam,
+          ...selectorData,
           ids: this.ids,
         })
       )

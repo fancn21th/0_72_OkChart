@@ -9,7 +9,7 @@ const Page = function({ viewElements, query }) {
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
-  this.views = {}
+  this.views = []
   this.models = {}
 }
 
@@ -24,10 +24,12 @@ Page.prototype = {
     })
     this.charts.forEach(chart => {
       // build view based on type
-      this.views[chart.type] = buildView({
-        type: chart.type,
-        containerId: chart.container,
-      })
+      this.views.push(
+        buildView({
+          type: chart.type,
+          containerId: chart.container,
+        })
+      )
       // build model based on type
       this.models[chart.type] = buildModel({
         type: chart.type,

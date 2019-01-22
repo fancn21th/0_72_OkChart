@@ -4,6 +4,7 @@ const buildView = ({ type, containerId }) => {
   switch (type) {
     case 'pv-uv':
       return new PvUvView({
+        type,
         chartContainerId: containerId,
       })
     default:

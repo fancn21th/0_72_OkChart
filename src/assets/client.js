@@ -8,9 +8,5 @@ okchart.init({
       type: 'pv-uv',
       container: 'chart-container',
     },
-    {
-      type: 'pv-uv',
-      container: 'chart-container2',
-    },
   ],
 })
