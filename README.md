@@ -10,10 +10,11 @@
 
 - MVP
 
-- key
+- Type aka key
   - client key - chart key
   - selector key - view key
   - model key - event key
+  - selector control type
 
 ## Workfow
 
@@ -21,7 +22,7 @@
 
   http://115.29.196.46/story-view-2301-5-project-131.html
 
-- Code Update
+- Code
 
   - Create
 
@@ -52,7 +53,7 @@
 
   - Chart
 
-    - Chart Demo
+    - Chart Demo (Pick up a chart)
 
       https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html
 
@@ -60,7 +61,7 @@
 
       https://www.yuque.com/antv/g2-docs/api-g2
 
-    - 3 functions
+    - 3 functions (two process - create/update)
       - constructor
       - init
       - render
@@ -68,6 +69,7 @@
   - Selector
     - selector control
       - update html builder
+        - right control
 
 - Model (data)
 
@@ -85,9 +87,9 @@
 
       - Verification (optional)
 
-        - 自定义
+        - Customization 自定义
 
-          - 信息中心
+          - Dashboards 信息中心
 
         - URL - https://analytics.google.com/analytics/web
 
