@@ -98,7 +98,7 @@
 
       - Metrics & Dimesions
 
-      https://developers.google.com/analytics/devguides/reporting/core/dimsmets
+        - URL - https://developers.google.com/analytics/devguides/reporting/core/dimsmets
 
       - Verification (optional)
 
