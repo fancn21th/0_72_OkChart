@@ -87,14 +87,14 @@
 
       - Verification (optional)
 
+        - URL - https://analytics.google.com/analytics/web
+
         - Customization 自定义
 
           - Dashboards 信息中心
 
-        - URL - https://analytics.google.com/analytics/web
-
-  - converter
-    - data
-      - from `ga` data to `g2` data
-    - query
-      - from `selector` data to `ga api params` data
+- converter
+  - data
+    - from `ga` data to `g2` data
+  - query
+    - from `selector` data to `ga api params` data
