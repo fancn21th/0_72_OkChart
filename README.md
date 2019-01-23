@@ -108,7 +108,7 @@
 
           - Dashboards 信息中心
 
-- converter
+- Converter
   - data
     - from `ga` data to `g2` data
   - query
