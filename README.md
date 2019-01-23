@@ -93,4 +93,6 @@
 
   - converter
     - data
+      - from `ga` data to `g2` data
     - query
+      - from `selector` data to `ga api params` data
