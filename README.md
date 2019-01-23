@@ -10,6 +10,10 @@
 
 - MVP
 
+  - Model (1 per view)
+  - View (n per page)
+  - Presenter (1 per page)
+
 - Type aka key
   - client key - chart key
   - selector key - view key
