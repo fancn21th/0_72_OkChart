@@ -83,7 +83,18 @@
 
       - Query
 
-      https://developers.google.com/analytics/devguides/reporting/core/v3/reference
+        - URL - https://developers.google.com/analytics/devguides/reporting/core/v3/reference
+        - Query Params
+
+        ```javascript
+        const param = {
+          ids,
+          metrics: 'ga:pageviews,ga:uniquePageviews',
+          dimensions: dimensionsStr,
+          'start-date': startDateStr,
+          'end-date': enDateStr,
+        }
+        ```
 
       - Metrics & Dimesions
 
