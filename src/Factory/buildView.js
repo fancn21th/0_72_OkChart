@@ -1,15 +1,27 @@
 import PvUvView from '../View/v-pv-uv'
+import BuyersRegistView from '../View/v-buyers-regist'
+import BuyersRegistDistributionView from '../View/v-buyers-regist-distribution'
 
 const buildView = ({ type, containerId }) => {
-  switch (type) {
-    case 'pv-uv':
-      return new PvUvView({
-        type,
-        chartContainerId: containerId,
-      })
-    default:
-      return null
-  }
+    switch (type) {
+        case 'pv-uv':
+            return new PvUvView({
+                type,
+                chartContainerId: containerId,
+            })
+        case 'buyers-regist':
+            return new BuyersRegistView({
+                type,
+                chartContainerId: containerId,
+            })
+        case 'buyers-regist-distribution':
+            return new BuyersRegistDistributionView({
+                type,
+                chartContainerId: containerId,
+            })
+        default:
+            return null
+    }
 }
 
 export default buildView
