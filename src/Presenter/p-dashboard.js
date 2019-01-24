@@ -48,11 +48,17 @@ Presenter.prototype = {
           }
           // update old selector data
           self.selectorData[viewType] = selectorData
-          self.models[viewType].fetch(
-            queryConverter({
-              ...selectorData,
+          const model = self.models[viewType]
+          const queryParam = queryConverter({
+            ...selectorData,
+          })
+          if (Array.isArray(model)) {
+            model.forEach(item => {
+              item.fetch(queryParam)
             })
-          )
+          } else {
+            model.fetch(queryConverter(queryParam))
+          }
         },
       })
     })
@@ -74,12 +80,18 @@ Presenter.prototype = {
       const selectorData = {
         ...this.selectorData[key],
       }
-      this.models[key].fetch(
-        queryConverter({
-          ...selectorData,
-          ids: this.ids,
+      const model = this.models[key]
+      const queryParam = {
+        ...selectorData,
+        ids: this.ids,
+      }
+      if (Array.isArray(model)) {
+        model.forEach(item => {
+          item.fetch(queryConverter(queryParam))
         })
-      )
+      } else {
+        model.fetch(queryConverter(queryParam))
+      }
     })
   },
 }
