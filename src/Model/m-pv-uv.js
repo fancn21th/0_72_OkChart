@@ -1,14 +1,16 @@
 import events from '../Utils/events'
-import convert from '../Converter/Data/c-d-pv-uv'
+import dataConvert from '../Converter/Data/c-d-pv-uv'
+import queryConvert from '../Converter/Query/c-q-pv-uv'
 
 const Model = function(query) {
   this.query = query
 }
 
 Model.prototype = {
-  fetch: function(params) {
+  fetch: function(selectorData) {
+    const params = queryConvert(selectorData)
     this.query.query(params).then(response => {
-      const data = convert(response.rows)
+      const data = dataConvert(response.rows)
       // TODO: debugger console
       console.log(response)
       events.notify('pv-uv', {
