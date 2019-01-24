@@ -5,7 +5,7 @@ import DashboardPresenter from '../Presenter/p-dashboard'
 
 const Page = function({ viewElements, query }) {
   const { charts, authenticator, viewSelector } = viewElements
-  this.charts = charts
+  this.chartsOption = charts
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
@@ -29,7 +29,7 @@ Page.prototype = {
         events.notify('ids', { ids })
       },
     })
-    this.charts.forEach(chart => {
+    this.chartsOption.forEach(chart => {
       // build view based on type
       this.views.push(
         buildView({
