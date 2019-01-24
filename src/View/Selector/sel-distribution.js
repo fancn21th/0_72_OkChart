@@ -25,7 +25,7 @@ Selector.prototype = {
     }
     this.selectorList.forEach(selector => {
       selector.init({ onSelectorChange: onChangeHandler })
-      selector.appendTo(this.chartContainer.parentNode)
+      selector.appendTo(this.chartContainer)
     })
   },
 }

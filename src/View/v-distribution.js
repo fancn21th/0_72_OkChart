@@ -3,7 +3,9 @@ import DistributionSelector from '../View/Selector/sel-distribution'
 
 const View = function({ type, chartContainerId }) {
   this.type = type // TODO: used outwards
-  this.chart = new DistributionChart({ chartContainerId })
+  this.chart = new DistributionChart({
+    chartContainerId: ['distribution-container', 'user-growth-container'],
+  })
   this.selector = new DistributionSelector({ chartContainerId })
 }
 

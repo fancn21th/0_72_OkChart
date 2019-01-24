@@ -4,21 +4,31 @@ import { Chart } from '@antv/g2'
 const DistributionChart = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chart = null
+  this.chart2 = null
 }
 
 DistributionChart.prototype = {
   // function 2: initialization
   init: function() {
     this.chart = new Chart({
-      container: this.chartContainerId,
+      container: this.chartContainerId[0],
       forceFit: true,
       height: 400,
       animate: false,
     })
+
+    // this.chart2 = new Chart({
+    //   container: this.chartContainerId[1],
+    //   forceFit: true,
+    //   height: 400,
+    //   animate: false,
+    // })
   },
   // function 3: render
   render: function(data) {
-    console.log(data)
+    const chartContainer2 = document.getElementById(this.chartContainerId[1])
+    chartContainer2.innerHTML = '我是第二个图，没想到吧'
+    console.log(data.data1)
     this.chart.source(data, {
       percent: {
         formatter: function formatter(val) {

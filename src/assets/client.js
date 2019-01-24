@@ -10,11 +10,7 @@ okchart.init({
     },
     {
       type: 'distribution',
-      container: 'distribution-container',
-    },
-    {
-      type: 'user-growth',
-      container: 'user-growth-container',
+      container: 'user-distribution-container',
     },
   ],
 })
