@@ -46,8 +46,6 @@ Presenter.prototype = {
             ids: self.ids,
             ...data,
           }
-          // update old selector data
-          self.selectorData[viewType] = selectorData
           const model = self.models[viewType]
           const queryParam = queryConverter({
             ...selectorData,
@@ -57,8 +55,10 @@ Presenter.prototype = {
               item.fetch(queryParam)
             })
           } else {
-            model.fetch(queryConverter(queryParam))
+            model.fetch(queryParam)
           }
+          // update old selector data
+          self.selectorData[viewType] = selectorData
         },
       })
     })
@@ -81,16 +81,16 @@ Presenter.prototype = {
         ...this.selectorData[key],
       }
       const model = this.models[key]
-      const queryParam = {
+      const queryParam = queryConverter({
         ...selectorData,
         ids: this.ids,
-      }
+      })
       if (Array.isArray(model)) {
         model.forEach(item => {
-          item.fetch(queryConverter(queryParam))
+          item.fetch(queryParam)
         })
       } else {
-        model.fetch(queryConverter(queryParam))
+        model.fetch(queryParam)
       }
     })
   },
