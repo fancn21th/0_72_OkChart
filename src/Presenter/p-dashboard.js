@@ -1,5 +1,4 @@
 import events from '../Utils/events'
-import buildQueryConverter from '../Factory/buildQueryConverter'
 
 const Presenter = function({ views, models }) {
   this.views = views
@@ -37,28 +36,22 @@ Presenter.prototype = {
       }
       view.init({
         onSelectorChange: data => {
-          const queryConverter = buildQueryConverter({
-            type: viewType,
-          })
           // new selector data against old one
           const selectorData = {
             ...self.selectorData[viewType], // override old selector data
             ids: self.ids,
             ...data,
           }
-          // update old selector data
-          self.selectorData[viewType] = selectorData
           const model = self.models[viewType]
-          const queryParam = queryConverter({
-            ...selectorData,
-          })
           if (Array.isArray(model)) {
             model.forEach(item => {
-              item.fetch(queryParam)
+              item.fetch(selectorData)
             })
           } else {
-            model.fetch(queryConverter(queryParam))
+            model.fetch(selectorData)
           }
+          // update old selector data
+          self.selectorData[viewType] = selectorData
         },
       })
     })
@@ -74,23 +67,17 @@ Presenter.prototype = {
   },
   reload: function() {
     Object.keys(this.models).forEach(key => {
-      const queryConverter = buildQueryConverter({
-        type: key,
-      })
       const selectorData = {
         ...this.selectorData[key],
-      }
-      const model = this.models[key]
-      const queryParam = {
-        ...selectorData,
         ids: this.ids,
       }
+      const model = this.models[key]
       if (Array.isArray(model)) {
         model.forEach(item => {
-          item.fetch(queryConverter(queryParam))
+          item.fetch(selectorData)
         })
       } else {
-        model.fetch(queryConverter(queryParam))
+        model.fetch(selectorData)
       }
     })
   },
