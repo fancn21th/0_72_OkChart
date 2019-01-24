@@ -1,13 +1,22 @@
-const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
+const convert = ({
+  ids,
+  timespan,
+  startDate,
+  endDate,
+  pvuv,
+  countryBrowser,
+}) => {
   const startDateStr = startDate || `${timespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
-  const dimensionsStr = `ga:${timeUnit || 'date'}`
+  const metricsStr = pvuv || 'ga:pageviews'
+  const dimensionsStr = countryBrowser || 'ga:browser'
   const param = {
     ids,
-    metrics: 'ga:pageviews,ga:uniquePageviews',
+    metrics: metricsStr,
     dimensions: dimensionsStr,
     'start-date': startDateStr,
     'end-date': enDateStr,
+    sort: metricsStr,
   }
   // TODO: console
   return param

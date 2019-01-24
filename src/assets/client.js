@@ -8,5 +8,13 @@ okchart.init({
       type: 'pv-uv',
       container: 'chart-container',
     },
+    {
+      type: 'distribution',
+      container: 'distribution-container',
+    },
+    {
+      type: 'user-growth',
+      container: 'user-growth-container',
+    },
   ],
 })

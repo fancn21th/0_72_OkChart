@@ -1,5 +1,5 @@
 import events from '../Utils/events'
-import convert from '../Converter/Data/c-d-pv-uv'
+import convert from '../Converter/Data/c-d-user-growth'
 
 const Model = function(query) {
   this.query = query
@@ -10,8 +10,9 @@ Model.prototype = {
     this.query.query(params).then(response => {
       const data = convert(response.rows)
       // TODO: debugger console
-      events.notify('pv-uv', {
-        key: 'pv-uv',
+      console.log(response)
+      events.notify('distribution', {
+        key: 'distribution',
         data,
       })
     })

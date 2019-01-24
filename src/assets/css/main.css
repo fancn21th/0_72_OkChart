@@ -7,7 +7,15 @@
   min-height: 400px;
   border: 1px solid #efefef;
   border-radius: 5px;
-  padding: 0 10px 10px;
+  padding: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.chart-container .chart-part {
+  width: 50%;
+  float: left;
+  min-height: 400px;
 }
 
 .rangeSelect {
