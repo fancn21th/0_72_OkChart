@@ -10,15 +10,13 @@
 
 - MVP
 
-  - Model (1 per view)
-  - View (n per page)
+  - Model (multiple model per view)
+  - View (multiple view per page)
   - Presenter (1 per page)
 
 - Type aka key
-  - client key - chart key
-  - selector key - view key
-  - model key - event key
-  - selector control type
+  - Key Flow
+    - client key -> view and model/models
 
 ## Workfow
 
