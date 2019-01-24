@@ -12,5 +12,13 @@ okchart.init({
       type: 'distribution',
       container: 'user-distribution-container',
     },
+    {
+      type: 'buyers-regist',
+      container: 'chart-container2',
+    },
+    {
+      type: 'buyers-regist-distribution',
+      container: 'chart-container3',
+    },
   ],
 })

@@ -1,5 +1,7 @@
 import PvUvView from '../View/v-pv-uv'
 import DistributionView from '../View/v-distribution'
+import BuyersRegistView from '../View/v-buyers-regist'
+import BuyersRegistDistributionView from '../View/v-buyers-regist-distribution'
 
 const buildView = ({ type, containerId }) => {
   switch (type) {
@@ -10,6 +12,16 @@ const buildView = ({ type, containerId }) => {
       })
     case 'distribution':
       return new DistributionView({
+        type,
+        chartContainerId: containerId,
+      })
+    case 'buyers-regist':
+      return new BuyersRegistView({
+        type,
+        chartContainerId: containerId,
+      })
+    case 'buyers-regist-distribution':
+      return new BuyersRegistDistributionView({
         type,
         chartContainerId: containerId,
       })
