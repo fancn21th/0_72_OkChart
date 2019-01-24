@@ -21,4 +21,11 @@ const createDate = () => {
   return date
 }
 
-export { createSelect, createDate }
+const createDiv = (id) => {
+  const divEl = document.createElement('DIV')
+  divEl.setAttribute('class', 'chart-part')
+  divEl.setAttribute('id', id)
+  return divEl
+}
+
+export { createSelect, createDate, createDiv }

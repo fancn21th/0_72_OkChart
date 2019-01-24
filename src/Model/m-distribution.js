@@ -1,19 +1,21 @@
 import events from '../Utils/events'
-import convert from '../Converter/Data/c-d-distribution'
+import dataConvert from '../Converter/Data/c-d-distribution'
+import queryConvert from '../Converter/Query/c-q-distribution'
 
 const Model = function(query) {
   this.query = query
 }
 
 Model.prototype = {
-  fetch: function(params) {
+  fetch: function(selectorData) {
+    const params = queryConvert(selectorData)
     this.query.query(params).then(response => {
-      const data = convert(response.rows)
+      const data = dataConvert(response.rows)
       // TODO: debugger console
       console.log(response)
       events.notify('distribution', {
         key: 'distribution',
-        data,
+        data: { data1: data },
       })
     })
   },
