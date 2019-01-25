@@ -6,7 +6,6 @@ const convert = collection => {
     collection.forEach(item => {
         totalCount += parseInt(item[1], 10)
     });
-    // console.log("totalCount=" + totalCount);
     // 取排名前十的国家
     var top10 = collection.reverse().slice(0, 10).map(item => ({
         item: item[0],
@@ -17,7 +16,6 @@ const convert = collection => {
     top10.forEach(item => {
         totaltop10 += parseInt(item.count, 10)
     });
-    // console.log("totaltop10=" + totaltop10);
 
     var obj = {
         item: 'others',
@@ -28,5 +26,5 @@ const convert = collection => {
     return top10;
 }
 
-// console.log("买家分布map出来的结果" + convert)
+// console.log(convert)
 export default convert
