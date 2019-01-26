@@ -13,6 +13,10 @@ okchart.init({
       container: 'user-distribution-container',
     },
     {
+      type: 'top-browser',
+      container: 'top-browser-container',
+    },
+    {
       type: 'buyers-regist',
       container: 'chart-container2',
     },

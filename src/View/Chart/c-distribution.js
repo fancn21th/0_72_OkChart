@@ -18,6 +18,7 @@ DistributionChart.prototype = {
   },
   // function 3: render
   render: function(data) {
+    this.chart.clear()
     this.chart.source(data, {
       percent: {
         formatter: function formatter(val) {

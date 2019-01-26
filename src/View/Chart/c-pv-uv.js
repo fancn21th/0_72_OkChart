@@ -18,6 +18,7 @@ PvUvChart.prototype = {
   },
   // function 3: render
   render: function(data) {
+    this.chart.clear()
     var ds = new DataSet()
     var dv = ds.createView().source(data)
     // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
