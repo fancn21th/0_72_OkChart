@@ -1,6 +1,7 @@
 import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
 import TimeUnitSelector from './Control/time-unit-selector'
+import CountryBrowserSelector from './Control/country-browser-selector'
 
 const Selector = function({ chartContainerId }) {
     this.chartContainerId = chartContainerId
@@ -9,6 +10,7 @@ const Selector = function({ chartContainerId }) {
         new TimespanSelector(),
         new DateRangeSelector(),
         new TimeUnitSelector(),
+        new CountryBrowserSelector()
     ]
 }
 

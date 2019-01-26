@@ -14,7 +14,7 @@ Model.prototype = {
             console.log(response)
             events.notify('buyers-regist-distribution', {
                 key: 'buyers-regist-distribution',
-                data,
+                data: { data1: data },
             })
         })
     },

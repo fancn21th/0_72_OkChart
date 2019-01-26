@@ -19,13 +19,11 @@ BuyersRegistChartDistribution.prototype = {
     },
     // function 3: render
     render: function(data) {
-        console.log(data);
-
         // 绘制饼图
         this.chart.source(data, {
             percent: {
                 formatter: function formatter(val) {
-                    val = val.toFixed(4) * 100 + '%';
+                    val = (val * 100).toFixed(2) + '%';
                     return val;
                 }
             }
@@ -50,7 +48,7 @@ BuyersRegistChartDistribution.prototype = {
                 return item.point.item + ': ' + val;
             }
         }).tooltip('item*percent', function(item, percent) {
-            percent = percent.toFixed(4) * 100 + '%';
+            percent = (percent * 100).toFixed(2) + '%';
             return {
                 name: item,
                 value: percent
