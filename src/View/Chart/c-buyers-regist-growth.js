@@ -20,8 +20,6 @@ BuyersRegistChartDistribution.prototype = {
     // function 3: render
     render: function(data) {
         // 绘制条形图
-        console.log("绘图")
-        console.log(data)
         this.chart.source(data)
         this.chart.scale('value', {
             alias: '用户访问增长',

@@ -11,7 +11,6 @@ const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
             'end-date': enDateStr,
         }
         // TODO: console
-    console.log(param)
     return param
 }
 
