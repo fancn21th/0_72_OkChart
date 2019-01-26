@@ -22,11 +22,11 @@ BuyersRegistChartDistribution.prototype = {
         // 绘制条形图
         this.chart.source(data)
         this.chart.scale('value', {
-            alias: '用户访问增长',
+            alias: '注册买家增长',
         })
         this.chart.axis('item', {
             title: {
-                text: '用户访问增长量',
+                text: '注册买家增长量',
                 textStyle: {
                     fontSize: 14,
                     fill: '#333',
