@@ -13,7 +13,6 @@ const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
             sort: 'ga:goal1Completions'
         }
         // TODO: console
-    console.log(param)
     return param
 }
 

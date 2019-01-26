@@ -9,61 +9,62 @@ const DistributionChart = function({ chartContainerId }) {
 DistributionChart.prototype = {
   // function 2: initialization
   init: function() {
-    this.chart = new Chart({
+    this.chart = new G2.Chart({
       container: this.chartContainerId,
       forceFit: true,
-      height: 400,
-      animate: false,
+      height: 350,
+      padding: 10,
     })
   },
   // function 3: render
   render: function(data) {
-    this.chart.source(data, {
-      percent: {
-        formatter: function formatter(val) {
-          val = (val * 100).toFixed(2) + '%'
-          return val
+    this.chart.source(data)
+    this.chart.scale('value', {
+      alias: '用户访问增长',
+    })
+    this.chart.axis('item', {
+      label: {
+        textStyle: {
+          fill: '#333',
         },
+      },
+      tickLine: {
+        alignWithLabel: false,
+        length: 0,
       },
     })
 
-    this.chart.coord('theta', {
-      radius: 0.75,
-      innerRadius: 0.6,
+    this.chart.axis('value', {
+      title: {
+        offset: 0,
+      },
     })
-
-    this.chart.tooltip({
-      showTitle: false,
-    })
-
-    this.chart.guide().html({
-      position: ['50%', '50%'],
-      html:
-        '<div style="color:#8c8c8c;font-size: 14px;text-align: center;width: 10em;">用户访问分布</div>',
-      alignX: 'middle',
-      alignY: 'middle',
-    })
-
+    this.chart.legend(false)
     this.chart
-      .intervalStack()
-      .position('percent')
-      .color('item')
-      .label('percent', {
-        formatter: function formatter(val, item) {
-          return item.point.item + ': ' + val
-        },
+      .interval()
+      .position('item*value')
+      .opacity(1)
+      .color('value', function(val) {
+        if (val < 0) {
+          return '#ff5957'
+        }
+        return '#36c361'
       })
-      .tooltip('item*percent', function(item, percent) {
-        percent = (percent * 100).toFixed(2) + '%'
+      .label('item*value', function(item, value) {
+        var offset = 15
+        if (value < 0) {
+          offset *= -1
+        }
         return {
-          name: item,
-          value: percent,
+          useHtml: true,
+          htmlTemplate: function htmlTemplate(text, item) {
+            var d = item.point
+            return '<span class="g2-label">' + d.value + '</span>'
+          },
+          offset: offset,
         }
       })
-      .style({
-        lineWidth: 1,
-        stroke: '#fff',
-      })
+
     this.chart.render()
   },
 }

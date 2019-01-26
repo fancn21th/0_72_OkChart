@@ -12,7 +12,6 @@ Model.prototype = {
     this.query.query(params).then(response => {
       const data = dataConvert(response.rows)
       // TODO: debugger console
-      console.log(response)
       events.notify('distribution', {
         key: 'distribution',
         data: { data1: data },

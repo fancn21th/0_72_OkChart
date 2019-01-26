@@ -6,8 +6,8 @@ const convert = ({
   pvuv,
   countryBrowser,
 }) => {
-  const startDateStr = startDate || `${timespan || '30'}daysAgo`
-  const enDateStr = endDate || 'yesterday'
+  const startDateStr = `${timespan * 2 || '60'}daysAgo`
+  const enDateStr = `${timespan || '30'}daysAgo`
   const metricsStr = pvuv || 'ga:pageviews'
   const dimensionsStr = countryBrowser || 'ga:browser'
   const param = {

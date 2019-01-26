@@ -1,6 +1,9 @@
 import events from '../Utils/events'
-import dataConvert from '../Converter/Data/c-d-user-growth'
-import queryConvert from '../Converter/Query/c-q-user-growth'
+import userGrowthDataConvert from '../Converter/Data/c-d-user-growth'
+import userGrowthQueryConvert from '../Converter/Query/c-q-user-growth'
+import distributionDataConvert from '../Converter/Data/c-d-distribution'
+import distributionQueryConvert from '../Converter/Query/c-q-distribution'
+import { resolve } from 'path'
 
 const Model = function(query) {
   this.query = query
@@ -8,16 +11,23 @@ const Model = function(query) {
 
 Model.prototype = {
   fetch: function(selectorData) {
-    const params = queryConvert(selectorData)
-    this.query.query(params).then(response => {
-      const data = dataConvert(response.rows)
-      // TODO: debugger console
-      console.log(response)
-      events.notify('distribution', {
-        key: 'distribution',
-        data: { data2: data },
+    const params1 = distributionQueryConvert(selectorData)
+    const params2 = userGrowthQueryConvert(selectorData)
+    const self = this
+    let distribution = null
+    self.query
+      .query(params1)
+      .then(response => {
+        distribution = distributionDataConvert(response.rows)
+        return self.query.query(params2)
       })
-    })
+      .then(response => {
+        const userGrowth = userGrowthDataConvert(response.rows, distribution)
+        events.notify('distribution', {
+          key: 'distribution',
+          data: { data2: userGrowth },
+        })
+      })
   },
 }
 
