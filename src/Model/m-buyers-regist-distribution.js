@@ -11,7 +11,6 @@ Model.prototype = {
         this.query.query(params).then(response => {
             const data = convert(response.rows)
                 // TODO: debugger console
-            console.log(response)
             events.notify('buyers-regist-distribution', {
                 key: 'buyers-regist-distribution',
                 data,

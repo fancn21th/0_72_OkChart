@@ -1,12 +1,12 @@
 import { Chart } from '@antv/g2'
 
 // function 1: constructor
-const DistributionChart = function({ chartContainerId }) {
+const BrowserGrowthChart = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chart = null
 }
 
-DistributionChart.prototype = {
+BrowserGrowthChart.prototype = {
   // function 2: initialization
   init: function() {
     this.chart = new G2.Chart({
@@ -21,11 +21,11 @@ DistributionChart.prototype = {
     this.chart.clear()
     this.chart.source(data)
     this.chart.scale('value', {
-      alias: '用户访问增长',
+      alias: '该来源增长量',
     })
     this.chart.axis('item', {
       title: {
-        text: '用户访问增长量',
+        text: '来源排名前15增长量',
         textStyle: {
           fontSize: 14,
           fill: '#333',
@@ -79,4 +79,4 @@ DistributionChart.prototype = {
   },
 }
 
-export default DistributionChart
+export default BrowserGrowthChart
