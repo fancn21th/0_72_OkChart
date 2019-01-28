@@ -1,6 +1,6 @@
-const convert = ({ ids, timespan, startDate, endDate, countryBrowser }) => {
-    const startDateStr = startDate || `${timespan || '30'}daysAgo`
-    const enDateStr = endDate || 'yesterday'
+const convert = ({ ids, timespan, timeUnit, startDate, endDate, countryBrowser }) => {
+    const startDateStr = startDate || `${timespan*2 || '60'}daysAgo`
+    const enDateStr = `${timespan || '30'}daysAgo`
     const dimensionsStr = countryBrowser || `ga:browser`
     const param = {
             ids,

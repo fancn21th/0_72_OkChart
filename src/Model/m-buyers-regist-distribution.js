@@ -13,7 +13,7 @@ Model.prototype = {
                 // TODO: debugger console
             events.notify('buyers-regist-distribution', {
                 key: 'buyers-regist-distribution',
-                data,
+                data: { data1: data },
             })
         })
     },

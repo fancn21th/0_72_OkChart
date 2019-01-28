@@ -1,6 +1,7 @@
 import PvModel from '../Model/m-pv-uv'
 import DistributionModel from '../Model/m-distribution'
 import UserGrowthModel from '../Model/m-user-growth'
+import BuyersRegistGrowthModel from '../Model/m-buyers-regist-growth'
 import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributiontModel from '../Model/m-buyers-regist-distribution'
 import TopBrowserModel from '../Model/m-top-browser'

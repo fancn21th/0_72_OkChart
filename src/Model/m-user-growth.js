@@ -6,7 +6,7 @@ import distributionQueryConvert from '../Converter/Query/c-q-distribution'
 import { resolve } from 'path'
 
 const Model = function(query) {
-  this.query = query
+    this.query = query
 }
 
 Model.prototype = {

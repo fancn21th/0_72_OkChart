@@ -3,7 +3,7 @@ import dataConvert from '../Converter/Data/c-d-distribution'
 import queryConvert from '../Converter/Query/c-q-distribution'
 
 const Model = function(query) {
-  this.query = query
+    this.query = query
 }
 
 Model.prototype = {
