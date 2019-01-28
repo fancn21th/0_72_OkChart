@@ -18,7 +18,10 @@ const buildModel = ({ type, query }) => {
     case 'buyers-regist':
       return new BuyersRegistModel(query)
     case 'buyers-regist-distribution':
-      return new BuyersRegistDistributiontModel(query)
+      return [
+        new BuyersRegistDistributiontModel(query),
+        new BuyersRegistGrowthModel(query),
+      ]
     default:
       return null
   }
