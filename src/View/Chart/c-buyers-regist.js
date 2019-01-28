@@ -18,6 +18,7 @@ BuyersRegistChart.prototype = {
     },
     // function 3: render
     render: function(data) {
+        this.chart.clear();
         // 如何格式化坐标轴文本
         // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy
         // this.chart.axis('day', {
@@ -40,7 +41,6 @@ BuyersRegistChart.prototype = {
                 type: 'line'
             }
         });
-
         this.chart
             .line()
             .position('day*buyers')

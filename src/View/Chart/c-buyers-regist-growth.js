@@ -19,6 +19,7 @@ BuyersRegistChartDistribution.prototype = {
     },
     // function 3: render
     render: function(data) {
+        this.chart.clear();
         // 绘制条形图
         this.chart.source(data)
         this.chart.scale('value', {
