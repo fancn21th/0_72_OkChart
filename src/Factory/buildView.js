@@ -37,7 +37,6 @@ const buildView = ({ type, containerId }) => {
         type,
         chartContainerId: containerId,
       })
-
     default:
       return null
   }
