@@ -26,5 +26,9 @@ okchart.init({
             type: 'suppliers-regist',
             container: 'chart-container4',
         },
+        {
+            type: 'suppliers-regist-distribution',
+            container: 'chart-container5',
+        },
     ],
 })

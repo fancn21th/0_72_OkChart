@@ -37,7 +37,11 @@ const buildView = ({ type, containerId }) => {
                 type,
                 chartContainerId: containerId,
             })
-
+        case 'suppliers-regist-distribution':
+            return new SuppliersRegistDistributionView({
+                type,
+                chartContainerId: containerId,
+            })
         default:
             return null
     }
