@@ -13,34 +13,15 @@ DistributionChart.prototype = {
       container: this.chartContainerId,
       forceFit: true,
       height: 400,
-      padding: 'auto',
     })
   },
   // function 3: render
   render: function(data) {
     this.chart.clear()
     this.chart.source(data)
-    this.chart.scale('value', {
-      alias: '用户访问增长',
-    })
-    this.chart.axis('item', {
-      title: {
-        text: '用户访问增长量',
-        textStyle: {
-          fontSize: 14,
-          fill: '#333',
-        },
-      },
-      // label: {
-      //   textStyle: {
-      //     fill: '#333',
-      //   },
-      // },
-      tickLine: {
-        alignWithLabel: false,
-        length: 1,
-      },
-    })
+    // this.chart.scale('value', {
+    //   alias: '用户访问增长',
+    // })
 
     this.chart.axis('value', {
       title: {
@@ -74,6 +55,25 @@ DistributionChart.prototype = {
           offset: offset,
         }
       })
+
+    this.chart.axis('item', {
+      title: {
+        text: '用户访问增长量',
+        textStyle: {
+          fontSize: 14,
+          fill: '#333',
+        },
+      },
+      // label: {
+      //   textStyle: {
+      //     fill: '#333',
+      //   },
+      // },
+      tickLine: {
+        alignWithLabel: false,
+        length: 1,
+      },
+    })
 
     this.chart.render()
   },
