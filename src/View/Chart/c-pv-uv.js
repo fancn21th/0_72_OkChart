@@ -24,8 +24,8 @@ PvUvChart.prototype = {
     // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
     dv.transform({
       type: 'fold',
-      fields: ['pv', 'uv'], // 展开字段集
-      key: 'pvuv', // key字段
+      fields: ['PV', 'UV'], // 展开字段集
+      key: 'PVUV', // key字段
       value: 'count', // value字段
     })
     this.chart.source(dv, {
@@ -50,12 +50,12 @@ PvUvChart.prototype = {
     this.chart
       .line()
       .position('day*count')
-      .color('pvuv')
+      .color('PVUV')
       .shape('line')
     this.chart
       .point()
       .position('day*count')
-      .color('pvuv')
+      .color('PVUV')
       .size(4)
       .shape('circle')
       .style({

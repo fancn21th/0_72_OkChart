@@ -38,13 +38,23 @@
   min-height: 400px;
 }
 
+.chart-container .container-title {
+  font-size: 18px;
+  padding-top: 10px;
+}
+
+.chart-container .selector-container {
+  padding: 20px 20px;
+  font-size: 12px;
+}
+
 .rangeSelect {
   border: 1px solid #e5e5e5;
   outline: none;
   height: 28px;
   line-break: 28px;
   font-size: 12px;
-  margin-right: 10px;
+  margin-right: 15px;
   border-radius: 3px;
   color: #333;
   min-width: 120px;
@@ -56,7 +66,7 @@
   height: 28px;
   line-break: 28px;
   font-size: 12px;
-  margin-right: 10px;
+  margin-right: 15px;
   border-radius: 3px;
   color: #333;
   min-width: 120px;

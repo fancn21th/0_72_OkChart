@@ -5,7 +5,7 @@ const CountryBroserSelector = function() {
     options: [
       {
         text: '按渠道划分',
-        value: 'ga:browser',
+        value: 'ga:source',
         selected: true,
       },
       {
