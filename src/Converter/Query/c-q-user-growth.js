@@ -9,7 +9,7 @@ const convert = ({
   const startDateStr = `${timespan * 2 || '60'}daysAgo`
   const enDateStr = `${timespan || '30'}daysAgo`
   const metricsStr = pvuv || 'ga:pageviews'
-  const dimensionsStr = countryBrowser || 'ga:browser'
+  const dimensionsStr = countryBrowser || 'ga:source'
   const param = {
     ids,
     metrics: metricsStr,
