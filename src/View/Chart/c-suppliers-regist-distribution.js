@@ -19,8 +19,6 @@ SuppliersRegistChartDistribution.prototype = {
     },
     // function 3: render
     render: function(data) {
-        console.log("饼图data");
-        console.log(data);
         this.chart.clear()
             // 绘制饼图
         this.chart.source(data, {

@@ -18,8 +18,6 @@ BuyersRegistChart.prototype = {
     },
     // function 3: render
     render: function(data) {
-        console.log("data");
-        console.log(data);
         this.chart.clear();
         // 如何格式化坐标轴文本
         // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy

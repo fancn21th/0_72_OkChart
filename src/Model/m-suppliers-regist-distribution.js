@@ -11,8 +11,6 @@ Model.prototype = {
         this.query.query(params).then(response => {
             const data = convert(response.rows)
                 // TODO: debugger console
-            console.log("饼图")
-            console.log(data)
             events.notify('suppliers-regist-distribution', {
                 key: 'suppliers-regist-distribution',
                 data: { data1: data },
