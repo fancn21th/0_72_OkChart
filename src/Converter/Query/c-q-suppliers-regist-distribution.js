@@ -1,7 +1,7 @@
 const convert = ({ ids, timespan, startDate, endDate, countryBrowser }) => {
     const startDateStr = startDate || `${timespan || '30'}daysAgo`
     const enDateStr = endDate || 'yesterday'
-    const dimensionsStr = countryBrowser || `ga:browser`
+    const dimensionsStr = countryBrowser || `ga:source`
     const param = {
             ids,
             metrics: 'ga:goal1Completions',
