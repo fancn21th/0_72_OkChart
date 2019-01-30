@@ -9,7 +9,7 @@ const convert = ({
   const startDateStr = startDate || `${timespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
   const metricsStr = pvuv || 'ga:pageviews'
-  const dimensionsStr = countryBrowser || 'ga:browser'
+  const dimensionsStr = countryBrowser || 'ga:source'
   const param = {
     ids,
     metrics: metricsStr,

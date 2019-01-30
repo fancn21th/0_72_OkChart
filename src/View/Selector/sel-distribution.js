@@ -23,7 +23,10 @@ Selector.prototype = {
     }
     this.selectorList.forEach(selector => {
       selector.init({ onSelectorChange: onChangeHandler })
-      selector.appendTo(this.chartContainer)
+      const selectorContainer = this.chartContainer.getElementsByClassName(
+        'selector-container'
+      )[0]
+      selector.appendTo(selectorContainer)
     })
   },
 }
