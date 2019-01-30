@@ -3,6 +3,7 @@ import DistributionView from '../View/v-distribution'
 import BuyersRegistView from '../View/v-buyers-regist'
 import TopBrowserView from '../View/v-top-browser'
 import BuyersRegistDistributionView from '../View/v-buyers-regist-distribution'
+import SuppliersRegistView from '../View/v-suppliers-regist'
 
 const buildView = ({ type, containerId }) => {
   switch (type) {
@@ -31,7 +32,11 @@ const buildView = ({ type, containerId }) => {
         type,
         chartContainerId: containerId,
       })
-    case 'user-growth':
+    case 'suppliers-regist':
+      return new SuppliersRegistView({
+        type,
+        chartContainerId: containerId,
+      })
 
     default:
       return null

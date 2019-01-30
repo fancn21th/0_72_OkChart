@@ -6,6 +6,7 @@ import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributiontModel from '../Model/m-buyers-regist-distribution'
 import TopBrowserModel from '../Model/m-top-browser'
 import browserGrowthModel from '../Model/m-browser-growth'
+import SuppliersRegistModel from '../Model/m-suppliers-regist'
 
 const buildModel = ({ type, query }) => {
   switch (type) {
@@ -22,6 +23,8 @@ const buildModel = ({ type, query }) => {
         new BuyersRegistDistributiontModel(query),
         new BuyersRegistGrowthModel(query),
       ]
+    case 'suppliers-regist':
+      return new SuppliersRegistModel(query)
     default:
       return null
   }
