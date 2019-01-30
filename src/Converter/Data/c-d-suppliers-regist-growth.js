@@ -1,4 +1,5 @@
 const convert = (collection, currentData) => {
+    currentData.pop();
     const growthArr = currentData.map(e => {
         let changeData = null;
         collection.forEach(element => {
