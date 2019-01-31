@@ -6,23 +6,28 @@ import distributionQueryConvert from '../Converter/Query/c-q-distribution'
 import { resolve } from 'path'
 
 const Model = function(query) {
-    this.query = query
+  this.query = query
 }
 
 Model.prototype = {
   fetch: function(selectorData) {
     const params1 = distributionQueryConvert(selectorData)
     const params2 = userGrowthQueryConvert(selectorData)
+    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
     const self = this
     let distribution = null
     self.query
       .query(params1)
       .then(response => {
-        distribution = distributionDataConvert(response.rows)
+        distribution = distributionDataConvert(response.rows, timeSpanSelector)
         return self.query.query(params2)
       })
       .then(response => {
-        const userGrowth = userGrowthDataConvert(response.rows, distribution)
+        const userGrowth = userGrowthDataConvert(
+          response.rows,
+          distribution,
+          timeSpanSelector
+        )
         events.notify('distribution', {
           key: 'distribution',
           data: { data2: userGrowth },
