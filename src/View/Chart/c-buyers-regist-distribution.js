@@ -35,7 +35,7 @@ BuyersRegistChartDistribution.prototype = {
         })
         this.chart.tooltip({
                 showTitle: false,
-                itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>',
+                itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {count} , {value}</li>',
             })
             // 辅助文本
         this.chart.guide().html({
@@ -53,11 +53,12 @@ BuyersRegistChartDistribution.prototype = {
                     return item.point.item + ': ' + item.point.count + ' ' + ',' + ' ' + val
                 },
             })
-            .tooltip('item*percent', function(item, percent) {
+            .tooltip('item*percent*count', function(item, percent, count) {
                 percent = (percent * 100).toFixed(2) + '%'
                 return {
                     name: item,
                     value: percent,
+                    count: count
                 }
             })
             .style({
