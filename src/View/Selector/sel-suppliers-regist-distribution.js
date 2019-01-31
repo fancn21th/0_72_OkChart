@@ -9,7 +9,7 @@ const Selector = function({ chartContainerId }) {
     this.selectorList = [
         new TimespanSelector(),
         new DateRangeSelector(),
-        new TimeUnitSelector(),
+        // new TimeUnitSelector(),
         new CountryBrowserSelector()
     ]
 }

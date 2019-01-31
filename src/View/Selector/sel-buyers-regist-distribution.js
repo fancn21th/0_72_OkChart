@@ -9,7 +9,7 @@ const Selector = function({ chartContainerId }) {
     this.selectorList = [
         new TimespanSelector(),
         new DateRangeSelector(),
-        new TimeUnitSelector(),
+        // new TimeUnitSelector(),
         new CountryBrowserSelector()
     ]
 }
@@ -24,7 +24,7 @@ Selector.prototype = {
         this.selectorList.forEach(selector => {
             selector.init({ onSelectorChange: onChangeHandler })
             const selectorContainer = this.chartContainer.getElementsByClassName(
-              'selector-container'
+                'selector-container'
             )[0]
             selector.appendTo(selectorContainer)
         })
