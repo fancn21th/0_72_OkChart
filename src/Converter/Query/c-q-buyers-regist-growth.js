@@ -4,11 +4,11 @@ const convert = ({ ids, timespan, timeUnit, startDate, endDate, countryBrowser }
     const dimensionsStr = countryBrowser || `ga:source`
     const param = {
             ids,
-            metrics: 'ga:goal1Completions',
+            metrics: 'ga:goal12Completions',
             dimensions: dimensionsStr,
             'start-date': startDateStr,
             'end-date': enDateStr,
-            sort: 'ga:goal1Completions'
+            sort: 'ga:goal12Completions'
         }
         // TODO: console
     return param
