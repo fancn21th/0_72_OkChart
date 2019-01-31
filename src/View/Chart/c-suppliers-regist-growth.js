@@ -14,7 +14,6 @@ SuppliersRegistChartDistribution.prototype = {
             container: this.chartContainerId,
             forceFit: true,
             height: 400,
-            padding: 'auto'
         })
     },
     // function 3: render
@@ -43,7 +42,7 @@ SuppliersRegistChartDistribution.prototype = {
             title: {
                 text: '增长量',
             },
-            offset: 10,
+            offset: 20,
             autoRotate: false,
         })
         this.chart.legend(false)

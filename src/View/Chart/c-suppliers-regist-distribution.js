@@ -50,7 +50,7 @@ SuppliersRegistChartDistribution.prototype = {
             .color('item')
             .label('percent', {
                 formatter: function formatter(val, item) {
-                    return item.point.item + ': ' + val
+                    return item.point.item + ': ' + item.point.count + ' ' + ',' + ' ' + val
                 },
             })
             .tooltip('item*percent', function(item, percent) {
