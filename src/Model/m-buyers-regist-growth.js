@@ -2,7 +2,7 @@ import events from '../Utils/events'
 import convert from '../Converter/Data/c-d-buyers-regist-growth'
 import queryConvert from '../Converter/Query/c-q-buyers-regist-growth'
 import distributionQueryConvert from '../Converter/Query/c-q-buyers-regist-distribution'
-import distributionDataConvert from '../Converter/Data/c-d-distribution'
+import distributionDataConvert from '../Converter/Data/c-d-buyers-regist-distribution'
 
 const Model = function(query) {
     this.query = query
