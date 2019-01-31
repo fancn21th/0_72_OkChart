@@ -1,6 +1,5 @@
 import { Chart } from '@antv/g2'
 
-
 // function 1: constructor
 const BuyersRegistChartDistribution = function({ chartContainerId }) {
     this.chartContainerId = chartContainerId
@@ -14,7 +13,6 @@ BuyersRegistChartDistribution.prototype = {
             container: this.chartContainerId,
             forceFit: true,
             height: 400,
-            padding: 'auto'
         })
     },
     // function 3: render
@@ -43,7 +41,7 @@ BuyersRegistChartDistribution.prototype = {
             title: {
                 text: '增长量',
             },
-            offset: 10,
+            offset: 0,
             autoRotate: false,
         })
         this.chart.legend(false)
