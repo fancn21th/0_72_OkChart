@@ -22,7 +22,11 @@ Model.prototype = {
         return self.query.query(params2)
       })
       .then(response => {
-        const userGrowth = browserGrowthDataConvert(response.rows, distribution, timeSpanSelector)
+        const userGrowth = browserGrowthDataConvert(
+          response.rows,
+          distribution,
+          timeSpanSelector
+        )
         events.notify('top-browser', {
           key: 'top-browser',
           data: { data2: userGrowth },

@@ -13,7 +13,6 @@ BrowserGrowthChart.prototype = {
       container: this.chartContainerId,
       forceFit: true,
       height: 400,
-      padding: 'auto',
     })
   },
   // function 3: render
