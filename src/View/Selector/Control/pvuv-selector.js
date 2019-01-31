@@ -4,12 +4,12 @@ const PvuvSelector = function() {
   this.selector = createSelect({
     options: [
       {
-        text: 'pv',
+        text: 'PV',
         value: 'ga:pageviews',
         selected: true,
       },
       {
-        text: 'uv',
+        text: 'UV',
         value: 'ga:users',
       },
     ],

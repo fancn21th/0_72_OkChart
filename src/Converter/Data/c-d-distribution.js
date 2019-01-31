@@ -20,7 +20,7 @@ const convert = (collection, selectorData) => {
 
   collectionArray.push({
     item: 'others',
-    count: userOthersCount,
+    count: userTotalCount - userOthersCount,
     percent:
       parseInt(((userTotalCount - userOthersCount) * 10000) / userTotalCount) /
       10000,

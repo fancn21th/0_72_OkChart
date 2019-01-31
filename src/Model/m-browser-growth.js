@@ -12,16 +12,17 @@ Model.prototype = {
   fetch: function(selectorData) {
     const params1 = topBrowserQueryConvert(selectorData)
     const params2 = borwserGrowthQueryConvert(selectorData)
+    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
     const self = this
     let distribution = null
     self.query
       .query(params1)
       .then(response => {
-        distribution = topBrowserDataConvert(response.rows)
+        distribution = topBrowserDataConvert(response.rows, timeSpanSelector)
         return self.query.query(params2)
       })
       .then(response => {
-        const userGrowth = browserGrowthDataConvert(response.rows, distribution)
+        const userGrowth = browserGrowthDataConvert(response.rows, distribution, timeSpanSelector)
         events.notify('top-browser', {
           key: 'top-browser',
           data: { data2: userGrowth },
