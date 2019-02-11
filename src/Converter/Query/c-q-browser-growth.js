@@ -18,7 +18,6 @@ const convert = ({
     'end-date': enDateStr,
     sort: metricsStr,
   }
-  // TODO: console
   return param
 }
 

@@ -11,7 +11,6 @@ const convert = ({ ids, timespan, startDate, endDate, pvuv }) => {
     'end-date': enDateStr,
     sort: metricsStr,
   }
-  // TODO: console
   return param
 }
 

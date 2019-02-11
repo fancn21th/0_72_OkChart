@@ -9,7 +9,6 @@ const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
     'start-date': startDateStr,
     'end-date': enDateStr,
   }
-  // TODO: console
   return param
 }
 

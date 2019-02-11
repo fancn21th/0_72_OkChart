@@ -12,7 +12,6 @@ Model.prototype = {
     const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
     this.query.query(params).then(response => {
       const data = dataConvert(response.rows, timeSpanSelector)
-      // TODO: debugger console
       events.notify('distribution', {
         key: 'distribution',
         data: { data1: data },

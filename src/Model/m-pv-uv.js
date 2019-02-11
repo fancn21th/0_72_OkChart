@@ -11,7 +11,6 @@ Model.prototype = {
     const params = queryConvert(selectorData)
     this.query.query(params).then(response => {
       const data = dataConvert(response.rows)
-      // TODO: debugger console
       events.notify('pv-uv', {
         key: 'pv-uv',
         data,
