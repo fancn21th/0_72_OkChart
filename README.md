@@ -44,10 +44,9 @@
     - factory
       - view
       - model
-      - converter query
     - css
+      > BEM
       - selector control style
-      - BEM
 
 ## Detailed Design
 
