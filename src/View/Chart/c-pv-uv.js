@@ -38,15 +38,6 @@ PvUvChart.prototype = {
         type: 'line',
       },
     })
-    // 如何格式化坐标轴文本
-    // https://www.yuque.com/antv/g2-docs/tutorial-faq#vs5rwy
-    // this.chart.axis('day', {
-    //   label: {
-    //     formatter: val => {
-    //       return `${val.slice(4, 6)}/${val.slice(6, 8)}`
-    //     },
-    //   },
-    // })
     this.chart
       .line()
       .position('day*count')
