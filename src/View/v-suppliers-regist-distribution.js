@@ -26,6 +26,8 @@ const View = function({ chartContainerId }) {
   })
 }
 
+inheritPrototype(View, SuperView)
+
 View.prototype = {
   init: function({ onSelectorChange }) {
     this.chart1.init()

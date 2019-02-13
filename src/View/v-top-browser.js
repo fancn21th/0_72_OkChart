@@ -1,28 +1,34 @@
+import SuperView, { inheritPrototype } from './Base/SuperView'
 import TopBrowserChart from '../View/Chart/c-top-browser'
 import BrowserGrowthChart from '../View/Chart/c-browser-growth'
 import TopBrowserSelector from '../View/Selector/sel-top-browser'
 import { createDiv } from '../Utils/HtmlElementBuilder'
 
 const View = function({ chartContainerId }) {
-  this.chartContainerId = chartContainerId
-  this.selector = new TopBrowserSelector({ chartContainerId })
-  this.chart1 = null
-  this.chart2 = null
+  SuperView.call(this, { chartContainerId, title: '来源排名' })
+
+  const chartId1 = 'browser-container'
+  const chartId2 = 'browser-growth-container'
+  const chartContainer1 = createDiv(chartId1)
+  const chartContainer2 = createDiv(chartId2)
+
+  const chartWrapper = document.getElementById(this.chartWrapperId)
+  chartWrapper.appendChild(chartContainer1)
+  chartWrapper.appendChild(chartContainer2)
+
+  this.chart1 = new TopBrowserChart({ chartContainerId: chartId1 })
+  this.chart2 = new BrowserGrowthChart({ chartContainerId: chartId2 })
+
+  this.selector = new TopBrowserSelector({
+    chartContainerId: this.selectorWrapperId,
+  })
 }
+
+inheritPrototype(View, SuperView)
 
 View.prototype = {
   init: function({ onSelectorChange }) {
-    const chartId1 = 'browser-container'
-    const chartId2 = 'browser-growth-container'
-    const chartContainer1 = createDiv(chartId1)
-    const chartContainer2 = createDiv(chartId2)
-    const chartTopContainer = document.getElementById(this.chartContainerId)
-    chartTopContainer.appendChild(chartContainer1)
-    chartTopContainer.appendChild(chartContainer2)
-
-    this.chart1 = new TopBrowserChart({ chartContainerId: chartId1 })
     this.chart1.init()
-    this.chart2 = new BrowserGrowthChart({ chartContainerId: chartId2 })
     this.chart2.init()
     this.selector.init({ onSelectorChange })
   },
