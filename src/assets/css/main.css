@@ -1,3 +1,4 @@
+/*  g2 style */
 .g2-label {
   font-size: 12px;
   text-align: center;
@@ -17,6 +18,8 @@
   color: #ff5250;
   font-weight: bold;
 }
+
+/*  hide view selector */
 
 #view-selector-container {
   display: none;
