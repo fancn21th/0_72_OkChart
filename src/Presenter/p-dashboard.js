@@ -28,8 +28,8 @@ Presenter.prototype = {
     })
 
     // hook up to change event of view's selector
-    self.views.forEach(view => {
-      const { type: viewType } = view
+    Object.keys(self.views).forEach(viewType => {
+      const view = self.views[viewType]
       // default selector data for each view's selector
       self.selectorData[viewType] = {
         ids: self.ids,
@@ -56,13 +56,9 @@ Presenter.prototype = {
       })
     })
   },
-  refresh: function({ key, data }) {
-    if (key) {
-      this.views.forEach(view => {
-        if (key === view.type) {
-          view.render(data)
-        }
-      })
+  refresh: function({ key: viewType, data }) {
+    if (viewType) {
+      this.views[viewType].render(data)
     }
   },
   reload: function() {

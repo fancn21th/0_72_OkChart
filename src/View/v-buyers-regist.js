@@ -1,8 +1,7 @@
 import BuyersRegistChart from './Chart/c-buyers-regist'
 import BuyersRegistSelector from './Selector/sel-buyers-regist'
 
-const View = function({ type, chartContainerId }) {
-    this.type = type // TODO: used outwards
+const View = function({ chartContainerId }) {
     this.chart = new BuyersRegistChart({ chartContainerId })
     this.selector = new BuyersRegistSelector({ chartContainerId })
 }

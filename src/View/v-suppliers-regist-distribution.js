@@ -3,8 +3,7 @@ import SuppliersRegistGrowthChart from './Chart/c-suppliers-regist-growth'
 import SuppliersRegistDistributionSelector from './Selector/sel-suppliers-regist-distribution'
 import { createDiv } from '../Utils/HtmlElementBuilder'
 
-const View = function({ type, chartContainerId }) {
-    this.type = type // TODO: used outwards
+const View = function({ chartContainerId }) {
     this.chartContainerId = chartContainerId
     this.selector = new SuppliersRegistDistributionSelector({ chartContainerId })
     this.chart1 = null

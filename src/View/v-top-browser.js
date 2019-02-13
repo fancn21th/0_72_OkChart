@@ -3,8 +3,7 @@ import BrowserGrowthChart from '../View/Chart/c-browser-growth'
 import TopBrowserSelector from '../View/Selector/sel-top-browser'
 import { createDiv } from '../Utils/HtmlElementBuilder'
 
-const View = function({ type, chartContainerId }) {
-  this.type = type // TODO: used outwards
+const View = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.selector = new TopBrowserSelector({ chartContainerId })
   this.chart1 = null

@@ -1,8 +1,7 @@
 import PvUvChart from '../View/Chart/c-pv-uv'
 import PvUvSelector from '../View/Selector/sel-pv-uv'
 
-const View = function({ type, chartContainerId }) {
-  this.type = type // TODO: used outwards and to identify which view that needs to be re-rendered
+const View = function({ chartContainerId }) {
   this.chart = new PvUvChart({ chartContainerId })
   this.selector = new PvUvSelector({ chartContainerId })
 }

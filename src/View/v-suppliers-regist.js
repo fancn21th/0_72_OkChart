@@ -1,8 +1,7 @@
 import SuppliersRegistChart from './Chart/c-suppliers-regist'
 import SuppliersRegistSelector from './Selector/sel-suppliers-regist'
 
-const View = function({ type, chartContainerId }) {
-    this.type = type // TODO: used outwards
+const View = function({ chartContainerId }) {
     this.chart = new SuppliersRegistChart({ chartContainerId })
     this.selector = new SuppliersRegistSelector({ chartContainerId })
 }

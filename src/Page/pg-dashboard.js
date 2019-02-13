@@ -31,12 +31,10 @@ Page.prototype = {
     })
     this.chartsOption.forEach(chart => {
       // build view based on type
-      this.views.push(
-        buildView({
-          type: chart.type,
-          containerId: chart.container,
-        })
-      )
+      this.views[chart.type] = buildView({
+        type: chart.type,
+        containerId: chart.container,
+      })
       // build model based on type
       this.models[chart.type] = buildModel({
         type: chart.type,
