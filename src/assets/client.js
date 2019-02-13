@@ -4,11 +4,11 @@ okchart.init({
     viewSelector: 'view-selector-container',
     charts: [{
             type: 'pv-uv',
-            container: 'chart-container',
+            container: 'pv-uv-container',
         },
         {
             type: 'distribution',
-            container: 'user-distribution-container',
+            container: 'distribution-container',
         },
         {
             type: 'top-browser',
@@ -16,19 +16,19 @@ okchart.init({
         },
         {
             type: 'buyers-regist',
-            container: 'chart-container2',
+            container: 'buyers-regist-container',
         },
         {
             type: 'buyers-regist-distribution',
-            container: 'chart-container3',
+            container: 'buyers-regist-distribution-container',
         },
         {
             type: 'suppliers-regist',
-            container: 'chart-container4',
+            container: 'suppliers-regist-container',
         },
         {
             type: 'suppliers-regist-distribution',
-            container: 'chart-container5',
+            container: 'suppliers-regist-distribution-container',
         },
     ],
 })

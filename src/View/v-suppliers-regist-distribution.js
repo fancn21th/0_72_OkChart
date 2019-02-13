@@ -7,8 +7,8 @@ import { createDiv } from '../Utils/HtmlElementBuilder'
 const View = function({ chartContainerId }) {
   SuperView.call(this, { chartContainerId, title: '注册卖家分布' })
 
-  const chartId1 = 'suppliers-distribution'
-  const chartId2 = 'suppliers-up'
+  const chartId1 = `${chartContainerId}-suppliers-distribution`
+  const chartId2 = `${chartContainerId}-suppliers-up`
   const chartContainer1 = createDiv(chartId1)
   const chartContainer2 = createDiv(chartId2)
 
