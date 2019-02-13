@@ -21,11 +21,22 @@ const createDate = () => {
   return date
 }
 
-const createDiv = (id) => {
+const createDiv = id => {
   const divEl = document.createElement('DIV')
   divEl.setAttribute('class', 'chart-part')
   divEl.setAttribute('id', id)
   return divEl
 }
 
-export { createSelect, createDate, createDiv }
+const createDiv2 = ({ id }) => {
+  const div = document.createElement('DIV')
+  div.setAttribute('id', id)
+  return div
+}
+
+const creatText = ({ text }) => {
+  const txt = document.createTextNode(text)
+  return txt
+}
+
+export { createSelect, createDate, createDiv, createDiv2, creatText }

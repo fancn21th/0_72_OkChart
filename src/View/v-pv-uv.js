@@ -1,10 +1,14 @@
+import SuperView, { inheritPrototype } from './Base/SuperView'
 import PvUvChart from '../View/Chart/c-pv-uv'
 import PvUvSelector from '../View/Selector/sel-pv-uv'
 
 const View = function({ chartContainerId }) {
-  this.chart = new PvUvChart({ chartContainerId })
-  this.selector = new PvUvSelector({ chartContainerId })
+  SuperView.call(this, { chartContainerId, title: '用户访问数' })
+  this.chart = new PvUvChart({ chartContainerId: this.chartWrapperId })
+  this.selector = new PvUvSelector({ chartContainerId: this.selectorWrapperId })
 }
+
+inheritPrototype(View, SuperView)
 
 View.prototype = {
   init: function({ onSelectorChange }) {
