@@ -11,8 +11,6 @@ Model.prototype = {
     const params = queryConvert(selectorData)
     this.query.query(params).then(response => {
       const data = dataConvert(response.rows)
-      // TODO: console
-      console.log(data)
       events.notify('overview', {
         key: 'overview',
         data,
