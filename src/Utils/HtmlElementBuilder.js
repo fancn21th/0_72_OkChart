@@ -34,9 +34,51 @@ const createDiv2 = ({ id }) => {
   return div
 }
 
-const creatText = ({ text }) => {
+const createText = ({ text }) => {
   const txt = document.createTextNode(text)
   return txt
 }
 
-export { createSelect, createDate, createDiv, createDiv2, creatText }
+const createUnorderedList = ({ child, children }) => {
+  const ul = document.createElement('UL')
+  if (child) {
+    ul.appendChild(child)
+  }
+  if (children) {
+    children.forEach(item => {
+      ul.appendChild(item)
+    })
+  }
+  return ul
+}
+
+const createUnorderedListItem = ({ child, children }) => {
+  const li = document.createElement('LI')
+  if (child) {
+    li.appendChild(child)
+  }
+  if (children) {
+    children.forEach(item => {
+      li.appendChild(item)
+    })
+  }
+  return li
+}
+
+const createSpan = ({ text }) => {
+  const span = document.createElement('SPAN')
+  const txt = createText({ text })
+  span.appendChild(txt)
+  return span
+}
+
+export {
+  createSelect,
+  createDate,
+  createDiv,
+  createDiv2,
+  createText,
+  createUnorderedList,
+  createUnorderedListItem,
+  createSpan,
+}

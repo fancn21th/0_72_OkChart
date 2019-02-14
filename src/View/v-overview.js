@@ -1,11 +1,13 @@
 import SuperView, { inheritPrototype } from './Base/SuperView'
-import PvUvChart from './Chart/c-overview'
-import PvUvSelector from './Selector/sel-overview'
+import OverviewChart from './Chart/c-overview'
+import OverviewSelector from './Selector/sel-overview'
 
 const View = function({ chartContainerId }) {
-  SuperView.call(this, { chartContainerId, title: '用户访问数' })
-  this.chart = new PvUvChart({ chartContainerId: this.chartWrapperId })
-  this.selector = new PvUvSelector({ chartContainerId: this.selectorWrapperId })
+  SuperView.call(this, { chartContainerId, title: '概况' })
+  this.chart = new OverviewChart({ chartContainerId: this.chartWrapperId })
+  this.selector = new OverviewSelector({
+    chartContainerId: this.selectorWrapperId,
+  })
 }
 
 inheritPrototype(View, SuperView)

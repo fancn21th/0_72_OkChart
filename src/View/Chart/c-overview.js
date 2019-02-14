@@ -1,59 +1,51 @@
-import { Chart } from '@antv/g2'
-import DataSet from '@antv/data-set'
+import {
+  createUnorderedList,
+  createUnorderedListItem,
+  createSpan,
+  createDiv2,
+} from '../../Utils/HtmlElementBuilder'
 
 // function 1: constructor
 const PvUvChart = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
-  this.chart = null
+  this.chartContainer = document.getElementById(this.chartContainerId)
+  this.pvSpan = createSpan({ text: '0' })
+  this.uvSpan = createSpan({ text: '0' })
+  this.buyerCountSpan = createSpan({ text: '0' })
+  this.supplierCountSpan = createSpan({ text: '0' })
 }
 
 PvUvChart.prototype = {
   // function 2: initialization
   init: function() {
-    this.chart = new Chart({
-      container: this.chartContainerId,
-      forceFit: true,
-      height: 400,
+    const pvTitleSpan = createSpan({ text: 'PV' })
+    const uvTitleSpan = createSpan({ text: 'UV' })
+    const buyerCountTitleSpan = createSpan({ text: '注册买家数' })
+    const supplierCountTitleSpan = createSpan({ text: '注册卖家数' })
+    const content = createUnorderedList({
+      children: [
+        createUnorderedListItem({
+          children: [pvTitleSpan, this.pvSpan],
+        }),
+        createUnorderedListItem({
+          children: [uvTitleSpan, this.uvSpan],
+        }),
+        createUnorderedListItem({
+          children: [buyerCountTitleSpan, this.buyerCountSpan],
+        }),
+        createUnorderedListItem({
+          children: [supplierCountTitleSpan, this.supplierCountSpan],
+        }),
+      ],
     })
+    this.chartContainer.appendChild(content)
   },
   // function 3: render
   render: function(data) {
-    this.chart.clear()
-    var ds = new DataSet()
-    var dv = ds.createView().source(data)
-    // fold 方式完成了行列转换，如果不想使用 DataSet 直接手工转换数据即可
-    dv.transform({
-      type: 'fold',
-      fields: ['PV', 'UV'], // 展开字段集
-      key: 'PVUV', // key字段
-      value: 'count', // value字段
-    })
-    this.chart.source(dv, {
-      month: {
-        range: [0, 1],
-      },
-    })
-    this.chart.tooltip({
-      crosshairs: {
-        type: 'line',
-      },
-    })
-    this.chart
-      .line()
-      .position('day*count')
-      .color('PVUV')
-      .shape('line')
-    this.chart
-      .point()
-      .position('day*count')
-      .color('PVUV')
-      .size(4)
-      .shape('circle')
-      .style({
-        stroke: '#fff',
-        lineWidth: 1,
-      })
-    this.chart.render()
+    this.pvSpan.innerHTML = '1'
+    this.uvSpan.innerHTML = '1'
+    this.buyerCountSpan.innerHTML = '1'
+    this.supplierCountSpan.innerHTML = '1'
   },
 }
 

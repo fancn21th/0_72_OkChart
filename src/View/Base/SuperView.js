@@ -1,4 +1,4 @@
-import { createDiv2, creatText } from '../../Utils/HtmlElementBuilder'
+import { createDiv2, createText } from '../../Utils/HtmlElementBuilder'
 import inheritPrototype from '../../Utils/inheritPrototype'
 
 function SuperView({ chartContainerId, title }) {
@@ -15,7 +15,7 @@ function SuperView({ chartContainerId, title }) {
     id: this.titleWrapperId,
   })
   this.titleWrapper.appendChild(
-    creatText({
+    createText({
       text: title,
     })
   )
