@@ -4,7 +4,7 @@ const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
   const dimensionsStr = `ga:${timeUnit || 'date'}`
   const param = {
     ids,
-    // metrics: 'ga:pageviews,ga:uniquePageviews',
+    // supplier count
     metrics: 'ga:goal7Completions',
     dimensions: dimensionsStr,
     'start-date': startDateStr,
