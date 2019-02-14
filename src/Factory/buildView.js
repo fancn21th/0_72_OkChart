@@ -1,3 +1,4 @@
+import OverviewView from '../View/v-overview'
 import PvUvView from '../View/v-pv-uv'
 import DistributionView from '../View/v-distribution'
 import BuyersRegistView from '../View/v-buyers-regist'
@@ -8,6 +9,10 @@ import SuppliersRegistDistributionView from '../View/v-suppliers-regist-distribu
 
 const buildView = ({ type, containerId }) => {
   switch (type) {
+    case 'overview':
+      return new OverviewView({
+        chartContainerId: containerId,
+      })
     case 'pv-uv':
       return new PvUvView({
         chartContainerId: containerId,

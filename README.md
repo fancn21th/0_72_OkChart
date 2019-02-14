@@ -49,11 +49,9 @@
   - Key Flow
     - client key -> view and model/models
 
-## Workfow
+## Workflow
 
 - FR
-
-  http://115.29.196.46/story-view-2301-5-project-131.html
 
 - Code
 
@@ -63,7 +61,7 @@
     - view
       - chart
       - selector
-        - selector control
+        - selector control (only if absent)
     - converter
       - data
       - query
