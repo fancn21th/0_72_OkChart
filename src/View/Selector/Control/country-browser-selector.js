@@ -1,6 +1,6 @@
 import { createSelect } from '../../../Utils/HtmlElementBuilder'
 
-const CountryBroserSelector = function() {
+const CountryBrowserSelector = function() {
   this.selector = createSelect({
     options: [
       {
@@ -16,7 +16,7 @@ const CountryBroserSelector = function() {
   })
 }
 
-CountryBroserSelector.prototype = {
+CountryBrowserSelector.prototype = {
   init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
       onSelectorChange({ countryBrowser: e.target.value })
@@ -27,4 +27,4 @@ CountryBroserSelector.prototype = {
   },
 }
 
-export default CountryBroserSelector
+export default CountryBrowserSelector
