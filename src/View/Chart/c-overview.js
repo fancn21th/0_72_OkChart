@@ -2,7 +2,6 @@ import {
   createUnorderedList,
   createUnorderedListItem,
   createSpan,
-  createDiv2,
 } from '../../Utils/HtmlElementBuilder'
 
 // function 1: constructor
