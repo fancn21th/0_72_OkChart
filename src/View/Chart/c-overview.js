@@ -40,11 +40,11 @@ PvUvChart.prototype = {
     this.chartContainer.appendChild(content)
   },
   // function 3: render
-  render: function(data) {
-    this.pvSpan.innerHTML = '1'
-    this.uvSpan.innerHTML = '1'
-    this.buyerCountSpan.innerHTML = '1'
-    this.supplierCountSpan.innerHTML = '1'
+  render: function({ pv, uv, buyerCount, supplierCount }) {
+    this.pvSpan.innerHTML = pv
+    this.uvSpan.innerHTML = uv
+    this.buyerCountSpan.innerHTML = buyerCount
+    this.supplierCountSpan.innerHTML = supplierCount
   },
 }
 
