@@ -27,6 +27,9 @@ TimeUnitSelector.prototype = {
     }
   },
   appendTo: function(parentNode) {
+    const spanEl = document.createElement('span')
+    spanEl.innerHTML = '粒度 '
+    parentNode.appendChild(spanEl)
     parentNode.appendChild(this.selector)
   },
 }

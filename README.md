@@ -6,6 +6,37 @@
 
 - ES2015 with old fashion code
 
+- Inheritance
+
+  > refer to: Professional JavaScript for Web Developers 3rd Edition
+
+  ```javascript
+  function inheritPrototype(subType, superType) {
+    var prototype = Object.create(superType.prototype) //创建对象
+    prototype.constructor = subType //增强对象
+    subType.prototype = prototype //指定对象
+  }
+
+  function SuperType(name) {
+    this.name = name
+    this.colors = ['red', 'blue', 'green']
+  }
+
+  SuperType.prototype.sayName = function() {
+    alert(this.name)
+  }
+
+  function SubType(name, age) {
+    SuperType.call(this, name)
+    this.age = age
+  }
+
+  inheritPrototype(SubType, SuperType)
+  SubType.prototype.sayAge = function() {
+    alert(this.age)
+  }
+  ```
+
 ## Architecture Design
 
 - MVP
@@ -18,11 +49,9 @@
   - Key Flow
     - client key -> view and model/models
 
-## Workfow
+## Workflow
 
 - FR
-
-  http://115.29.196.46/story-view-2301-5-project-131.html
 
 - Code
 
@@ -32,7 +61,7 @@
     - view
       - chart
       - selector
-        - selector control
+        - selector control (only if absent)
     - converter
       - data
       - query
@@ -44,10 +73,9 @@
     - factory
       - view
       - model
-      - converter query
     - css
+      > BEM
       - selector control style
-      - BEM
 
 ## Detailed Design
 
