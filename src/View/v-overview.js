@@ -17,8 +17,17 @@ View.prototype = {
     this.chart.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function(data) {
-    this.chart.render(data)
+  render: function({ pv, uv, buyerCount, supplierCount, source, country }) {
+    this.chart.render({
+      pv,
+      uv,
+      buyerCount,
+      supplierCount,
+    })
+    this.selector.render({
+      source,
+      country,
+    })
   },
 }
 

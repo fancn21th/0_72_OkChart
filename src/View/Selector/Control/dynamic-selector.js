@@ -1,16 +1,17 @@
 import { updateSelectOptions } from '../../../Utils/HtmlElementHelper'
 import { createSelect } from '../../../Utils/HtmlElementBuilder'
 
-const DynamicSelector = function() {
+const DynamicSelector = function({ selectorType }) {
   this.selector = createSelect({
     options: [],
   })
+  this.selectorType = selectorType
 }
 
 DynamicSelector.prototype = {
   init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
-      onSelectorChange({ countryBrowser: e.target.value })
+      onSelectorChange({ [this.selectorType]: e.target.value })
     }
   },
   appendTo: function(parentNode) {

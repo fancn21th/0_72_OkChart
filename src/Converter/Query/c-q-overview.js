@@ -1,4 +1,4 @@
-const convert = ({ ids, timespan, timeUnit, startDate, endDate }) => {
+const convert = ({ ids, timespan, startDate, endDate }) => {
   const startDateStr = startDate || `${timespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
   const dimensionsStr = 'ga:source,ga:country'

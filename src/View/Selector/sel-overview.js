@@ -5,8 +5,12 @@ import DynamicSelector from './Control/dynamic-selector'
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chartContainer = document.getElementById(this.chartContainerId)
-  this.sourceSelector = new DynamicSelector()
-  this.countrySelector = new DynamicSelector()
+  this.sourceSelector = new DynamicSelector({
+    selectorType: 'source',
+  })
+  this.countrySelector = new DynamicSelector({
+    selectorType: 'country',
+  })
   this.selectorList = [
     new TimespanSelector(),
     new DateRangeSelector(),
@@ -29,6 +33,10 @@ Selector.prototype = {
       selector.init({ onSelectorChange: onChangeHandler })
       selector.appendTo(this.chartContainer)
     })
+  },
+  render: function({ source, country }) {
+    this.sourceSelector.render({ options: source })
+    this.countrySelector.render({ options: country })
   },
 }
 
