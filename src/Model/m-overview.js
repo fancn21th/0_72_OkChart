@@ -23,7 +23,7 @@ Model.prototype = {
       const params = queryConvert({ ids, timespan, startDate, endDate })
       this.query.query(params).then(response => {
         let data = dataConvert(response.rows)
-        data.isUpdate = true
+        data.isDataUpdate = true
         events.notify('overview', {
           key: 'overview',
           data,
@@ -41,7 +41,7 @@ Model.prototype = {
         country,
       })
       let data = dataConvert(filteredData)
-      data.isUpdate = true
+      data.isDataUpdate = false
       events.notify('overview', {
         key: 'overview',
         data,
