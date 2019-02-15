@@ -44,6 +44,7 @@ Presenter.prototype = {
             ...data,
           }
           const model = self.models[viewType]
+          // TODO: for now model could be single model entity or a model array
           if (Array.isArray(model)) {
             model.forEach(item => {
               item.fetch(selectorData)
