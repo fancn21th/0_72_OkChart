@@ -30,19 +30,19 @@ PvUvChart.prototype = {
   // function 2: initialization
   init: function() {
     const pvTitleSpan = createSpan({
-      text: 'PV',
+      text: 'PV（日均）',
       className: 'overview-container__title',
     })
     const uvTitleSpan = createSpan({
-      text: 'UV',
+      text: 'UV（日均）',
       className: 'overview-container__title',
     })
     const buyerCountTitleSpan = createSpan({
-      text: '注册买家数',
+      text: '注册买家数（总数）',
       className: 'overview-container__title',
     })
     const supplierCountTitleSpan = createSpan({
-      text: '注册卖家数',
+      text: '注册卖家数（总数）',
       className: 'overview-container__title',
     })
     const content = createUnorderedList({
