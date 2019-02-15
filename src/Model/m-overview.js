@@ -22,7 +22,8 @@ Model.prototype = {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       const params = queryConvert({ ids, timespan, startDate, endDate })
       this.query.query(params).then(response => {
-        const data = dataConvert(response.rows)
+        let data = dataConvert(response.rows)
+        data.isUpdate = true
         events.notify('overview', {
           key: 'overview',
           data,
@@ -39,7 +40,8 @@ Model.prototype = {
         source,
         country,
       })
-      const data = dataConvert(filteredData)
+      let data = dataConvert(filteredData)
+      data.isUpdate = true
       events.notify('overview', {
         key: 'overview',
         data,
