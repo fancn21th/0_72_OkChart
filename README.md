@@ -1,10 +1,12 @@
 # OKCHART
 
-> a chart component for okchem.com
+> a chart component for OKCHEM.com
 
 ## Code Style
 
 - ES2015 with old fashion code
+
+  > say farewell to ES5
 
 - Inheritance
 
@@ -48,6 +50,11 @@
 - Type aka key
   - Key Flow
     - client key -> view and model/models
+
+## Bad Design
+
+- Default Model Query
+  > By default the model send query to `ga` and it is accidentally in consistency with the default state of view selector which is a bad-convention
 
 ## Workflow
 

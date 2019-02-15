@@ -10,8 +10,9 @@ const DynamicSelector = function({ selectorType }) {
 
 DynamicSelector.prototype = {
   init: function({ onSelectorChange }) {
+    const self = this
     this.selector.onchange = function(e) {
-      onSelectorChange({ [this.selectorType]: e.target.value })
+      onSelectorChange({ [self.selectorType]: e.target.value })
     }
   },
   appendTo: function(parentNode) {
