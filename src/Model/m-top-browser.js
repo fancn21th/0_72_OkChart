@@ -9,9 +9,12 @@ const Model = function(query) {
 Model.prototype = {
   fetch: function(selectorData) {
     const params = queryConvert(selectorData)
-    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
+    const { timespan } = selectorData
     this.query.query(params).then(response => {
-      const data = dataConvert(response.rows, timeSpanSelector)
+      const data = dataConvert({
+        collection: response.rows,
+        timespan,
+      })
       events.notify('top-browser', {
         key: 'top-browser',
         data: { data1: data },
