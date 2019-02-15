@@ -27,6 +27,7 @@ const createDate = () => {
   return date
 }
 
+// TODO: remove this method
 const createDiv = id => {
   const divEl = document.createElement('DIV')
   // TODO: css class
