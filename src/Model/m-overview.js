@@ -34,7 +34,11 @@ Model.prototype = {
       })
     } else {
       // otherwise filter data from cache
-      const filteredData = filter(this.lastRows, source, country)
+      const filteredData = filter({
+        collection: this.lastRows,
+        source,
+        country,
+      })
       const data = dataConvert(filteredData)
       events.notify('overview', {
         key: 'overview',
