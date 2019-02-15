@@ -29,14 +29,18 @@ const createDate = () => {
 
 const createDiv = id => {
   const divEl = document.createElement('DIV')
-  divEl.setAttribute('class', 'chart-part')
+  // TODO: css class
+  divEl.setAttribute('class', 'chart-container__diagram')
   divEl.setAttribute('id', id)
   return divEl
 }
 
-const createDiv2 = ({ id }) => {
+const createDiv2 = ({ id, className }) => {
   const div = document.createElement('DIV')
   div.setAttribute('id', id)
+  if (className) {
+    div.setAttribute('class', className)
+  }
   return div
 }
 

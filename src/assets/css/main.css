@@ -24,6 +24,35 @@
   display: none;
 }
 
+/*
+  The okchart css style follow BEM naming convention
+  refer to http://getbem.com/naming/
+
+  please pay strictly attention to the rule defined above
+
+  cheat sheet
+
+    Block
+      .block { color: #042; }
+
+    Element
+      do this
+
+        .block__elem { color: #042; }
+
+      don't do this
+
+        .block .block__elem { color: #042; }
+        div.block__elem { color: #042; }
+
+    Modifier
+
+      .block--hidden { }
+      .block--mod .block__elem { }
+      .block__elem--mod { }
+
+*/
+
 /*  chart style */
 .chart-container {
   width: 100%;
@@ -35,22 +64,23 @@
   margin-bottom: 20px;
 }
 
-.chart-container .chart-part {
+.chart-container__diagram {
   width: 50%;
   float: left;
   min-height: 400px;
 }
 
-.chart-container .container-title {
+.chart-container__title {
   font-size: 18px;
-  padding-top: 10px;
 }
 
+/* TODO: BEM style refactor */
 .chart-container .selector-container {
   padding: 20px 20px;
   font-size: 12px;
 }
 
+/* TODO: BEM style refactor */
 /*  chart selector style */
 .rangeSelect {
   border: 1px solid #e5e5e5;
@@ -64,6 +94,7 @@
   min-width: 120px;
 }
 
+/* TODO: BEM style refactor */
 .dateInput {
   border: 1px solid #e5e5e5;
   outline: none;

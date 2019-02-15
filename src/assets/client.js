@@ -12,10 +12,10 @@ okchart.init({
       type: 'pv-uv',
       container: 'pv-uv-container',
     },
-    // {
-    //     type: 'distribution',
-    //     container: 'distribution-container',
-    // },
+    {
+      type: 'distribution',
+      container: 'distribution-container',
+    },
     // {
     //     type: 'top-browser',
     //     container: 'top-browser-container',
