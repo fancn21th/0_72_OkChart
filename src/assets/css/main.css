@@ -74,6 +74,34 @@
   font-size: 18px;
 }
 
+.overview-container {
+  list-style: none;
+  padding: 0px;
+}
+
+.overview-container__item {
+  display: inline-block;
+  width: 25%;
+  height: 400px;
+  text-align: center;
+  border-left: 1px solid #efefef;
+  line-height: 400px;
+}
+
+.overview-container__item:first-child {
+  border-left: none;
+}
+
+.overview-container__title {
+  display: block;
+  height: 20px;
+}
+
+.overview-container__content {
+  display: block;
+  height: 20px;
+}
+
 /* TODO: BEM style refactor */
 .chart-container .selector-container {
   padding: 20px 20px;

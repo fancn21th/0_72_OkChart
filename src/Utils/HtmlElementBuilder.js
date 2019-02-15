@@ -50,10 +50,13 @@ const createText = ({ text }) => {
   return txt
 }
 
-const createUnorderedList = ({ child, children }) => {
+const createUnorderedList = ({ child, children, className }) => {
   const ul = document.createElement('UL')
   if (child) {
     ul.appendChild(child)
+  }
+  if (className) {
+    ul.setAttribute('class', className)
   }
   if (children) {
     children.forEach(item => {
@@ -63,10 +66,13 @@ const createUnorderedList = ({ child, children }) => {
   return ul
 }
 
-const createUnorderedListItem = ({ child, children }) => {
+const createUnorderedListItem = ({ child, children, className }) => {
   const li = document.createElement('LI')
   if (child) {
     li.appendChild(child)
+  }
+  if (className) {
+    li.setAttribute('class', className)
   }
   if (children) {
     children.forEach(item => {
@@ -76,10 +82,13 @@ const createUnorderedListItem = ({ child, children }) => {
   return li
 }
 
-const createSpan = ({ text }) => {
+const createSpan = ({ text, className }) => {
   const span = document.createElement('SPAN')
   const txt = createText({ text })
   span.appendChild(txt)
+  if (className) {
+    span.setAttribute('class', className)
+  }
   return span
 }
 
