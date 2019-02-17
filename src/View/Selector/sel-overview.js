@@ -1,24 +1,20 @@
 import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
-import DynamicSelector from './Control/dynamic-selector'
 import DynamicMultipleSelector from './Control/dynamic-multiple-selector'
 
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chartContainer = document.getElementById(this.chartContainerId)
-  // this.sourceSelector = new DynamicSelector({
-  //   selectorType: 'source',
-  // })
-  this.sourceSelector2 = new DynamicMultipleSelector({
+  this.sourceSelector = new DynamicMultipleSelector({
     selectorType: 'source',
   })
-  this.countrySelector = new DynamicSelector({
+  this.countrySelector = new DynamicMultipleSelector({
     selectorType: 'country',
   })
   this.selectorList = [
     new TimespanSelector(),
     new DateRangeSelector(),
-    this.sourceSelector2,
+    this.sourceSelector,
     this.countrySelector,
   ]
 }
@@ -39,8 +35,7 @@ Selector.prototype = {
     })
   },
   render: function({ source, country }) {
-    // this.sourceSelector.render({ options: source })
-    this.sourceSelector2.render({ options: source })
+    this.sourceSelector.render({ options: source })
     this.countrySelector.render({ options: country })
   },
 }

@@ -1,5 +1,8 @@
 import { createSelect } from '../../../Utils/HtmlElementBuilder'
-import { updateSelectOptions } from '../../../Utils/HtmlElementHelper'
+import {
+  updateSelectOptions,
+  getSelectedOptions,
+} from '../../../Utils/HtmlElementHelper'
 import uuidv1 from 'uuid/v1'
 
 const DynamicMultipleSelector = function({ selectorType }) {
@@ -19,10 +22,12 @@ DynamicMultipleSelector.prototype = {
   },
   appendTo: function(parentNode) {
     parentNode.appendChild(this.selector)
+    // delay the intialization of real actor of multiple selector to appendTo stage
     $(`#${this.id}`).chosen({ no_results_text: '没有找到输入项' })
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {
-      self.onSelectorChange({ [self.selectorType]: params })
+      const selected = getSelectedOptions(self.selector)
+      self.onSelectorChange({ [self.selectorType]: selected })
     })
   },
   render: function({ options }) {

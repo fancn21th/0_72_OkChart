@@ -1,5 +1,5 @@
 const updateSelectOptions = (select, options) => {
-  var length = select.options.length
+  const length = select.options.length
   for (let i = 0; i < length; i++) {
     select.options[i] = null
   }
@@ -18,4 +18,16 @@ const updateSelectOptions = (select, options) => {
   }
 }
 
-export { updateSelectOptions }
+const getSelectedOptions = select => {
+  const length = select.options.length
+  const selected = []
+  for (let i = 0; i < length; i++) {
+    const item = select.options[i]
+    if (item.selected) {
+      selected.push(item.value)
+    }
+  }
+  return selected
+}
+
+export { updateSelectOptions, getSelectedOptions }
