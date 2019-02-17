@@ -1,7 +1,10 @@
-const createSelect = ({ options, multiple }) => {
+const createSelect = ({ options, id, multiple }) => {
   const select = document.createElement('SELECT')
   // TODO: css class
   select.setAttribute('class', 'rangeSelect')
+  if (id) {
+    select.setAttribute('id', id)
+  }
   if (multiple) {
     select.setAttribute('multiple', 'multiple')
   }
@@ -55,13 +58,13 @@ const createUnorderedList = ({ child, children, className }) => {
   if (child) {
     ul.appendChild(child)
   }
-  if (className) {
-    ul.setAttribute('class', className)
-  }
   if (children) {
     children.forEach(item => {
       ul.appendChild(item)
     })
+  }
+  if (className) {
+    ul.setAttribute('class', className)
   }
   return ul
 }
@@ -71,13 +74,13 @@ const createUnorderedListItem = ({ child, children, className }) => {
   if (child) {
     li.appendChild(child)
   }
-  if (className) {
-    li.setAttribute('class', className)
-  }
   if (children) {
     children.forEach(item => {
       li.appendChild(item)
     })
+  }
+  if (className) {
+    li.setAttribute('class', className)
   }
   return li
 }
