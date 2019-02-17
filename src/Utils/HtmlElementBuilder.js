@@ -1,4 +1,4 @@
-const createSelect = ({ options, id, multiple }) => {
+const createSelect = ({ options, id, multiple, className }) => {
   const select = document.createElement('SELECT')
   // TODO: css class
   select.setAttribute('class', 'rangeSelect')
@@ -7,6 +7,9 @@ const createSelect = ({ options, id, multiple }) => {
   }
   if (multiple) {
     select.setAttribute('multiple', 'multiple')
+  }
+  if (className) {
+    select.setAttribute('class', className)
   }
   if (options) {
     options.forEach(option => {

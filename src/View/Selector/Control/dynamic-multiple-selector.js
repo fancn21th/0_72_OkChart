@@ -7,33 +7,33 @@ const DynamicMultipleSelector = function({ selectorType }) {
   this.selector = createSelect({
     id: this.id,
     multiple: true,
-    options: [
-      {
-        text: 'A',
-        value: 'a',
-        selected: true,
-      },
-      {
-        text: 'B',
-        value: 'b',
-      },
-      {
-        text: 'C',
-        value: 'c',
-      },
-    ],
+    options: [],
   })
   this.selectorType = selectorType
+  this.onSelectorChange = null
 }
 
 DynamicMultipleSelector.prototype = {
-  init: function({ onSelectorChange }) {},
+  init: function({ onSelectorChange }) {
+    this.onSelectorChange = onSelectorChange
+  },
   appendTo: function(parentNode) {
     parentNode.appendChild(this.selector)
     $(`#${this.id}`).chosen({ no_results_text: '没有找到输入项' })
+    const self = this
+    $(`#${this.id}`).on('change', function(evt, params) {
+      self.onSelectorChange({ [self.selectorType]: params })
+    })
   },
   render: function({ options }) {
-    updateSelectOptions(this.selector, options)
+    updateSelectOptions(
+      this.selector,
+      options.map(item => ({
+        ...item,
+        selected: true,
+      }))
+    )
+    $(`#${this.id}`).trigger('chosen:updated')
   },
 }
 

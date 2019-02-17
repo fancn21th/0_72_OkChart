@@ -6,21 +6,20 @@ import DynamicMultipleSelector from './Control/dynamic-multiple-selector'
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chartContainer = document.getElementById(this.chartContainerId)
-  this.sourceSelector = new DynamicSelector({
+  // this.sourceSelector = new DynamicSelector({
+  //   selectorType: 'source',
+  // })
+  this.sourceSelector2 = new DynamicMultipleSelector({
     selectorType: 'source',
   })
   this.countrySelector = new DynamicSelector({
     selectorType: 'country',
   })
-  this.testSelector = new DynamicMultipleSelector({
-    selectorType: 'testType',
-  })
   this.selectorList = [
     new TimespanSelector(),
     new DateRangeSelector(),
-    this.sourceSelector,
+    this.sourceSelector2,
     this.countrySelector,
-    this.testSelector,
   ]
 }
 
@@ -40,7 +39,8 @@ Selector.prototype = {
     })
   },
   render: function({ source, country }) {
-    this.sourceSelector.render({ options: source })
+    // this.sourceSelector.render({ options: source })
+    this.sourceSelector2.render({ options: source })
     this.countrySelector.render({ options: country })
   },
 }
