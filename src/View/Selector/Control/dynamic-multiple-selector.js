@@ -27,6 +27,7 @@ DynamicMultipleSelector.prototype = {
     //
     $(`#${this.id}`).chosen({
       no_results_text: '没有找到输入项',
+      placeholder_text_multiple: '选择或者输入',
     })
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {
@@ -35,13 +36,7 @@ DynamicMultipleSelector.prototype = {
     })
   },
   render: function({ options }) {
-    updateSelectOptions(
-      this.selector,
-      options.map(item => ({
-        ...item,
-        selected: true,
-      }))
-    )
+    updateSelectOptions(this.selector, options)
     $(`#${this.id}`).trigger('chosen:updated')
   },
 }
