@@ -27,7 +27,8 @@ const View = function({ chartContainerId }) {
 
   this.lastTop15 = null
   this.lastTop15DoubleTimespan = null
-  this.complete = false
+  this.drawLastTop15 = false
+  this.drawLastTop15DoubleTimespan = false
 }
 
 inheritPrototype(View, SuperView)
@@ -39,39 +40,34 @@ View.prototype = {
     this.selector.init({ onSelectorChange })
   },
   render: function({ top15, top15DoubleTimespan }) {
-    // TODO: the design below is too complex to understand
-    // fetch top15 first is complete
-    if (top15) {
-      this.chart1.render(top15DataConverter(top15))
-      this.lastTop15 = top15
-      // fetch top15DoubleTimespan is already done
-      if (this.lastTop15DoubleTimespan) {
-        this.chart2.render(
-          top15GrowthDataConverter({
-            top15,
-            lastTop15DoubleTimespan,
-          })
-        )
-        this.complete = true
-      }
+    // TODO: complex process logic, need to be refactor
+    if (top15) this.lastTop15 = top15
+    if (top15DoubleTimespan) this.lastTop15DoubleTimespan = top15DoubleTimespan
+
+    if (!this.drawLastTop15 && this.lastTop15) {
+      this.chart1.render(top15DataConverter(this.lastTop15))
+      this.drawLastTop15 = true
     }
-    // fetch top15DoubleTimespan first is complete
-    else if (top15DoubleTimespan) {
-      if (this.lastTop15) {
-        this.chart2.render(
-          top15GrowthDataConverter({
-            top15: this.lastTop15,
-            top15DoubleTimespan,
-          })
-        )
-        this.lastTop15DoubleTimespan = top15DoubleTimespan
-        this.complete = true
-      }
+
+    if (
+      !this.drawLastTop15DoubleTimespan &&
+      this.lastTop15DoubleTimespan &&
+      this.lastTop15
+    ) {
+      this.chart2.render(
+        top15GrowthDataConverter({
+          top15: this.lastTop15,
+          top15DoubleTimespan: this.lastTop15DoubleTimespan,
+        })
+      )
+      this.drawLastTop15DoubleTimespan = true
     }
-    if (this.complete) {
+
+    if (this.drawLastTop15 && this.drawLastTop15DoubleTimespan) {
       this.lastTop15 = null
       this.lastTop15DoubleTimespan = null
-      this.complete = false
+      this.drawLastTop15 = false
+      this.drawLastTop15DoubleTimespan = false
     }
   },
 }
