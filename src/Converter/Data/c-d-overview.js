@@ -1,4 +1,5 @@
-const convert = collection => {
+import { timespanDiff } from '../../Utils/TimeHelper'
+const convert = ({ collection, timespan, startDate, endDate }) => {
   let pv = 0,
     uv = 0,
     buyerCount = 0,
@@ -7,6 +8,8 @@ const convert = collection => {
     country = [],
     sourceObj = {},
     countryObj = {}
+
+  const days = timespanDiff(timespan || 30, startDate, endDate)
 
   collection.forEach(item => {
     pv += parseInt(item[2], 10)
@@ -20,6 +23,9 @@ const convert = collection => {
       countryObj[item[1]] = true
     }
   })
+
+  pv = Math.round(pv / days)
+  uv = Math.round(uv / days)
 
   // convert source
   Object.keys(sourceObj).forEach(item => {
