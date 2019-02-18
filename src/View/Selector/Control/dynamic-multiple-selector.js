@@ -5,7 +5,7 @@ import {
 } from '../../../Utils/HtmlElementHelper'
 import uuidv1 from 'uuid/v1'
 
-const DynamicMultipleSelector = function({ selectorType }) {
+const DynamicMultipleSelector = function({ selectorType, placeholder }) {
   this.id = uuidv1()
   this.selector = createSelect({
     id: this.id,
@@ -14,6 +14,7 @@ const DynamicMultipleSelector = function({ selectorType }) {
     className: 'dynamic-multiple-selector-container',
   })
   this.selectorType = selectorType
+  this.placeholder = placeholder
   this.onSelectorChange = null
 }
 
@@ -26,8 +27,8 @@ DynamicMultipleSelector.prototype = {
     // delay the initialization of real actor of multiple selector to appendTo stage
     //
     $(`#${this.id}`).chosen({
-      no_results_text: '没有找到输入项',
-      placeholder_text_multiple: '选择或者输入',
+      no_results_text: '没有找到过滤项',
+      placeholder_text_multiple: this.placeholder || '选择或者输入过滤项',
     })
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {

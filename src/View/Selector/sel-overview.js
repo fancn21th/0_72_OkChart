@@ -7,9 +7,11 @@ const Selector = function({ chartContainerId }) {
   this.chartContainer = document.getElementById(this.chartContainerId)
   this.sourceSelector = new DynamicMultipleSelector({
     selectorType: 'source',
+    placeholder: '选择或者输入来源过滤项',
   })
   this.countrySelector = new DynamicMultipleSelector({
     selectorType: 'country',
+    placeholder: '选择或者输入国家过滤项',
   })
   this.selectorList = [
     new TimespanSelector(),
