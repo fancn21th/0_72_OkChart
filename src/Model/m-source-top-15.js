@@ -8,7 +8,7 @@ const Model = function(query) {
 Model.prototype = {
   fetch: function(selectorData) {
     const params = queryConvert(selectorData)
-    const { timespan, startDate, endDate } = selectorData
+    const { timespan, startDate, endDate, pvuv } = selectorData
     this.query.query(params).then(response => {
       events.notify('source-top-15', {
         key: 'source-top-15',
@@ -18,6 +18,7 @@ Model.prototype = {
             timespan,
             startDate,
             endDate,
+            pvuv,
           },
         },
       })

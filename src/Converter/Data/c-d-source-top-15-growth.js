@@ -5,7 +5,7 @@ const convert = ({ top15, top15DoubleTimespan }) => {
   // There is a unknown behavior conducted by ga that sort is not working in consistent manner
   // aka top15DoubleTimespan in wrong order
   // However top15DoubleTimespan is not sort-concern
-  const { collection: top15Collection, timespan, startDate, endDate } = top15
+  const { collection: top15Collection, timespan, startDate, endDate, pvuv } = top15
   const { collection: top15DoubleTimespanCollection } = top15DoubleTimespan
   // TODO: Performance Issue
   const top15DoubleTimespanObj = top15DoubleTimespanCollection.reduce(
