@@ -11,6 +11,7 @@ const DynamicMultipleSelector = function({ selectorType }) {
     id: this.id,
     multiple: true,
     options: [],
+    className: 'dynamic-multiple-selector-container',
   })
   this.selectorType = selectorType
   this.onSelectorChange = null
@@ -22,8 +23,11 @@ DynamicMultipleSelector.prototype = {
   },
   appendTo: function(parentNode) {
     parentNode.appendChild(this.selector)
-    // delay the intialization of real actor of multiple selector to appendTo stage
-    $(`#${this.id}`).chosen({ no_results_text: '没有找到输入项' })
+    // delay the initialization of real actor of multiple selector to appendTo stage
+    //
+    $(`#${this.id}`).chosen({
+      no_results_text: '没有找到输入项',
+    })
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {
       const selected = getSelectedOptions(self.selector)

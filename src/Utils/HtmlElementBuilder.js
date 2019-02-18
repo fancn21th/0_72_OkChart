@@ -1,7 +1,5 @@
 const createSelect = ({ options, id, multiple, className }) => {
   const select = document.createElement('SELECT')
-  // TODO: css class
-  select.setAttribute('class', 'rangeSelect')
   if (id) {
     select.setAttribute('id', id)
   }
@@ -10,17 +8,20 @@ const createSelect = ({ options, id, multiple, className }) => {
   }
   if (className) {
     select.setAttribute('class', className)
+  } else {
+    // TODO: css class
+    select.setAttribute('class', 'rangeSelect')
   }
   if (options) {
-    options.forEach(option => {
-      const z = document.createElement('option')
-      z.setAttribute('value', option.value)
-      if (option.selected) {
-        z.setAttribute('selected', 'selected')
+    options.forEach(item => {
+      const option = document.createElement('option')
+      option.setAttribute('value', item.value)
+      if (item.selected) {
+        option.setAttribute('selected', 'selected')
       }
-      var t = document.createTextNode(option.text)
-      z.appendChild(t)
-      select.appendChild(z)
+      var t = document.createTextNode(item.text)
+      option.appendChild(t)
+      select.appendChild(option)
     })
   }
   return select
