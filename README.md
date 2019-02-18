@@ -54,7 +54,11 @@
 ## Bad Design
 
 - Default Model Query
+
   > By default the model send query to `ga` and it is accidentally in consistency with the default state of view selector which is a bad-convention
+
+- Complex Data Flow
+  - Selector -> Query -> Model -> Raw Data -> Chart Data -> Chart
 
 ## Workflow
 
@@ -74,6 +78,7 @@
       - query
 
   - Update
+
     - assets
       - client.js
       - index.html
@@ -83,6 +88,20 @@
     - css
       > BEM
       - selector control style
+
+  - Verification (optional)
+
+    - Check With Diagram
+
+      - URL - https://analytics.google.com/analytics/web
+
+      - Customization 自定义
+
+        - Dashboards 信息中心 (Custom Goal)
+
+    - Check With Pure Data
+
+      - URL - https://ga-dev-tools.appspot.com/query-explorer/
 
 ## Detailed Design
 
@@ -132,19 +151,6 @@
       - Metrics & Dimesions
 
         - URL - https://developers.google.com/analytics/devguides/reporting/core/dimsmets
-
-      - Verification (optional)
-        - Check With Diagram
-
-          - URL - https://analytics.google.com/analytics/web
-
-          - Customization 自定义
-
-            - Dashboards 信息中心 (Custom Goal)
-
-        - Check With Pure Data
-
-          - URL - https://ga-dev-tools.appspot.com/query-explorer/
 
 - Converter
   - data
