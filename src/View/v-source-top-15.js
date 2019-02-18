@@ -27,6 +27,7 @@ const View = function({ chartContainerId }) {
 
   this.lastTop15 = null
   this.lastTop15DoubleTimespan = null
+  this.complete = false
 }
 
 inheritPrototype(View, SuperView)
@@ -49,6 +50,7 @@ View.prototype = {
             lastTop15DoubleTimespan,
           })
         )
+        this.complete = true
       }
     }
     if (top15DoubleTimespan) {
@@ -60,7 +62,13 @@ View.prototype = {
           })
         )
         this.top15DoubleTimespan = top15DoubleTimespan
+        this.complete = true
       }
+    }
+    if (this.complete) {
+      this.lastTop15 = null
+      this.lastTop15DoubleTimespan = null
+      this.complete = false
     }
   },
 }

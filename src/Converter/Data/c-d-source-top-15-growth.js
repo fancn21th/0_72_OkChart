@@ -1,9 +1,11 @@
+import { timespanDiff } from '../../Utils/TimeHelper'
+
 const convert = ({ top15, top15DoubleTimespan }) => {
   // TODO: CAUTION
   // There is a unknown behavior conducted by ga that sort is not working in consistent manner
   // aka top15DoubleTimespan in wrong order
   // However top15DoubleTimespan is not sort-concern
-  const { collection: top15Collection } = top15
+  const { collection: top15Collection, timespan, startDate, endDate } = top15
   const { collection: top15DoubleTimespanCollection } = top15DoubleTimespan
   // TODO: Performance Issue
   const top15DoubleTimespanObj = top15DoubleTimespanCollection.reduce(
@@ -14,8 +16,11 @@ const convert = ({ top15, top15DoubleTimespan }) => {
     },
     {}
   )
+  const days = timespanDiff(timespan || 30, startDate, endDate)
   return top15Collection.slice(0, 15).map(item => {
-    const value = parseInt(item[1], 10) * 2 - top15DoubleTimespanObj[item[0]]
+    const value = Math.round(
+      (parseInt(item[1], 10) * 2 - top15DoubleTimespanObj[item[0]]) / days
+    )
     return {
       item: item[0],
       value,
