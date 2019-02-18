@@ -40,9 +40,11 @@ View.prototype = {
   },
   render: function({ top15, top15DoubleTimespan }) {
     // TODO: the design below is too complex to understand
+    // fetch top15 first is complete
     if (top15) {
       this.chart1.render(top15DataConverter(top15))
       this.lastTop15 = top15
+      // fetch top15DoubleTimespan is already done
       if (this.lastTop15DoubleTimespan) {
         this.chart2.render(
           top15GrowthDataConverter({
@@ -53,7 +55,8 @@ View.prototype = {
         this.complete = true
       }
     }
-    if (top15DoubleTimespan) {
+    // fetch top15DoubleTimespan first is complete
+    else if (top15DoubleTimespan) {
       if (this.lastTop15) {
         this.chart2.render(
           top15GrowthDataConverter({
@@ -61,7 +64,7 @@ View.prototype = {
             top15DoubleTimespan,
           })
         )
-        this.top15DoubleTimespan = top15DoubleTimespan
+        this.lastTop15DoubleTimespan = top15DoubleTimespan
         this.complete = true
       }
     }
