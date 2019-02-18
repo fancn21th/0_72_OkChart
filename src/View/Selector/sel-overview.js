@@ -1,14 +1,14 @@
 import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
-import DynamicSelector from './Control/dynamic-selector'
+import DynamicMultipleSelector from './Control/dynamic-multiple-selector'
 
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chartContainer = document.getElementById(this.chartContainerId)
-  this.sourceSelector = new DynamicSelector({
+  this.sourceSelector = new DynamicMultipleSelector({
     selectorType: 'source',
   })
-  this.countrySelector = new DynamicSelector({
+  this.countrySelector = new DynamicMultipleSelector({
     selectorType: 'country',
   })
   this.selectorList = [
