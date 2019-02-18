@@ -26,8 +26,8 @@ DynamicMultipleSelector.prototype = {
     // delay the initialization of real actor of multiple selector to appendTo stage
     //
     $(`#${this.id}`).chosen({
-      no_results_text: '没有找到输入项',
-      placeholder_text_multiple: '选择或者输入',
+      no_results_text: '没有找到过滤项',
+      placeholder_text_multiple: '选择或者输入过滤项',
     })
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {
