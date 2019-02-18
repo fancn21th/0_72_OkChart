@@ -40,7 +40,7 @@ View.prototype = {
     this.selector.init({ onSelectorChange })
   },
   render: function({ top15, top15DoubleTimespan }) {
-    // TODO: complex process logic, need to be refactor
+    // TODO: complex process logic, consider to refactor
     if (top15) this.lastTop15 = top15
     if (top15DoubleTimespan) this.lastTop15DoubleTimespan = top15DoubleTimespan
 

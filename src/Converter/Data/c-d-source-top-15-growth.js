@@ -1,10 +1,6 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
 const convert = ({ top15, top15DoubleTimespan }) => {
-  // TODO: CAUTION
-  // There is a unknown behavior conducted by ga that sort is not working in consistent manner
-  // aka top15DoubleTimespan in wrong order
-  // However top15DoubleTimespan is not sort-concern
   const {
     collection: top15Collection,
     timespan,
