@@ -1,6 +1,9 @@
 const filter = ({ collection, source, country }) => {
   return collection.filter(item => {
-    return item[0] === source || item[1] === country
+    return (
+      (!source || source.length === 0 || source.includes(item[0])) &&
+      (!country || country.length === 0 || country.includes(item[1]))
+    )
   })
 }
 

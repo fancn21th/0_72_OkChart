@@ -1,20 +1,27 @@
-const createSelect = ({ options, multiple }) => {
+const createSelect = ({ options, id, multiple, className }) => {
   const select = document.createElement('SELECT')
-  // TODO: css class
-  select.setAttribute('class', 'rangeSelect')
+  if (id) {
+    select.setAttribute('id', id)
+  }
   if (multiple) {
     select.setAttribute('multiple', 'multiple')
   }
+  if (className) {
+    select.setAttribute('class', className)
+  } else {
+    // TODO: css class
+    select.setAttribute('class', 'rangeSelect')
+  }
   if (options) {
-    options.forEach(option => {
-      const z = document.createElement('option')
-      z.setAttribute('value', option.value)
-      if (option.selected) {
-        z.setAttribute('selected', 'selected')
+    options.forEach(item => {
+      const option = document.createElement('option')
+      option.setAttribute('value', item.value)
+      if (item.selected) {
+        option.setAttribute('selected', 'selected')
       }
-      var t = document.createTextNode(option.text)
-      z.appendChild(t)
-      select.appendChild(z)
+      var t = document.createTextNode(item.text)
+      option.appendChild(t)
+      select.appendChild(option)
     })
   }
   return select
@@ -55,13 +62,13 @@ const createUnorderedList = ({ child, children, className }) => {
   if (child) {
     ul.appendChild(child)
   }
-  if (className) {
-    ul.setAttribute('class', className)
-  }
   if (children) {
     children.forEach(item => {
       ul.appendChild(item)
     })
+  }
+  if (className) {
+    ul.setAttribute('class', className)
   }
   return ul
 }
@@ -71,13 +78,13 @@ const createUnorderedListItem = ({ child, children, className }) => {
   if (child) {
     li.appendChild(child)
   }
-  if (className) {
-    li.setAttribute('class', className)
-  }
   if (children) {
     children.forEach(item => {
       li.appendChild(item)
     })
+  }
+  if (className) {
+    li.setAttribute('class', className)
   }
   return li
 }

@@ -134,12 +134,17 @@
         - URL - https://developers.google.com/analytics/devguides/reporting/core/dimsmets
 
       - Verification (optional)
+        - Check With Diagram
 
-        - URL - https://analytics.google.com/analytics/web
+          - URL - https://analytics.google.com/analytics/web
 
-        - Customization 自定义
+          - Customization 自定义
 
-          - Dashboards 信息中心
+            - Dashboards 信息中心 (Custom Goal)
+
+        - Check With Pure Data
+
+          - URL - https://ga-dev-tools.appspot.com/query-explorer/
 
 - Converter
   - data

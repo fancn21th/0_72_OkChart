@@ -1,13 +1,14 @@
-import OkChart from './OkChart'
+// chosen is a 3rd party multiple selection control
+import './assets/css/chosen.css'
 import './assets/css/main.css'
-
-;
-(function (win, doc) {
-  const loadGoogleApi = (function (w, d, s, g, js, fs) {
+import 'chosen-js'
+import OkChart from './OkChart'
+;(function(win, doc) {
+  const loadGoogleApi = function(w, d, s, g, js, fs) {
     g = w.gapi || (w.gapi = {})
     g.analytics = {
       q: [],
-      ready: function (f) {
+      ready: function(f) {
         this.q.push(f)
       },
     }
@@ -15,11 +16,11 @@ import './assets/css/main.css'
     fs = d.getElementsByTagName(s)[0]
     js.src = 'https://apis.google.com/js/platform.js'
     fs.parentNode.insertBefore(js, fs)
-    js.onload = function () {
+    js.onload = function() {
       g.load('analytics')
     }
-  }).bind(null, win, doc, 'script')
+  }.bind(null, win, doc, 'script')
   win.okchart = new OkChart({
-    willMount: loadGoogleApi
+    willMount: loadGoogleApi,
   })
 })(window, document)

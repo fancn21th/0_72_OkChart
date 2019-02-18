@@ -102,6 +102,13 @@
   height: 20px;
 }
 
+/* selector */
+
+/* dynamic multiple selector with chosen.js */
+.dynamic-multiple-selector-container {
+  width: 350px;
+}
+
 /* TODO: BEM style refactor */
 .chart-container .selector-container {
   padding: 20px 20px;
