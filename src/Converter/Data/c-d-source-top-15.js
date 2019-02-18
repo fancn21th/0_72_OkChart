@@ -1,6 +1,8 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
+
 const convert = ({ collection, timespan, startDate, endDate, pvuv }) => {
-  const top15 = collection.reverse().slice(0, 15)
+  // TODO: must not use mutate array method
+  const top15 = collection.slice(0, 15)
   const isUvDividedByPV = pvuv === 'ga:pageviews,ga:users'
   const days = timespanDiff(timespan || 30, startDate, endDate)
   return top15.map(item => {

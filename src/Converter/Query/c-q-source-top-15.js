@@ -13,7 +13,10 @@ const convert = ({ ids, timespan, startDate, endDate, pvuv, isDouble }) => {
     dimensions: dimensionsStr,
     'start-date': startDateStr,
     'end-date': endDateStr,
-    sort: metricsStr === 'ga:pageviews,ga:users' ? 'ga:pageviews' : metricsStr,
+    sort:
+      metricsStr === '-ga:pageviews,ga:users'
+        ? '-ga:pageviews'
+        : `-${metricsStr}`,
   }
   return param
 }
