@@ -12,13 +12,17 @@ Model.prototype = {
   fetch: function(selectorData) {
     const params1 = topBrowserQueryConvert(selectorData)
     const params2 = borwserGrowthQueryConvert(selectorData)
+    const { timespan } = selectorData
     const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
     const self = this
     let distribution = null
     self.query
       .query(params1)
       .then(response => {
-        distribution = topBrowserDataConvert(response.rows, timeSpanSelector)
+        distribution = topBrowserDataConvert({
+          collection: response.rows,
+          timespan,
+        })
         return self.query.query(params2)
       })
       .then(response => {

@@ -3,6 +3,7 @@ import events from '../Utils/events'
 const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
+  // cache selector data for each view by default
   this.selectorData = {}
   this.ids = null
 }
@@ -43,6 +44,7 @@ Presenter.prototype = {
             ...data,
           }
           const model = self.models[viewType]
+          // TODO: for now model could be single model entity or a model array
           if (Array.isArray(model)) {
             model.forEach(item => {
               item.fetch(selectorData)

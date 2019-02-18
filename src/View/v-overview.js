@@ -17,17 +17,28 @@ View.prototype = {
     this.chart.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function({ pv, uv, buyerCount, supplierCount, source, country }) {
+  render: function({
+    pv,
+    uv,
+    buyerCount,
+    supplierCount,
+    source,
+    country,
+    isDataUpdate,
+  }) {
     this.chart.render({
       pv,
       uv,
       buyerCount,
       supplierCount,
     })
-    this.selector.render({
-      source,
-      country,
-    })
+    // no need to update selector when fetching data from cache
+    if (isDataUpdate) {
+      this.selector.render({
+        source,
+        country,
+      })
+    }
   },
 }
 

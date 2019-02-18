@@ -13,6 +13,7 @@ function SuperView({ chartContainerId, title }) {
   })
   this.titleWrapper = createDiv2({
     id: this.titleWrapperId,
+    className: 'chart-container__title',
   })
   this.titleWrapper.appendChild(
     createText({

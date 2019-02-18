@@ -1,6 +1,6 @@
 import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
-import PvuvSelector from './Control/pvuv-selector'
+import PvuvPuSelector from './Control/pvuv-pu-selector'
 
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
@@ -8,7 +8,7 @@ const Selector = function({ chartContainerId }) {
   this.selectorList = [
     new TimespanSelector(),
     new DateRangeSelector(),
-    new PvuvSelector(),
+    new PvuvPuSelector(),
   ]
 }
 
