@@ -1,6 +1,7 @@
 import events from '../Utils/events'
 import convert from '../Converter/Data/c-d-buyers-regist-distribution'
 import queryConvert from '../Converter/Query/c-q-buyers-regist-distribution'
+
 const Model = function(query) {
   this.query = query
 }

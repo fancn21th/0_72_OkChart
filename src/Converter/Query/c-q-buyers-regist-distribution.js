@@ -1,5 +1,18 @@
-const convert = ({ ids, timespan, startDate, endDate, countryBrowser }) => {
-  const startDateStr = startDate || `${timespan || '30'}daysAgo`
+const convert = ({
+  ids,
+  timespan,
+  startDate,
+  endDate,
+  countryBrowser,
+  isDouble,
+}) => {
+  // TODO: double start date is not ready
+  const doubleStartDate = isDouble ? startDate : startDate
+  const doubleTimespan = isDouble
+    ? parseInt(timespan || '30', 10) * 2
+    : timespan
+
+  const startDateStr = doubleStartDate || `${doubleTimespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
   const dimensionsStr = countryBrowser || `ga:source`
   const param = {
