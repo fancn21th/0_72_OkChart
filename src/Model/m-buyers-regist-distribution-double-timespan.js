@@ -11,17 +11,12 @@ Model.prototype = {
       ...selectorData,
       isDouble: true,
     })
-    const { timespan, startDate, endDate, countryBrowser } = selectorData
     this.query.query(params).then(response => {
       events.notify('buyers-regist-distribution', {
         key: 'buyers-regist-distribution',
         data: {
           distributionDoubleTimespan: {
             collection: response.rows,
-            timespan,
-            startDate,
-            endDate,
-            countryBrowser,
           },
         },
       })
