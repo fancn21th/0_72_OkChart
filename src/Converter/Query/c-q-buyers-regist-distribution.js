@@ -26,7 +26,7 @@ const convert = ({
   // metrics and dimension
   metricsStr = 'ga:goal12Completions'
   dimensionsStr = countryBrowser || `ga:source`
-  sortStr = 'ga:goal12Completions'
+  sortStr = '-ga:goal12Completions'
 
   const param = {
     ids,
