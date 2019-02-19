@@ -3,7 +3,6 @@ import userGrowthDataConvert from '../Converter/Data/c-d-user-growth'
 import userGrowthQueryConvert from '../Converter/Query/c-q-user-growth'
 import distributionDataConvert from '../Converter/Data/c-d-distribution'
 import distributionQueryConvert from '../Converter/Query/c-q-distribution'
-import { resolve } from 'path'
 
 const Model = function(query) {
   this.query = query
