@@ -8,7 +8,7 @@ const convert = ({
   countryBrowser,
   isDouble,
 }) => {
-  let startDateStr, endDateStr, metricsStr, dimensionsStr
+  let startDateStr, endDateStr, metricsStr, dimensionsStr, sortStr
 
   if (isDouble) {
     timespan = parseInt(timespan || '30', 10) * 2
@@ -26,6 +26,7 @@ const convert = ({
   // metrics and dimension
   metricsStr = 'ga:goal12Completions'
   dimensionsStr = countryBrowser || `ga:source`
+  sortStr = 'ga:goal12Completions'
 
   const param = {
     ids,
@@ -33,7 +34,7 @@ const convert = ({
     dimensions: dimensionsStr,
     'start-date': startDateStr,
     'end-date': endDateStr,
-    sort: 'ga:goal12Completions',
+    sort: sortStr,
   }
   return param
 }
