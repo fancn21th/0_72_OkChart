@@ -47,8 +47,10 @@ const config = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {},
+            loader: 'url-loader',
+            options: {
+              fallback: 'file-loader',
+            },
           },
         ],
       },

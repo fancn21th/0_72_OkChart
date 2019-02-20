@@ -1,4 +1,5 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
+
 const convert = ({ collection, timespan, startDate, endDate }) => {
   let pv = 0,
     uv = 0,

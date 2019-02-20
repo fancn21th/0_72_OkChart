@@ -25,6 +25,7 @@ const convert = ({ top15, top15DoubleTimespan }) => {
   )
   const days = timespanDiff(timespan || 30, startDate, endDate)
   // growth data is mainly based on top 15 of data of pageviews
+  // TOOD: logic is too complex, consider to refactor
   return top15Collection.slice(0, 15).map(item => {
     const currentPvOrUv = parseInt(item[1] || 0, 10)
     const currentUv = isUvDividedByPV ? parseInt(item[2] || 0, 10) : undefined

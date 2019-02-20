@@ -49,13 +49,16 @@ Model.prototype = {
     if (
       this.isExpectingUpdate({ timespan, startDate, endDate, countryBrowser })
     ) {
-      const params = queryConvert(selectorData)
+      const params = queryConvert({
+        ...selectorData,
+        isDouble: true,
+      })
       this.query.query(params).then(response => {
         const collection = response.rows
         events.notify('buyers-regist-distribution', {
           key: 'buyers-regist-distribution',
           data: {
-            distribution: {
+            distributionDoubleTimespan: {
               collection,
               isDataUpdate: true,
             },
@@ -77,7 +80,7 @@ Model.prototype = {
       events.notify('buyers-regist-distribution', {
         key: 'buyers-regist-distribution',
         data: {
-          distribution: {
+          distributionDoubleTimespan: {
             collection: filteredData,
             isDataUpdate: false,
           },

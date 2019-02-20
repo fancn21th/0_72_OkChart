@@ -1,6 +1,6 @@
 import SuperView, { inheritPrototype } from './Base/SuperView'
 import SourceTop15Chart from './Chart/c-source-top-15'
-import SourceTop15Growth from './Chart/c-source-top-15-growth'
+import SourceTop15GrowthChart from './Chart/c-source-top-15-growth'
 import SourceTop15Selector from './Selector/sel-source-top-15'
 import { createDiv } from '../Utils/HtmlElementBuilder'
 import top15DataConverter from '../Converter/Data/c-d-source-top-15'
@@ -19,7 +19,7 @@ const View = function({ chartContainerId }) {
   chartWrapper.appendChild(chartContainer2)
 
   this.chart1 = new SourceTop15Chart({ chartContainerId: chartId1 })
-  this.chart2 = new SourceTop15Growth({ chartContainerId: chartId2 })
+  this.chart2 = new SourceTop15GrowthChart({ chartContainerId: chartId2 })
 
   this.selector = new SourceTop15Selector({
     chartContainerId: this.selectorWrapperId,
@@ -28,7 +28,7 @@ const View = function({ chartContainerId }) {
   this.lastTop15 = null
   this.lastTop15DoubleTimespan = null
   this.drawLastTop15 = false
-  this.drawLastTop15DoubleTimespan = false
+  this.drawLastTop15Growth = false
 }
 
 inheritPrototype(View, SuperView)
@@ -50,7 +50,7 @@ View.prototype = {
     }
 
     if (
-      !this.drawLastTop15DoubleTimespan &&
+      !this.drawLastTop15Growth &&
       this.lastTop15DoubleTimespan &&
       this.lastTop15
     ) {
@@ -60,14 +60,14 @@ View.prototype = {
           top15DoubleTimespan: this.lastTop15DoubleTimespan,
         })
       )
-      this.drawLastTop15DoubleTimespan = true
+      this.drawLastTop15Growth = true
     }
 
-    if (this.drawLastTop15 && this.drawLastTop15DoubleTimespan) {
+    if (this.drawLastTop15 && this.drawLastTop15Growth) {
       this.lastTop15 = null
       this.lastTop15DoubleTimespan = null
       this.drawLastTop15 = false
-      this.drawLastTop15DoubleTimespan = false
+      this.drawLastTop15Growth = false
     }
   },
 }

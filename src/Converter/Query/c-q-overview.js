@@ -1,7 +1,7 @@
 const convert = ({ ids, timespan, startDate, endDate }) => {
   const startDateStr = startDate || `${timespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
-  const dimensionsStr = 'ga:source,ga:country'
+  const dimensionsStr = 'ga:channelGrouping,ga:country'
   const param = {
     ids,
     // uv, pv, user count, supplier count
