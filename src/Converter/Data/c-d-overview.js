@@ -1,4 +1,5 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
+
 const convert = ({ collection, timespan, startDate, endDate }) => {
   let pv = 0,
     uv = 0,
@@ -24,6 +25,7 @@ const convert = ({ collection, timespan, startDate, endDate }) => {
     }
   })
 
+  // TODO: uncomment after diagnosis
   // pv = Math.round(pv / days)
   // uv = Math.round(uv / days)
 
