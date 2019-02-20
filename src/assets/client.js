@@ -16,10 +16,10 @@ okchart.init({
     //   type: 'distribution',
     //   container: 'distribution-container',
     // },
-    // {
-    //   type: 'source-top-15',
-    //   container: 'source-top-15-container',
-    // },
+    {
+      type: 'source-top-15',
+      container: 'source-top-15-container',
+    },
     // {
     //   type: 'buyers-regist',
     //   container: 'buyers-regist-container',

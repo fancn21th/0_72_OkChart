@@ -60,7 +60,7 @@ View.prototype = {
           top15DoubleTimespan: this.lastTop15DoubleTimespan,
         })
       )
-      this.drawLastTop15DoubleTimespan = true
+      this.drawLastTop15Growth = true
     }
 
     if (this.drawLastTop15 && this.drawLastTop15Growth) {
