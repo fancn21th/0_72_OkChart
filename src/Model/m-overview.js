@@ -24,7 +24,7 @@ Model.prototype = {
     this.lastTimespan = timespan
     this.lastStartDate = startDate
     this.lastEndDate = endDate
-    this.lastRows = collection
+    this.lastCollection = collection
   },
   fetch: function({ ids, timespan, startDate, endDate, source, country }) {
     if (this.isExpectingUpdate({ timespan, startDate, endDate })) {
