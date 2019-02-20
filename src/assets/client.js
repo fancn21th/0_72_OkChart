@@ -4,10 +4,10 @@ okchart.init({
   authContainer: 'embed-api-auth-container',
   viewSelector: 'view-selector-container',
   charts: [
-    {
-      type: 'overview',
-      container: 'overview-container',
-    },
+    // {
+    //   type: 'overview',
+    //   container: 'overview-container',
+    // },
     // {
     //   type: 'pv-uv',
     //   container: 'pv-uv-container',

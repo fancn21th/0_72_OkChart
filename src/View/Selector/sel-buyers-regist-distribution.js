@@ -8,7 +8,7 @@ const Selector = function({ chartContainerId }) {
   this.chartContainer = document.getElementById(this.chartContainerId)
   this.sourceCountrySelector = new DynamicMultipleSelector({
     selectorType: 'sourceCountry',
-    placeholder: '选择或者输入来源过滤项',
+    placeholder: '选择或者输入渠道/国家过滤项',
   })
   this.selectorList = [
     new TimespanSelector(),
@@ -30,8 +30,10 @@ Selector.prototype = {
       selector.appendTo(this.chartContainer)
     })
   },
-  render: function({ sourceCountry }) {
-    this.sourceCountrySelector.render({ options: sourceCountry })
+  render: function({ sourceCountryFilterCollection }) {
+    this.sourceCountrySelector.render({
+      options: sourceCountryFilterCollection,
+    })
   },
 }
 

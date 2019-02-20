@@ -1,11 +1,11 @@
 const convert = ({ collection }) => {
   // 全部的总数
   let totalCount = 0,
-    sourceCountry = []
+    sourceCountryFilterCollection = []
 
   collection.forEach(item => {
     totalCount += parseInt(item[1], 10)
-    sourceCountry.push({
+    sourceCountryFilterCollection.push({
       text: item[0],
       value: item[0],
     })
@@ -17,7 +17,7 @@ const convert = ({ collection }) => {
       count: parseInt(item[1], 10),
       percent: parseInt(item[1], 10) / totalCount,
     })),
-    sourceCountry,
+    sourceCountryFilterCollection,
   }
 }
 

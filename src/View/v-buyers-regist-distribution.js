@@ -49,9 +49,11 @@ View.prototype = {
 
     if (!this.drawLastBuyerDistribution && this.lastBuyerDistribution) {
       const data = buyerDistributionDataConverter(this.lastBuyerDistribution)
-      const { distribution, sourceCountry } = data
+      const { distribution, sourceCountryFilterCollection } = data
       this.chart1.render(distribution)
-      this.selector.render({ sourceCountry })
+      if (this.lastBuyerDistribution.isDataUpdate) {
+        this.selector.render({ sourceCountryFilterCollection })
+      }
       this.drawLastBuyerDistribution = true
     }
 

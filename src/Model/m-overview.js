@@ -5,25 +5,35 @@ import filter from '../Filter/Data/f-d-overview'
 
 const Model = function(query) {
   this.query = query
+  // by default the selector data is cached in presenter
   this.lastTimespan = null
   this.lastStartDate = null
   this.lastEndDate = null
-  this.lastRows = null
+  this.lastCollection = null
 }
 
 Model.prototype = {
-  fetch: function({ ids, timespan, startDate, endDate, source, country }) {
-    // by default the selector data is cached in presenter
-    if (
+  isExpectingUpdate: function({ timespan, startDate, endDate }) {
+    return (
       timespan !== this.lastTimespan ||
       startDate !== this.lastStartDate ||
       endDate !== this.lastEndDate
-    ) {
+    )
+  },
+  cacheQueryParams: function({ timespan, startDate, endDate, collection }) {
+    this.lastTimespan = timespan
+    this.lastStartDate = startDate
+    this.lastEndDate = endDate
+    this.lastRows = collection
+  },
+  fetch: function({ ids, timespan, startDate, endDate, source, country }) {
+    if (this.isExpectingUpdate({ timespan, startDate, endDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       const params = queryConvert({ ids, timespan, startDate, endDate })
       this.query.query(params).then(response => {
+        const collection = response.rows
         let data = dataConvert({
-          collection: response.rows,
+          collection,
           timespan,
           startDate,
           endDate,
@@ -33,15 +43,17 @@ Model.prototype = {
           key: 'overview',
           data,
         })
-        this.lastTimespan = timespan
-        this.lastStartDate = startDate
-        this.lastEndDate = endDate
-        this.lastRows = response.rows
+        this.cacheQueryParams({
+          timespan,
+          startDate,
+          endDate,
+          collection,
+        })
       })
     } else {
       // otherwise filter data from cache
       const filteredData = filter({
-        collection: this.lastRows,
+        collection: this.lastCollection,
         source,
         country,
       })
