@@ -1,8 +1,5 @@
 import events from '../Utils/events'
-import userGrowthDataConvert from '../Converter/Data/c-d-user-growth'
-import userGrowthQueryConvert from '../Converter/Query/c-q-user-growth'
-import distributionDataConvert from '../Converter/Data/c-d-distribution'
-import distributionQueryConvert from '../Converter/Query/c-q-distribution'
+import queryConvert from '../Converter/Query/c-q-distribution'
 
 const Model = function(query) {
   this.query = query
@@ -10,28 +7,26 @@ const Model = function(query) {
 
 Model.prototype = {
   fetch: function(selectorData) {
-    const params1 = distributionQueryConvert(selectorData)
-    const params2 = userGrowthQueryConvert(selectorData)
-    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
-    const self = this
-    let distribution = null
-    self.query
-      .query(params1)
-      .then(response => {
-        distribution = distributionDataConvert(response.rows, timeSpanSelector)
-        return self.query.query(params2)
+    const params = queryConvert({
+      ...selectorData,
+      isDouble: true,
+    })
+    const { timespan, startDate, endDate, pvuv, countryBrowser } = selectorData
+    this.query.query(params).then(response => {
+      events.notify('distribution', {
+        key: 'distribution',
+        data: {
+          top15DoubleTimespan: {
+            collection: response.rows,
+            timespan,
+            startDate,
+            endDate,
+            pvuv,
+            countryBrowser,
+          },
+        },
       })
-      .then(response => {
-        const userGrowth = userGrowthDataConvert(
-          response.rows,
-          distribution,
-          timeSpanSelector
-        )
-        events.notify('distribution', {
-          key: 'distribution',
-          data: { data2: userGrowth },
-        })
-      })
+    })
   },
 }
 

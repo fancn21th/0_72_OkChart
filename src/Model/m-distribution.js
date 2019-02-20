@@ -1,5 +1,4 @@
 import events from '../Utils/events'
-import dataConvert from '../Converter/Data/c-d-distribution'
 import queryConvert from '../Converter/Query/c-q-distribution'
 
 const Model = function(query) {
@@ -9,12 +8,20 @@ const Model = function(query) {
 Model.prototype = {
   fetch: function(selectorData) {
     const params = queryConvert(selectorData)
-    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
+    const { timespan, startDate, endDate, pvuv, countryBrowser } = selectorData
     this.query.query(params).then(response => {
-      const data = dataConvert(response.rows, timeSpanSelector)
       events.notify('distribution', {
         key: 'distribution',
-        data: { data1: data },
+        data: {
+          top15: {
+            collection: response.rows,
+            timespan,
+            startDate,
+            endDate,
+            pvuv,
+            countryBrowser,
+          }
+        },
       })
     })
   },
