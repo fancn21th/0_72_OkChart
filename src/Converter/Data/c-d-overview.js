@@ -25,9 +25,8 @@ const convert = ({ collection, timespan, startDate, endDate }) => {
     }
   })
 
-  // TODO: uncomment after diagnosis
-  // pv = Math.round(pv / days)
-  // uv = Math.round(uv / days)
+  pv = Math.round(pv / days)
+  uv = Math.round(uv / days)
 
   // convert source
   Object.keys(sourceObj).forEach(item => {
