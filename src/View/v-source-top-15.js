@@ -67,7 +67,7 @@ View.prototype = {
       this.lastTop15 = null
       this.lastTop15DoubleTimespan = null
       this.drawLastTop15 = false
-      this.drawLastTop15DoubleTimespan = false
+      this.drawLastTop15Growth = false
     }
   },
 }
