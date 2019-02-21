@@ -6,8 +6,9 @@ const dateDiff = (startDate, endDate) => {
 }
 
 const timespanDiff = (timespan, startDate, endDate) => {
-  if (startDate && endDate) return dateDiff(startDate, endDate)
-  return timespan
+  if (startDate && endDate)
+    return dateDiff(startDate, endDate) + (startDate !== endDate ? 1 : 0)
+  return timespan + 1
 }
 
 const doubleTimespanStartDate = (startDate, endDate) => {
