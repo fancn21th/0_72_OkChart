@@ -12,18 +12,26 @@ const Model = function(query) {
 }
 
 Model.prototype = {
-  isExpectingUpdate: function({ timespan, startDate, endDate }) {
+  isExpectingUpdate: function({ timespan, startDate, endDate, workingDate }) {
     return (
       timespan !== this.lastTimespan ||
       startDate !== this.lastStartDate ||
-      endDate !== this.lastEndDate
+      endDate !== this.lastEndDate ||
+      workingDate !== this.workingDate
     )
   },
-  cacheQueryParams: function({ timespan, startDate, endDate, collection }) {
+  cacheQueryParams: function({
+    timespan,
+    startDate,
+    endDate,
+    collection,
+    workingDate,
+  }) {
     this.lastTimespan = timespan
     this.lastStartDate = startDate
     this.lastEndDate = endDate
     this.lastCollection = collection
+    this.lastWorkingDate = workingDate
   },
   fetch: function({
     timespan,
@@ -31,9 +39,10 @@ Model.prototype = {
     endDate,
     source,
     country,
+    workingDate,
     queryParams,
   }) {
-    if (this.isExpectingUpdate({ timespan, startDate, endDate })) {
+    if (this.isExpectingUpdate({ timespan, startDate, endDate, workingDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       this.query.query(queryParams).then(response => {
         const collection = response.rows
@@ -53,6 +62,7 @@ Model.prototype = {
           startDate,
           endDate,
           collection,
+          workingDate,
         })
       })
     } else {

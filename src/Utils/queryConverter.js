@@ -4,9 +4,13 @@ const defaultConvertFunctions = {
   sort: () => null,
   dimensions: ({ workingDate, dimensions }) => {
     if (workingDate) {
-      return `ga:date,${dimensions}`
+      return {
+        dimensions: `ga:date,${dimensions}`,
+      }
     }
-    return dimensions
+    return {
+      dimensions,
+    }
   },
   date: ({ timespan, startDate, endDate }) => {
     const startDateStr = startDate || `${timespan || '30'}daysAgo`
@@ -28,25 +32,26 @@ const convert = ({ config, selectorData }) => {
     ...config,
     ...selectorData,
   }
-  const queryParams = Object.keys(config).reduce((acc, key) => {
-    const configVal = config[key]
-
-    if (configVal === 'default' || configVal === undefined) {
-      const params = defaultConvertFunctions[key](mergedSelectorData)
-      if (params) {
-        return {
-          ...acc,
-          ...params,
+  const queryParams = Object.keys(defaultConvertFunctions).reduce(
+    (acc, key) => {
+      const configVal = config[key]
+      if (
+        configVal === undefined ||
+        configVal === 'default' ||
+        typeof configVal === 'string'
+      ) {
+        const params = defaultConvertFunctions[key](mergedSelectorData)
+        if (params) {
+          return {
+            ...acc,
+            ...params,
+          }
         }
       }
-    } else if (typeof configVal === 'string') {
-      return {
-        ...acc,
-        [key]: config[key],
-      }
-    }
-    return acc
-  }, {})
+      return acc
+    },
+    {}
+  )
   // TODO: still need to return selectorData
   return {
     ...selectorData,

@@ -55,6 +55,8 @@ Presenter.prototype = {
             config: self.queryConverterConfigs[viewType],
             selectorData,
           })
+          // TODO: debugger
+          console.log('debugger:: query data ', queryData)
           // update model based on new selector data
           const model = self.models[viewType]
           // TODO: for now model could be single model entity or an array of model entities
@@ -85,11 +87,15 @@ Presenter.prototype = {
         ...this.selectorData[key],
         ids: this.ids,
       }
+      // TODO: debugger
+      console.log('debugger:: selector data ', selectorData)
       // TODO: return selectorData if no config provided
       const queryData = queryConverter({
         config: this.queryConverterConfigs[key],
         selectorData,
       })
+      // TODO: debugger
+      console.log('debugger:: query data ', queryData)
       const model = this.models[key]
       if (Array.isArray(model)) {
         model.forEach(item => {
