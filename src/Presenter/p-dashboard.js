@@ -1,14 +1,19 @@
 import events from '../Utils/events'
+import queryConverter from '../Utils/queryConverter'
 
-const Presenter = function({ views, models }) {
+const Presenter = function({ views, models, queryConverterConfigs }) {
   this.views = views
   this.models = models
+  this.queryConverterConfigs = queryConverterConfigs
   // cache selector data for each view by default
   this.selectorData = {}
   this.ids = null
 }
 
 Presenter.prototype = {
+  cacheSelectorData: function({ viewType, selectorData }) {
+    this.selectorData[viewType] = selectorData
+  },
   init: function() {
     const self = this
 
@@ -37,23 +42,34 @@ Presenter.prototype = {
       }
       view.init({
         onSelectorChange: data => {
-          // new selector data against old one
+          // TODO: debugger
+          console.log('debugger:: selector data ', data)
+          // merge current selector data with new selector data
           const selectorData = {
             ...self.selectorData[viewType], // override old selector data
             ids: self.ids,
             ...data,
           }
+          // TODO: return selectorData if no config provided
+          const queryData = queryConverter({
+            config: self.queryConverterConfigs[viewType],
+            selectorData,
+          })
+          // update model based on new selector data
           const model = self.models[viewType]
-          // TODO: for now model could be single model entity or a model array
+          // TODO: for now model could be single model entity or an array of model entities
           if (Array.isArray(model)) {
             model.forEach(item => {
-              item.fetch(selectorData)
+              item.fetch(queryData)
             })
           } else {
-            model.fetch(selectorData)
+            model.fetch(queryData)
           }
-          // update old selector data
-          self.selectorData[viewType] = selectorData
+          // cache new selector data
+          self.cacheSelectorData({
+            viewType,
+            selectorData,
+          })
         },
       })
     })
@@ -69,13 +85,18 @@ Presenter.prototype = {
         ...this.selectorData[key],
         ids: this.ids,
       }
+      // TODO: return selectorData if no config provided
+      const queryData = queryConverter({
+        config: this.queryConverterConfigs[key],
+        selectorData,
+      })
       const model = this.models[key]
       if (Array.isArray(model)) {
         model.forEach(item => {
-          item.fetch(selectorData)
+          item.fetch(queryData)
         })
       } else {
-        model.fetch(selectorData)
+        model.fetch(queryData)
       }
     })
   },

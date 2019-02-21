@@ -1,6 +1,5 @@
 import events from '../Utils/events'
 import dataConvert from '../Converter/Data/c-d-overview'
-import queryConvert from '../Converter/Query/c-q-overview'
 import filter from '../Filter/Data/f-d-overview'
 
 const Model = function(query) {
@@ -26,11 +25,17 @@ Model.prototype = {
     this.lastEndDate = endDate
     this.lastCollection = collection
   },
-  fetch: function({ ids, timespan, startDate, endDate, source, country }) {
+  fetch: function({
+    timespan,
+    startDate,
+    endDate,
+    source,
+    country,
+    queryParams,
+  }) {
     if (this.isExpectingUpdate({ timespan, startDate, endDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
-      const params = queryConvert({ ids, timespan, startDate, endDate })
-      this.query.query(params).then(response => {
+      this.query.query(queryParams).then(response => {
         const collection = response.rows
         let data = dataConvert({
           collection,
