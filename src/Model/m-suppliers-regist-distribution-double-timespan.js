@@ -7,12 +7,15 @@ const Model = function(query) {
 
 Model.prototype = {
     fetch: function(selectorData) {
-        const params = queryConvert(selectorData)
+        const params = queryConvert({
+            ...selectorData,
+            isDouble: true,
+        })
         this.query.query(params).then(response => {
             events.notify('suppliers-regist-distribution', {
                 key: 'suppliers-regist-distribution',
                 data: {
-                    distribution: {
+                    distributionDoubleTimespan: {
                         collection: response.rows,
                     },
                 },
