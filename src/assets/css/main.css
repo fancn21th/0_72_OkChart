@@ -94,12 +94,19 @@
 
 .overview-container__title {
   display: block;
-  height: 20px;
+  height: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #3d4465;
+  margin-bottom: 15px;
 }
 
 .overview-container__content {
   display: block;
-  height: 20px;
+  height: 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #5d78ff;
 }
 
 /* selector */
