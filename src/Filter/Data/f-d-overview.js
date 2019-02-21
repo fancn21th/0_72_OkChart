@@ -1,10 +1,11 @@
-const filter = ({ collection, source, country }) => {
-  return collection.filter(item => {
-    return (
-      (!source || source.length === 0 || source.includes(item[0])) &&
-      (!country || country.length === 0 || country.includes(item[1]))
-    )
-  })
+const filter = ({ collection, source, country, workingDate }) => {
+  const isSourceEmpty = !source || source.length === 0
+  const isCountryEmpty = !country || country.length === 0
+  return collection.filter(
+    item =>
+      (isSourceEmpty || source.includes(item[0])) &&
+      (isCountryEmpty || country.includes(item[1]))
+  )
 }
 
 export default filter

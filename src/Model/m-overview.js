@@ -1,5 +1,6 @@
 import events from '../Utils/events'
 import dataConvert from '../Converter/Data/c-d-overview'
+import workingDateFilter from '../Filter/Data/f-d-working-date'
 import filter from '../Filter/Data/f-d-overview'
 
 const Model = function(query) {
@@ -46,8 +47,12 @@ Model.prototype = {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       this.query.query(queryParams).then(response => {
         const collection = response.rows
-        let data = dataConvert({
+        const filteredCollection = workingDateFilter({
           collection,
+          workingDate,
+        })
+        let data = dataConvert({
+          collection: filteredCollection,
           timespan,
           startDate,
           endDate,
@@ -61,7 +66,7 @@ Model.prototype = {
           timespan,
           startDate,
           endDate,
-          collection,
+          collection: filteredCollection,
           workingDate,
         })
       })

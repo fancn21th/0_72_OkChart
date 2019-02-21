@@ -9,7 +9,7 @@ WorkingDateSelector.prototype = {
   init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
       onSelectorChange({
-        workingDate: e.target.checked,
+        workingDate: !e.target.checked,
       })
     }
   },

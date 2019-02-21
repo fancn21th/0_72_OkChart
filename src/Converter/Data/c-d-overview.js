@@ -1,6 +1,6 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
-const convert = ({ collection, timespan, startDate, endDate }) => {
+const convert = ({ collection, timespan, startDate, endDate, workingDate }) => {
   let pv = 0,
     uv = 0,
     buyerCount = 0,
@@ -8,20 +8,26 @@ const convert = ({ collection, timespan, startDate, endDate }) => {
     source = [],
     country = [],
     sourceObj = {},
-    countryObj = {}
+    countryObj = {},
+    channelIdx = workingDate === false ? 1 : 0,
+    countryIdx = workingDate === false ? 2 : 1,
+    pvIdx = workingDate === false ? 3 : 2,
+    uvIdx = workingDate === false ? 4 : 3,
+    buyerCountIdx = workingDate === false ? 5 : 4,
+    supplierCountIdx = workingDate === false ? 6 : 5
 
   const days = timespanDiff(timespan || 30, startDate, endDate)
 
   collection.forEach(item => {
-    pv += parseInt(item[2], 10)
-    uv += parseInt(item[3], 10)
-    buyerCount += parseInt(item[4])
-    supplierCount += parseInt(item[5])
-    if (!sourceObj[item[0]]) {
-      sourceObj[item[0]] = true
+    pv += parseInt(item[pvIdx], 10)
+    uv += parseInt(item[uvIdx], 10)
+    buyerCount += parseInt(item[buyerCountIdx])
+    supplierCount += parseInt(item[supplierCountIdx])
+    if (!sourceObj[item[channelIdx]]) {
+      sourceObj[item[channelIdx]] = true
     }
-    if (!countryObj[item[1]]) {
-      countryObj[item[1]] = true
+    if (!countryObj[item[countryIdx]]) {
+      countryObj[item[countryIdx]] = true
     }
   })
 
