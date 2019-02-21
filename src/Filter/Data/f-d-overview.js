@@ -3,7 +3,8 @@ const filter = ({ collection, source, country, workingDate }) => {
     isCountryEmpty = !country || country.length === 0,
     idxOffset = workingDate === false ? 1 : 0,
     channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset,
+    countryIdx = 1 + idxOffset
+
   return collection.filter(
     item =>
       (isSourceEmpty || source.includes(item[channelIdx])) &&
