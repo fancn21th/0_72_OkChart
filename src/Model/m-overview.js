@@ -87,6 +87,7 @@ Model.prototype = {
         collection: this.lastCollection,
         source,
         country,
+        workingDate,
       })
       let data = dataConvert({
         collection: filteredData,
