@@ -10,6 +10,7 @@ const Model = function(query) {
   this.lastStartDate = null
   this.lastEndDate = null
   this.lastCollection = null
+  this.lastWorkingDate = null
   this.lastNonWorkingDateCount = 0
 }
 
@@ -19,7 +20,7 @@ Model.prototype = {
       timespan !== this.lastTimespan ||
       startDate !== this.lastStartDate ||
       endDate !== this.lastEndDate ||
-      workingDate !== this.workingDate
+      workingDate !== this.lastWorkingDate
     )
   },
   cacheQueryParams: function({
@@ -41,10 +42,10 @@ Model.prototype = {
     timespan,
     startDate,
     endDate,
-    source,
-    country,
     workingDate,
     queryParams,
+    source,
+    country,
   }) {
     if (this.isExpectingUpdate({ timespan, startDate, endDate, workingDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
@@ -75,8 +76,8 @@ Model.prototype = {
           timespan,
           startDate,
           endDate,
-          collection: dateFilteredCollection,
           workingDate,
+          collection: dateFilteredCollection,
           nonWorkingDateCount,
         })
       })
