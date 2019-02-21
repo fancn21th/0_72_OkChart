@@ -1,6 +1,13 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
-const convert = ({ collection, timespan, startDate, endDate, workingDate }) => {
+const convert = ({
+  collection,
+  timespan,
+  startDate,
+  endDate,
+  workingDate,
+  nonWorkingDateCount,
+}) => {
   let pv = 0,
     uv = 0,
     buyerCount = 0,
@@ -17,7 +24,9 @@ const convert = ({ collection, timespan, startDate, endDate, workingDate }) => {
     buyerCountIdx = 4 + idxOffset,
     supplierCountIdx = 5 + idxOffset
 
-  const days = timespanDiff(timespan || 30, startDate, endDate)
+  let days = timespanDiff(timespan || 30, startDate, endDate)
+
+  days = workingDate === false ? days - nonWorkingDateCount : days
 
   collection.forEach(item => {
     pv += parseInt(item[pvIdx], 10)

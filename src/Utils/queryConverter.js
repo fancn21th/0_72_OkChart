@@ -20,6 +20,9 @@ const defaultConvertFunctions = {
       'end-date': enDateStr,
     }
   },
+  'max-results': () => ({
+    'max-results': 10000,
+  }),
 }
 
 const convert = ({ config, selectorData }) => {

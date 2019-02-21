@@ -10,6 +10,7 @@ const Model = function(query) {
   this.lastStartDate = null
   this.lastEndDate = null
   this.lastCollection = null
+  this.lastNonWorkingDateCount = 0
 }
 
 Model.prototype = {
@@ -27,12 +28,14 @@ Model.prototype = {
     endDate,
     collection,
     workingDate,
+    nonWorkingDateCount,
   }) {
     this.lastTimespan = timespan
     this.lastStartDate = startDate
     this.lastEndDate = endDate
     this.lastCollection = collection
     this.lastWorkingDate = workingDate
+    this.lastNonWorkingDateCount = nonWorkingDateCount
   },
   fetch: function({
     timespan,
@@ -47,16 +50,21 @@ Model.prototype = {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       this.query.query(queryParams).then(response => {
         const collection = response.rows
-        const dateFilteredCollection = workingDateFilter({
+        const filteredData = workingDateFilter({
           collection,
           workingDate,
         })
+        const {
+          collection: dateFilteredCollection,
+          nonWorkingDateCount,
+        } = filteredData
         let data = dataConvert({
           collection: dateFilteredCollection,
           timespan,
           startDate,
           endDate,
           workingDate,
+          nonWorkingDateCount,
         })
         data.isDataUpdate = true
         events.notify('overview', {
@@ -69,6 +77,7 @@ Model.prototype = {
           endDate,
           collection: dateFilteredCollection,
           workingDate,
+          nonWorkingDateCount,
         })
       })
     } else {
@@ -84,6 +93,7 @@ Model.prototype = {
         startDate,
         endDate,
         workingDate,
+        nonWorkingDateCount: this.lastNonWorkingDateCount,
       })
       data.isDataUpdate = false
       events.notify('overview', {

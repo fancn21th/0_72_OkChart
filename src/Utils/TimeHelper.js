@@ -24,12 +24,6 @@ const doubleTimespanStartDate = (startDate, endDate) => {
   return `${year}-${month}-${day}`
 }
 
-const isNotWorkingDate = date => {
-  const dateStr = date.split()
-  const day = new Date(dateStr).getDay()
-  return day === 0 || day === 6
-}
-
 const getDay = date => {
   const dateArray = date.split('')
   dateArray.splice(4, 0, '-')
@@ -37,4 +31,9 @@ const getDay = date => {
   return new Date(dateArray.join('')).getDay()
 }
 
-export { timespanDiff, doubleTimespanStartDate, isNotWorkingDate, getDay }
+const isWorkingDate = date => {
+  const day = getDay(date)
+  return day !== 0 && day !== 6
+}
+
+export { timespanDiff, doubleTimespanStartDate, isWorkingDate }

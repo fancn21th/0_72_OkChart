@@ -1,16 +1,26 @@
-import { getDay } from '../../Utils/TimeHelper'
+import { isWorkingDate } from '../../Utils/TimeHelper'
 
+// filter working date
 const filter = ({ collection, workingDate }) => {
   if (workingDate === false) {
-    // filter working date
-    const firstData = collection[0][0]
-    const firstDay = getDay(firstData)
-    return collection.filter((item, idx) => {
-      const day = (idx + firstDay) % 7
-      return day !== 0 && day !== 6
+    const filterObj = {} // cache date string already checked
+    const filteredCollection = collection.filter(item => {
+      const dateStr = item[0]
+      if (filterObj[dateStr] !== undefined) {
+        return filterObj[dateStr]
+      }
+      const filterState = isWorkingDate(dateStr)
+      filterObj[dateStr] = filterState
+      return filterState
     })
+    return {
+      collection: filteredCollection,
+      nonWorkingDateCount: Object.keys(filterObj).filter(
+        key => filterObj[key] === false
+      ).length,
+    }
   }
-  return collection
+  return { collection, nonWorkingDateCount: 0 }
 }
 
 export default filter
