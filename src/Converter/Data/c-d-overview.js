@@ -11,8 +11,9 @@ const convert = ({
   let pv = 0,
     uv = 0,
     buyerCount = 0,
-    supplierCount = 0,
-    source = [],
+    supplierCount = 0
+
+  const source = [],
     country = [],
     sourceObj = {},
     countryObj = {},
