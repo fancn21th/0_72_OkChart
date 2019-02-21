@@ -9,12 +9,13 @@ const convert = ({ collection, timespan, startDate, endDate, workingDate }) => {
     country = [],
     sourceObj = {},
     countryObj = {},
-    channelIdx = workingDate === false ? 1 : 0,
-    countryIdx = workingDate === false ? 2 : 1,
-    pvIdx = workingDate === false ? 3 : 2,
-    uvIdx = workingDate === false ? 4 : 3,
-    buyerCountIdx = workingDate === false ? 5 : 4,
-    supplierCountIdx = workingDate === false ? 6 : 5
+    idxOffset = workingDate === false ? 1 : 0,
+    channelIdx = 0 + idxOffset,
+    countryIdx = 1 + idxOffset,
+    pvIdx = 2 + idxOffset,
+    uvIdx = 3 + idxOffset,
+    buyerCountIdx = 4 + idxOffset,
+    supplierCountIdx = 5 + idxOffset
 
   const days = timespanDiff(timespan || 30, startDate, endDate)
 

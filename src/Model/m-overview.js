@@ -47,15 +47,16 @@ Model.prototype = {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
       this.query.query(queryParams).then(response => {
         const collection = response.rows
-        const filteredCollection = workingDateFilter({
+        const dateFilteredCollection = workingDateFilter({
           collection,
           workingDate,
         })
         let data = dataConvert({
-          collection: filteredCollection,
+          collection: dateFilteredCollection,
           timespan,
           startDate,
           endDate,
+          workingDate,
         })
         data.isDataUpdate = true
         events.notify('overview', {
@@ -66,7 +67,7 @@ Model.prototype = {
           timespan,
           startDate,
           endDate,
-          collection: filteredCollection,
+          collection: dateFilteredCollection,
           workingDate,
         })
       })
@@ -82,6 +83,7 @@ Model.prototype = {
         timespan,
         startDate,
         endDate,
+        workingDate,
       })
       data.isDataUpdate = false
       events.notify('overview', {
