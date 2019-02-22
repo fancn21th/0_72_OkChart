@@ -1,6 +1,7 @@
 import TimespanSelector from './Control/timespan-selector'
 import DateRangeSelector from './Control/date-range-selector'
 import DynamicMultipleSelector from './Control/dynamic-multiple-selector'
+import WorkingDateSelector from './Control/working-date-selector'
 
 const Selector = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
@@ -18,6 +19,7 @@ const Selector = function({ chartContainerId }) {
     new DateRangeSelector(),
     this.sourceSelector,
     this.countrySelector,
+    new WorkingDateSelector(),
   ]
 }
 

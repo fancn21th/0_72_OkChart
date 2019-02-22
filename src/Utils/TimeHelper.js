@@ -6,8 +6,9 @@ const dateDiff = (startDate, endDate) => {
 }
 
 const timespanDiff = (timespan, startDate, endDate) => {
-  if (startDate && endDate) return dateDiff(startDate, endDate)
-  return timespan
+  if (startDate && endDate)
+    return dateDiff(startDate, endDate) + (startDate !== endDate ? 1 : 0)
+  return timespan + 1
 }
 
 const doubleTimespanStartDate = (startDate, endDate) => {
@@ -24,4 +25,16 @@ const doubleTimespanStartDate = (startDate, endDate) => {
   return `${year}-${month}-${day}`
 }
 
-export { timespanDiff, doubleTimespanStartDate }
+const getDay = date => {
+  const dateArray = date.split('')
+  dateArray.splice(4, 0, '-')
+  dateArray.splice(7, 0, '-')
+  return new Date(dateArray.join('')).getDay()
+}
+
+const isWorkingDate = date => {
+  const day = getDay(date)
+  return day !== 0 && day !== 6
+}
+
+export { timespanDiff, doubleTimespanStartDate, isWorkingDate }

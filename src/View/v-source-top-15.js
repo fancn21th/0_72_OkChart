@@ -60,14 +60,14 @@ View.prototype = {
           top15DoubleTimespan: this.lastTop15DoubleTimespan,
         })
       )
-      this.drawLastTop15DoubleTimespan = true
+      this.drawLastTop15Growth = true
     }
 
     if (this.drawLastTop15 && this.drawLastTop15Growth) {
       this.lastTop15 = null
       this.lastTop15DoubleTimespan = null
       this.drawLastTop15 = false
-      this.drawLastTop15DoubleTimespan = false
+      this.drawLastTop15Growth = false
     }
   },
 }

@@ -1,55 +1,101 @@
 import events from '../Utils/events'
 import dataConvert from '../Converter/Data/c-d-overview'
-import queryConvert from '../Converter/Query/c-q-overview'
+import workingDateFilter from '../Filter/Data/f-d-working-date'
 import filter from '../Filter/Data/f-d-overview'
 
 const Model = function(query) {
   this.query = query
+  // by default the selector data is cached in presenter
   this.lastTimespan = null
   this.lastStartDate = null
   this.lastEndDate = null
-  this.lastRows = null
+  this.lastCollection = null
+  this.lastWorkingDate = null
+  this.lastNonWorkingDateCount = 0
 }
 
 Model.prototype = {
-  fetch: function({ ids, timespan, startDate, endDate, source, country }) {
-    // by default the selector data is cached in presenter
-    if (
+  isExpectingUpdate: function({ timespan, startDate, endDate, workingDate }) {
+    return (
       timespan !== this.lastTimespan ||
       startDate !== this.lastStartDate ||
-      endDate !== this.lastEndDate
-    ) {
+      endDate !== this.lastEndDate ||
+      workingDate !== this.lastWorkingDate
+    )
+  },
+  cacheQueryParams: function({
+    timespan,
+    startDate,
+    endDate,
+    collection,
+    workingDate,
+    nonWorkingDateCount,
+  }) {
+    this.lastTimespan = timespan
+    this.lastStartDate = startDate
+    this.lastEndDate = endDate
+    this.lastCollection = collection
+    this.lastWorkingDate = workingDate
+    this.lastNonWorkingDateCount = nonWorkingDateCount
+  },
+  fetch: function({
+    timespan,
+    startDate,
+    endDate,
+    workingDate,
+    queryParams,
+    source,
+    country,
+  }) {
+    if (this.isExpectingUpdate({ timespan, startDate, endDate, workingDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
-      const params = queryConvert({ ids, timespan, startDate, endDate })
-      this.query.query(params).then(response => {
+      this.query.query(queryParams).then(response => {
+        const collection = response.rows
+        const filteredData = workingDateFilter({
+          collection,
+          workingDate,
+        })
+        const {
+          collection: dateFilteredCollection,
+          nonWorkingDateCount,
+        } = filteredData
         let data = dataConvert({
-          collection: response.rows,
+          collection: dateFilteredCollection,
           timespan,
           startDate,
           endDate,
+          workingDate,
+          nonWorkingDateCount,
         })
         data.isDataUpdate = true
         events.notify('overview', {
           key: 'overview',
           data,
         })
-        this.lastTimespan = timespan
-        this.lastStartDate = startDate
-        this.lastEndDate = endDate
-        this.lastRows = response.rows
+        this.cacheQueryParams({
+          timespan,
+          startDate,
+          endDate,
+          workingDate,
+          collection: dateFilteredCollection,
+          nonWorkingDateCount,
+        })
       })
     } else {
       // otherwise filter data from cache
       const filteredData = filter({
-        collection: this.lastRows,
+        collection: this.lastCollection,
         source,
         country,
+        workingDate,
       })
       let data = dataConvert({
         collection: filteredData,
         timespan,
         startDate,
         endDate,
+        workingDate,
+        nonWorkingDateCount: this.lastNonWorkingDateCount,
       })
       data.isDataUpdate = false
       events.notify('overview', {
