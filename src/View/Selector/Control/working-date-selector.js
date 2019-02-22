@@ -1,7 +1,7 @@
 import { createCheckbox, createText } from '../../../Utils/HtmlElementBuilder'
 
 const WorkingDateSelector = function() {
-  this.selectorTitle = createText({ text: '不包括工作日' })
+  this.selectorTitle = createText({ text: '工作日' })
   this.selector = createCheckbox()
 }
 
