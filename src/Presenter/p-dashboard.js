@@ -1,5 +1,4 @@
 import events from '../Utils/events'
-import { getDefaultSelectorData } from '../Config/Selector/cfg-s-overview'
 import queryConverter from '../Utils/queryConverter'
 
 const Presenter = function({
