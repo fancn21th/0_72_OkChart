@@ -48,9 +48,12 @@ View.prototype = {
       this.lastBuyerDistributionDoubleTimespan = distributionDoubleTimespan
 
     if (!this.drawLastBuyerDistribution && this.lastBuyerDistribution) {
-      this.chart1.render(
-        buyerDistributionDataConverter(this.lastBuyerDistribution)
-      )
+      const data = buyerDistributionDataConverter(this.lastBuyerDistribution)
+      const { distribution, sourceCountryFilterCollection } = data
+      this.chart1.render(distribution)
+      if (this.lastBuyerDistribution.isDataUpdate) {
+        this.selector.render({ sourceCountryFilterCollection })
+      }
       this.drawLastBuyerDistribution = true
     }
 

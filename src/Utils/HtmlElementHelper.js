@@ -1,8 +1,5 @@
 const updateSelectOptions = (select, options) => {
-  const length = select.options.length
-  for (let i = 0; i < length; i++) {
-    select.options[i] = null
-  }
+  select.options.length = 0 // remove all old options
   if (options) {
     options.forEach(option => {
       const z = document.createElement('option')

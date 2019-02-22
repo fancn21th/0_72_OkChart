@@ -1,6 +1,7 @@
 import events from '../Utils/events'
 import buildView from '../Factory/buildView'
 import buildModel from '../Factory/buildModel'
+import buildQueryConverterConfig from '../Factory/buildQueryConverterConfig'
 import DashboardPresenter from '../Presenter/p-dashboard'
 
 const Page = function({ viewElements, query }) {
@@ -9,8 +10,9 @@ const Page = function({ viewElements, query }) {
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
-  this.views = []
+  this.views = {}
   this.models = {}
+  this.queryConverterConfigs = {}
 }
 
 Page.prototype = {
@@ -40,11 +42,15 @@ Page.prototype = {
         type: chart.type,
         query: this.query,
       })
+      this.queryConverterConfigs[chart.type] = buildQueryConverterConfig({
+        type: chart.type,
+      })
     })
     // single presenter
     const dashboardPresenter = new DashboardPresenter({
       views: this.views,
       models: this.models,
+      queryConverterConfigs: this.queryConverterConfigs,
     })
     dashboardPresenter.init()
   },
