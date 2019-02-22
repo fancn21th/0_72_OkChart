@@ -1,4 +1,4 @@
-import overview from '../Config/QueryConverter/c-qc-overviews'
+import overview from '../Config/QueryConverter/cfg-qc-overviews'
 
 const buildQueryConverterConfig = ({ type }) => {
   switch (type) {
