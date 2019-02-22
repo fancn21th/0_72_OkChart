@@ -67,7 +67,7 @@ View.prototype = {
             this.drawLastBuyerDistributionGrowth = true
         }
 
-        // this.drawLastBuyerDistributionGrowth = false
+        this.drawLastBuyerDistributionGrowth = false
         if (
             this.drawLastBuyerDistribution &&
             this.drawLastBuyerDistributionGrowth
