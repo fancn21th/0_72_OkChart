@@ -34,10 +34,10 @@ const convert = ({
     uv += parseInt(item[uvIdx], 10)
     buyerCount += parseInt(item[buyerCountIdx])
     supplierCount += parseInt(item[supplierCountIdx])
-    if (!sourceObj[item[channelIdx]]) {
+    if (!(item[channelIdx] in sourceObj)) {
       sourceObj[item[channelIdx]] = true
     }
-    if (!countryObj[item[countryIdx]]) {
+    if (!(item[countryIdx] in countryObj)) {
       countryObj[item[countryIdx]] = true
     }
   })

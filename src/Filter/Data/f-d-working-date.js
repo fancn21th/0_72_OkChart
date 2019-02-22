@@ -6,7 +6,7 @@ const filter = ({ collection, workingDate }) => {
     const filterObj = {} // cache date string already checked
     const filteredCollection = collection.filter(item => {
       const dateStr = item[0]
-      if (filterObj[dateStr] !== undefined) {
+      if (dateStr in filterObj) {
         return filterObj[dateStr]
       }
       const filterState = isWorkingDate(dateStr)

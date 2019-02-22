@@ -1,23 +1,23 @@
 const Observer = function() {
-  this.observers = {}
+  this.observersObj = {}
 }
 
 Observer.prototype = {
   attach: function(eventName, callback) {
-    if (!this.observers[eventName]) {
-      this.observers[eventName] = []
+    if (!(eventName in this.observersObj)) {
+      this.observersObj[eventName] = []
     }
-    this.observers[eventName].push(callback)
-    return this.observers[eventName].indexOf(callback)
+    this.observersObj[eventName].push(callback)
+    return this.observersObj[eventName].indexOf(callback)
   },
 
   dettach: function(eventName, index) {
-    const observer = this.observers[eventName]
+    const observer = this.observersObj[eventName]
     observer.splice(index, 1)
   },
 
   notify: function(eventName, data) {
-    const observer = this.observers[eventName]
+    const observer = this.observersObj[eventName]
     observer.forEach(callback => callback(data))
   },
 }
