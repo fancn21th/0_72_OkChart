@@ -2,15 +2,21 @@ import { timespanDiff } from '../../Utils/TimeHelper'
 
 const convert = ({ collection, timespan, startDate, endDate, pvuv }) => {
   // TODO: must not use mutate array method
-  let totalCount = 0
+  let totalCount = 0,
+    sourceCountryFilterCollection = []
   collection.map(item => {
     totalCount += parseInt(item[1], 10)
+    sourceCountryFilterCollection.push({
+      text: item[0],
+      value: item[0],
+    })
   })
   const top10 = collection.slice(0, 10)
   const days = timespanDiff(timespan || 30, startDate, endDate)
   let top10Data = top10.map(item => {
     const count = Math.round(parseInt(item[1], 10) / days)
-    const percent = parseInt(parseInt(item[1], 10)*10000/totalCount)/10000
+    const percent =
+      parseInt((parseInt(item[1], 10) * 10000) / totalCount) / 10000
     return {
       item: item[0],
       count,
@@ -18,7 +24,7 @@ const convert = ({ collection, timespan, startDate, endDate, pvuv }) => {
     }
   })
   console.log(top10Data)
-  return top10Data
+  return { distribution: top10Data, sourceCountryFilterCollection }
 }
 
 export default convert

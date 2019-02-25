@@ -45,7 +45,12 @@ View.prototype = {
     if (top15DoubleTimespan) this.lastTop15DoubleTimespan = top15DoubleTimespan
 
     if (!this.drawLastTop15 && this.lastTop15) {
-      this.chart1.render(DistributionDataConvert(this.lastTop15))
+      const data = DistributionDataConvert(this.lastTop15)
+      const { distribution, sourceCountryFilterCollection } = data
+      this.chart1.render(distribution)
+      if (this.lastTop15.isDataUpdate) {
+        this.selector.render({ sourceCountryFilterCollection })
+      }
       this.drawLastTop15 = true
     }
 
