@@ -1,15 +1,17 @@
 import { createCheckbox, createText } from '../../../Utils/HtmlElementBuilder'
 
 const WorkingDateSelector = function() {
-  this.selectorTitle = createText({ text: '不包括工作日' })
-  this.selector = createCheckbox()
+  this.selectorTitle = createText({ text: '仅工作日' })
+  this.selector = createCheckbox({
+    checked: true,
+  })
 }
 
 WorkingDateSelector.prototype = {
   init: function({ onSelectorChange }) {
     this.selector.onchange = function(e) {
       onSelectorChange({
-        workingDate: !e.target.checked,
+        workingDate: e.target.checked,
       })
     }
   },

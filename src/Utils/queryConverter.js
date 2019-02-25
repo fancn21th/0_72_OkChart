@@ -3,7 +3,7 @@ const defaultConvertFunctions = {
   metrics: ({ metrics }) => ({ metrics }),
   sort: () => null,
   dimensions: ({ workingDate, dimensions }) => {
-    if (workingDate === false) {
+    if (workingDate === true) {
       return {
         dimensions: `ga:date,${dimensions}`,
       }

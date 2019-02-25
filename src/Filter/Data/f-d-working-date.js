@@ -2,11 +2,11 @@ import { isWorkingDate } from '../../Utils/TimeHelper'
 
 // filter working date
 const filter = ({ collection, workingDate }) => {
-  if (workingDate === false) {
+  if (workingDate === true) {
     const filterObj = {} // cache date string already checked
     const filteredCollection = collection.filter(item => {
       const dateStr = item[0]
-      if (filterObj[dateStr] !== undefined) {
+      if (dateStr in filterObj) {
         return filterObj[dateStr]
       }
       const filterState = isWorkingDate(dateStr)

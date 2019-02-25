@@ -17,7 +17,7 @@ const convert = ({
     country = [],
     sourceObj = {},
     countryObj = {},
-    idxOffset = workingDate === false ? 1 : 0,
+    idxOffset = workingDate === true ? 1 : 0,
     channelIdx = 0 + idxOffset,
     countryIdx = 1 + idxOffset,
     pvIdx = 2 + idxOffset,
@@ -27,17 +27,17 @@ const convert = ({
 
   let days = timespanDiff(timespan || 30, startDate, endDate)
 
-  days = workingDate === false ? days - nonWorkingDateCount : days
+  days = workingDate === true ? days - nonWorkingDateCount : days
 
   collection.forEach(item => {
     pv += parseInt(item[pvIdx], 10)
     uv += parseInt(item[uvIdx], 10)
     buyerCount += parseInt(item[buyerCountIdx])
     supplierCount += parseInt(item[supplierCountIdx])
-    if (!sourceObj[item[channelIdx]]) {
+    if (!(item[channelIdx] in sourceObj)) {
       sourceObj[item[channelIdx]] = true
     }
-    if (!countryObj[item[countryIdx]]) {
+    if (!(item[countryIdx] in countryObj)) {
       countryObj[item[countryIdx]] = true
     }
   })
