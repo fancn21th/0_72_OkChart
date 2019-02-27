@@ -1,5 +1,5 @@
 import events from '../Utils/events'
-import queryConverter from '../Utils/queryConverter'
+import queryConverter from '../Utils/pipeline/queryConverter'
 
 const Presenter = function({
   views,

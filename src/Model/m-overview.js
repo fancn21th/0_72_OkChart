@@ -39,13 +39,15 @@ Model.prototype = {
     this.lastNonWorkingDateCount = nonWorkingDateCount
   },
   fetch: function({
-    timespan,
-    startDate,
-    endDate,
-    workingDate,
-    queryParams,
-    source,
-    country,
+    selectorData: {
+      timespan,
+      startDate,
+      endDate,
+      workingDate,
+      source,
+      country,
+    },
+    query: queryParams,
   }) {
     if (this.isExpectingUpdate({ timespan, startDate, endDate, workingDate })) {
       // if any date among timespan, startDate and endDate is updated, re-fetch data from ga
