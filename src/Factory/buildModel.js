@@ -1,4 +1,4 @@
-import OverviewModel from '../Model/m-overview'
+import OverviewModel from '../Model/m-overview2'
 import PvUvModel from '../Model/m-pv-uv'
 import DistributionModel from '../Model/m-distribution'
 import UserGrowthModel from '../Model/m-user-growth'
