@@ -7,23 +7,26 @@ const Model = function(query) {
 }
 
 Model.prototype = {
-  fetch: function({ query: queryParams, selectorData }) {
+  fetch: function({ query: queryParams, selectorData, filteredSelectorData }) {
     this.query
-      .query(queryParams, selectorData)
-      .then(({ rows, totalsForAllResults }) => {
-        const data = converter({
-          selectorData,
-          queryParams,
-          responseData: rows,
-          totals: totalsForAllResults,
-          config,
-        })
-        console.log('debugger:: view data', data)
-        events.notify('overview', {
-          key: 'overview',
-          data,
-        })
-      })
+      .query(queryParams, filteredSelectorData)
+      .then(
+        ({ rows, totalsForAllResults, isResponseDataFromCache = false }) => {
+          let data = converter({
+            selectorData,
+            queryParams,
+            responseData: rows,
+            totals: totalsForAllResults,
+            config,
+          })
+          data.isResponseDataFromCache = isResponseDataFromCache
+          console.log('debugger:: view data', data)
+          events.notify('overview', {
+            key: 'overview',
+            data,
+          })
+        }
+      )
   },
 }
 

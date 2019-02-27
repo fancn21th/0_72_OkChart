@@ -1,15 +1,18 @@
 import events from '../Utils/events'
 import queryConverter from '../Utils/pipeline/queryConverter'
+import filterSelectorData from '../Utils/pipeline/filterSelectorData'
 
 const Presenter = function({
   views,
   models,
   queryConverterConfigs,
+  filterSelectorDataConfigs,
   defaultSelectors,
 }) {
   this.views = views
   this.models = models
   this.queryConverterConfigs = queryConverterConfigs
+  this.filterSelectorDataConfigs = filterSelectorDataConfigs
   this.defaultSelectors = defaultSelectors
   // cache selector data for each view by default
   this.cachedSelectorData = {}
@@ -72,10 +75,17 @@ Presenter.prototype = {
     // TODO: debugger
     console.log('debugger:: selector data ', selectorData)
     // TODO: convert selector data into query data
-    const queryData = queryConverter({
+    let queryData = queryConverter({
       config: this.queryConverterConfigs[viewType],
       selectorData,
     })
+    queryData = {
+      ...queryData,
+      filteredSelectorData: filterSelectorData({
+        config: this.filterSelectorDataConfigs[viewType],
+        selectorData,
+      }),
+    }
     // TODO: debugger
     console.log('debugger:: query data ', queryData)
     // invoke update method of model

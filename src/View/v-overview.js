@@ -22,8 +22,8 @@ View.prototype = {
     uv,
     buyerCount,
     supplierCount,
-    source,
-    country,
+    source, // TODO: Bad Naming
+    country, // TODO: Bad Naming
     isResponseDataFromCache,
   }) {
     this.chart.render({

@@ -1,4 +1,4 @@
-import overview from '../Config/Selector/cfg-s-overview'
+import overview from '../Config/DefaultSelector/cfg-s-overview'
 
 const buildDefaultSelector = ({ type }) => {
   switch (type) {

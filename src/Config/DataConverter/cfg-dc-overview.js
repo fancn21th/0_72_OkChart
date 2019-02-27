@@ -1,5 +1,24 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
+const filterBySelectedSourceAndCountry = ({
+  responseData,
+  selectorData: { source, country, workingDate },
+}) => {
+  const isSourceEmpty = !source || source.length === 0,
+    isCountryEmpty = !country || country.length === 0,
+    idxOffset = workingDate === true ? 1 : 0,
+    channelIdx = 0 + idxOffset,
+    countryIdx = 1 + idxOffset
+
+  return {
+    responseData: responseData.filter(
+      item =>
+        (isSourceEmpty || source.includes(item[channelIdx])) &&
+        (isCountryEmpty || country.includes(item[countryIdx]))
+    ),
+  }
+}
+
 const convert = ({
   responseData,
   selectorData: { timespan, startDate, endDate, workingDate },
@@ -22,10 +41,6 @@ const convert = ({
     buyerCountIdx = 4 + idxOffset,
     supplierCountIdx = 5 + idxOffset
 
-  let days = timespanDiff(timespan || 30, startDate, endDate)
-
-  days = workingDate === true ? days - nonWorkingDateCount : days
-
   responseData.forEach(item => {
     pv += parseInt(item[pvIdx], 10)
     uv += parseInt(item[uvIdx], 10)
@@ -38,6 +53,9 @@ const convert = ({
       countryObj[item[countryIdx]] = true
     }
   })
+
+  let days = timespanDiff(timespan || 30, startDate, endDate)
+  days = workingDate === true ? days - nonWorkingDateCount : days
 
   pv = Math.round(pv / days)
   uv = Math.round(uv / days)
@@ -62,5 +80,5 @@ const convert = ({
 }
 
 export default {
-  convert,
+  convert: [filterBySelectedSourceAndCountry, convert],
 }

@@ -32,16 +32,14 @@ const converter = ({
   totals,
   config: { convert },
 }) => {
-  const pip = [...pipeline, convert]
+  const pip = [...pipeline, ...convert]
   return pip.reduce(
-    (acc, fn) => {
-      return {
+    (acc, fn) => ({
+      ...acc, // last acc
+      ...fn({
         ...acc,
-        ...fn({
-          ...acc,
-        }),
-      }
-    },
+      }),
+    }),
     {
       responseData,
       selectorData,
