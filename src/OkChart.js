@@ -1,4 +1,4 @@
-import GoogleApiQuery from './Utils/GoogleApiQuery'
+import GoogleApiQuery from './Utils/query/GoogleApiQuery'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
 import Dashboard from './Page/pg-dashboard'

@@ -12,32 +12,32 @@ import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distr
 import SuppliersRegistDistributionDoubleTimespanModel from '../Model/m-suppliers-regist-distribution-double-timespan'
 
 const buildModel = ({ type, query }) => {
-    switch (type) {
-        case 'overview':
-            return new OverviewModel(query)
-        case 'pv-uv':
-            return new PvUvModel(query)
-        case 'distribution':
-            return [new DistributionModel(query), new UserGrowthModel(query)]
-        case 'source-top-15':
-            return [new SourceTop15Model(query), new SourceTop15DoubleTimespan(query)]
-        case 'buyers-regist':
-            return new BuyersRegistModel(query)
-        case 'buyers-regist-distribution':
-            return [
-                new BuyersRegistDistributionModel(query),
-                new BuyersRegistDistributionDoubleTimespanModel(query),
-            ]
-        case 'suppliers-regist':
-            return new SuppliersRegistModel(query)
-        case 'suppliers-regist-distribution':
-            return [
-                new SuppliersRegistDistributiontModel(query),
-                new SuppliersRegistDistributionDoubleTimespanModel(query)
-            ]
-        default:
-            return null
-    }
+  switch (type) {
+    case 'overview':
+      return new OverviewModel(query)
+    case 'pv-uv':
+      return new PvUvModel(query)
+    case 'distribution':
+      return [new DistributionModel(query), new UserGrowthModel(query)]
+    case 'source-top-15':
+      return [new SourceTop15Model(query), new SourceTop15DoubleTimespan(query)]
+    case 'buyers-regist':
+      return new BuyersRegistModel(query)
+    case 'buyers-regist-distribution':
+      return [
+        new BuyersRegistDistributionModel(query),
+        new BuyersRegistDistributionDoubleTimespanModel(query),
+      ]
+    case 'suppliers-regist':
+      return new SuppliersRegistModel(query)
+    case 'suppliers-regist-distribution':
+      return [
+        new SuppliersRegistDistributiontModel(query),
+        new SuppliersRegistDistributionDoubleTimespanModel(query),
+      ]
+    default:
+      return null
+  }
 }
 
 export default buildModel

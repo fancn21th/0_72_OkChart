@@ -11,6 +11,7 @@ const Page = function({ viewElements, query }) {
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
+
   this.views = {}
   this.models = {}
   this.queryConverterConfigs = {}
@@ -19,7 +20,7 @@ const Page = function({ viewElements, query }) {
 
 Page.prototype = {
   init: function() {
-    // common components on page and not under control by presenter
+    // common components that are not under control by presenter
     this.authenticator.init({
       onSignIn: () => {
         this.authenticator.hide()
@@ -45,9 +46,11 @@ Page.prototype = {
         type,
         query: this.query,
       })
+      // build query converter
       this.queryConverterConfigs[type] = buildQueryConverterConfig({
         type,
       })
+      // build default selector for each view
       this.defaultSelectors[type] = buildDefaultSelector({
         type,
       })
