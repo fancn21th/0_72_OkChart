@@ -8,20 +8,22 @@ const Model = function(query) {
 
 Model.prototype = {
   fetch: function({ query: queryParams, selectorData }) {
-    this.query.query(queryParams).then(({ rows, totalsForAllResults }) => {
-      const data = converter({
-        selectorData,
-        queryParams,
-        responseData: rows,
-        totals: totalsForAllResults,
-        config,
+    this.query
+      .query(queryParams, selectorData)
+      .then(({ rows, totalsForAllResults }) => {
+        const data = converter({
+          selectorData,
+          queryParams,
+          responseData: rows,
+          totals: totalsForAllResults,
+          config,
+        })
+        console.log('debugger:: view data', data)
+        events.notify('overview', {
+          key: 'overview',
+          data,
+        })
       })
-      console.log('debugger:: view data', data)
-      events.notify('overview', {
-        key: 'overview',
-        data,
-      })
-    })
   },
 }
 

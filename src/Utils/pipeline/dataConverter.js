@@ -46,7 +46,6 @@ const converter = ({
       responseData,
       selectorData,
       totals,
-      isResponseDataUpdate: true,
     }
   )
 }
