@@ -6,12 +6,21 @@ const GoogleApiQuery = function(gapi) {
 }
 
 GoogleApiQuery.prototype = {
+  _hasData: function(selectorData) {
+    return selectorData && this.cache.has(selectorData)
+  },
+  _cacheData: function(key, data) {
+    this.cache.set(key, data)
+  },
+  _getData: function(selectorData) {
+    return this.cache.get(selectorData)
+  },
   query: function(params, selectorData) {
     const self = this
 
-    if (selectorData && self.cache.has(selectorData)) {
+    if (this._hasData(selectorData)) {
       return new Promise(function(resolve) {
-        resolve(self.cache.get(selectorData))
+        resolve(self._getData(selectorData))
       })
     }
 
@@ -23,7 +32,7 @@ GoogleApiQuery.prototype = {
         .once('success', function(response) {
           // TODO: debugger
           console.log('debugger:: response data', response)
-          if (selectorData) self.cache.set(selectorData, response)
+          if (selectorData) self._cacheData(selectorData, response)
           resolve(response)
         })
         .once('error', function(response) {
