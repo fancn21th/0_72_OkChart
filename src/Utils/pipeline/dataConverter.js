@@ -27,7 +27,6 @@ const pipeline = [workingDate]
 
 const converter = ({
   selectorData,
-  // queryParams,
   responseData,
   totals,
   customConverters,

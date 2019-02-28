@@ -1,5 +1,5 @@
 import events from '../../Utils/events'
-import converter from '../../Utils/pipeline/dataConverter'
+import convertData from '../../Utils/pipeline/dataConverter'
 import inheritPrototype from '../../Utils/inheritPrototype'
 
 const SuperModel = function({ query, config }) {
@@ -7,6 +7,24 @@ const SuperModel = function({ query, config }) {
   this.config = config
 }
 
+/*
+  Data Flow in Model
+    input:
+      query, selector, filteredSelector
+      ====> 
+      request data from ga
+        input:
+          queryParams, cache key
+        output:
+          response, cache state
+      ====>
+      data convert for view
+        input:
+          selector, response, totals, config (customConverters)
+    ====>
+    output:
+      view data
+*/
 SuperModel.prototype = {
   fetch: function({ query: queryParams, selectorData, filteredSelectorData }) {
     const { customConverters, viewType } = this.config
@@ -14,9 +32,8 @@ SuperModel.prototype = {
       .query({ params: queryParams, keyData: filteredSelectorData })
       .then(
         ({ rows, totalsForAllResults, isResponseDataFromCache = false }) => {
-          let data = converter({
+          let data = convertData({
             selectorData,
-            queryParams,
             responseData: rows,
             totals: totalsForAllResults,
             customConverters,

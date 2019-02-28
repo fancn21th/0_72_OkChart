@@ -24,10 +24,10 @@ okchart.init({
     //   type: 'buyers-regist',
     //   container: 'buyers-regist-container',
     // },
-    // {
-    //   type: 'buyers-regist-distribution',
-    //   container: 'buyers-regist-distribution-container',
-    // },
+    {
+      type: 'buyers-regist-distribution',
+      container: 'buyers-regist-distribution-container',
+    },
     // {
     //   type: 'suppliers-regist',
     //   container: 'suppliers-regist-container',
