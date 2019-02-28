@@ -7,7 +7,7 @@ const dateDiff = (startDate, endDate) => {
 
 const timespanDiff = (timespan, startDate, endDate) => {
   if (startDate && endDate) return dateDiff(startDate, endDate) + 1
-  return timespan + 1
+  return parseInt(timespan, 10)
 }
 
 const doubleTimespanStartDate = (startDate, endDate) => {
