@@ -74,7 +74,7 @@ Presenter.prototype = {
   _processSelectorData: function({ viewType, selectorData }) {
     // TODO: debugger
     console.log('debugger:: selector data ', selectorData)
-    // TODO: convert selector data into query data
+    // convert selector data into query data
     let queryData = queryConverter({
       config: this.queryConverterConfigs[viewType],
       selectorData,
@@ -105,8 +105,8 @@ Presenter.prototype = {
         ids,
       }
       this._processSelectorData({
-        selectorData,
         viewType: key,
+        selectorData,
       })
       // cache new selector data
       this._cacheSelectorData({

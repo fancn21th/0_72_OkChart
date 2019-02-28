@@ -80,5 +80,6 @@ const convert = ({
 }
 
 export default {
-  convert: [filterBySelectedSourceAndCountry, convert],
+  customConverters: [filterBySelectedSourceAndCountry, convert],
+  viewType: 'overview',
 }

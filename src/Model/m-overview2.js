@@ -1,33 +1,13 @@
-import events from '../Utils/events'
-import converter from '../Utils/pipeline/dataConverter'
-import config from '../Config/DataConverter/cfg-dc-overview'
+import SuperModel, { inheritPrototype } from './Base/SuperModel'
+import config from '../Config/Model/cfg-m-overview'
 
 const Model = function(query) {
-  this.query = query
+  SuperModel.call(this, {
+    query,
+    config,
+  })
 }
 
-Model.prototype = {
-  fetch: function({ query: queryParams, selectorData, filteredSelectorData }) {
-    this.query
-      .query(queryParams, filteredSelectorData)
-      .then(
-        ({ rows, totalsForAllResults, isResponseDataFromCache = false }) => {
-          let data = converter({
-            selectorData,
-            queryParams,
-            responseData: rows,
-            totals: totalsForAllResults,
-            config,
-          })
-          data.isResponseDataFromCache = isResponseDataFromCache
-          console.log('debugger:: view data', data)
-          events.notify('overview', {
-            key: 'overview',
-            data,
-          })
-        }
-      )
-  },
-}
+inheritPrototype(Model, SuperModel)
 
 export default Model

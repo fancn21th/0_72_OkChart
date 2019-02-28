@@ -30,9 +30,9 @@ const converter = ({
   // queryParams,
   responseData,
   totals,
-  config: { convert },
+  customConverters,
 }) => {
-  const pip = [...pipeline, ...convert]
+  const pip = [...pipeline, ...customConverters]
   return pip.reduce(
     (acc, fn) => ({
       ...acc, // last acc
