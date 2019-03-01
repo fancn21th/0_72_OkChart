@@ -2,14 +2,13 @@ import events from '../../Utils/events'
 import { viewDataPip } from '../../Utils/pipeline/pip'
 import inheritPrototype from '../../Utils/inheritPrototype'
 
-const SuperModel = function({ query, config }) {
+const SuperModel = function({ query, modelType }) {
   this.query = query
-  this.config = config
+  this.modelType = modelType
 }
 
 SuperModel.prototype = {
   fetch: function({ query: queryParams, selectorData, filteredSelectorData }) {
-    const { customConverters, viewType } = this.config
     this.query
       .query({ params: queryParams, keyData: filteredSelectorData })
       .then(
@@ -19,16 +18,16 @@ SuperModel.prototype = {
           totalResults,
           isResponseDataFromCache = false,
         }) => {
-          let data = viewDataPip({
+          const data = viewDataPip({
             selectorData,
             responseData: rows,
             totals: { totalsForAllResults, totalResults },
-            customConverters,
+            modelType: this.modelType,
           })
           data.isResponseDataFromCache = isResponseDataFromCache
           console.log('debugger:: view data', data)
-          events.notify(viewType, {
-            key: viewType,
+          events.notify(this.modelType, {
+            key: this.modelType,
             data,
           })
         }

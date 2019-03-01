@@ -1,6 +1,6 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
-const filterBySelectedSourceAndCountry = ({
+const filter = ({
   responseData,
   selectorData: { source, country, workingDate },
 }) => {
@@ -80,6 +80,5 @@ const convert = ({
 }
 
 export default {
-  customConverters: [filterBySelectedSourceAndCountry, convert],
-  viewType: 'overview',
+  customConverters: [filter, convert],
 }

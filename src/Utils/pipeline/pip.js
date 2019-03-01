@@ -1,10 +1,11 @@
 import queryConverter from './queryConverter'
 import filterSelectorData from './filterSelectorData'
 
-import convertData from './dataConverter'
-
 import buildQueryConverterConfig from '../../Factory/buildQueryConverterConfig'
 import buildFilterSelectorDataConfig from '../../Factory/buildFilterSelectorDataConfig'
+
+import dateFilter from './dateFilter'
+import buildModelConfig from '../../Factory/buildModelConfig'
 
 const query_data_pipeline_context = ({ viewType }) => ({
   buildQueryConverterConfig,
@@ -87,17 +88,33 @@ const queryDataPip = ({ viewType, selectorData }) => {
       view data
 */
 
-const viewDataPip = ({
-  selectorData,
-  responseData,
-  totals,
-  customConverters,
-}) =>
-  convertData({
-    selectorData,
-    responseData,
-    totals,
-    customConverters,
+const viewDataPip_pipeline = [dateFilter]
+
+const viewDataPip_pipeline_context = ({ modelType }) => ({
+  modelType,
+})
+
+const viewDataPip = ({ selectorData, responseData, totals, modelType }) => {
+  const { customConverters } = buildModelConfig({
+    type: modelType,
   })
+  const pip = [...viewDataPip_pipeline, ...customConverters]
+  return pip.reduce(
+    (acc, fn) => ({
+      ...acc, // last acc
+      ...fn({
+        ...acc,
+      }),
+    }),
+    {
+      context: viewDataPip_pipeline_context({
+        modelType,
+      }),
+      responseData,
+      selectorData,
+      totals,
+    }
+  )
+}
 
 export { queryDataPip, viewDataPip }
