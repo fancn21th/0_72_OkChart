@@ -1,6 +1,8 @@
 import queryConverter from './queryConverter'
 import filterSelectorData from './filterSelectorData'
 
+import convertData from './dataConverter'
+
 import buildQueryConverterConfig from '../../Factory/buildQueryConverterConfig'
 import buildFilterSelectorDataConfig from '../../Factory/buildFilterSelectorDataConfig'
 
@@ -39,7 +41,7 @@ const query_data_pipeline_context = ({ viewType }) => ({
             )
           output:
             filteredSelectorData
-
+    ======>
     output:
       query,
       filteredSelectorData,
@@ -66,6 +68,36 @@ const queryDataPip = ({ viewType, selectorData }) => {
   )
 }
 
-const viewDataPip = () => {}
+/*
+  Data Flow in Model
+    input:
+      query, selector, filteredSelector
+      ======>
+      request data from ga
+        input:
+          queryParams(from query), cache key(from filteredSelector)
+        output:
+          response, cache state
+      ======>
+      data convert for view
+        input:
+          selector, response, totals, config (customConverters)
+    ======>
+    output:
+      view data
+*/
+
+const viewDataPip = ({
+  selectorData,
+  responseData,
+  totals,
+  customConverters,
+}) =>
+  convertData({
+    selectorData,
+    responseData,
+    totals,
+    customConverters,
+  })
 
 export { queryDataPip, viewDataPip }
