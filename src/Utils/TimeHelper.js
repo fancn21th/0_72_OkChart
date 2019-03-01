@@ -13,7 +13,8 @@ const timespanDiff = (timespan, startDate, endDate) => {
 const doubleTimespanStartDate = (startDate, endDate) => {
   const date1 = new Date(startDate)
   const date2 = new Date(endDate)
-  const timeDiff = Math.abs(date2.getTime() - date1.getTime())
+  const timeDiff =
+    Math.abs(date2.getTime() - date1.getTime()) + 1000 * 3600 * 24
   const doubleTimespanStartDateTime = date1.getTime() - timeDiff
   const doubleTimespanStartDate = new Date(doubleTimespanStartDateTime)
   const year = doubleTimespanStartDate.getFullYear()
