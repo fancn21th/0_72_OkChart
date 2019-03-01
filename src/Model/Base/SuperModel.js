@@ -13,11 +13,16 @@ SuperModel.prototype = {
     this.query
       .query({ params: queryParams, keyData: filteredSelectorData })
       .then(
-        ({ rows, totalsForAllResults, isResponseDataFromCache = false }) => {
+        ({
+          rows,
+          totalsForAllResults,
+          totalResults,
+          isResponseDataFromCache = false,
+        }) => {
           let data = viewDataPip({
             selectorData,
             responseData: rows,
-            totals: totalsForAllResults,
+            totals: { totalsForAllResults, totalResults },
             customConverters,
           })
           data.isResponseDataFromCache = isResponseDataFromCache
