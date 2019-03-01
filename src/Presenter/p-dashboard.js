@@ -1,19 +1,11 @@
 import events from '../Utils/events'
-import queryConverter from '../Utils/pipeline/queryConverter'
-import filterSelectorData from '../Utils/pipeline/filterSelectorData'
+import { queryDataPip } from '../Utils/pipeline/pip'
+import buildDefaultSelector from '../Factory/buildDefaultSelector'
 
-const Presenter = function({
-  views,
-  models,
-  queryConverterConfigs,
-  filterSelectorDataConfigs,
-  defaultSelectors,
-}) {
+const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
-  this.queryConverterConfigs = queryConverterConfigs
-  this.filterSelectorDataConfigs = filterSelectorDataConfigs
-  this.defaultSelectors = defaultSelectors
+
   // cache selector data for each view by default
   this.cachedSelectorData = {}
   this.ids = null
@@ -71,37 +63,12 @@ Presenter.prototype = {
       this.views[viewType].render(data)
     }
   },
-  _processSelectorData: function({ viewType, selectorData }) {
-    // TODO: debugger
-    console.log('debugger:: selector data ', selectorData)
-    // convert selector data into query data
-    let queryData = queryConverter({
-      config: this.queryConverterConfigs[viewType],
-      selectorData,
-    })
-    queryData = {
-      ...queryData,
-      filteredSelectorData: filterSelectorData({
-        config: this.filterSelectorDataConfigs[viewType],
-        selectorData,
-      }),
-    }
-    // TODO: debugger
-    console.log('debugger:: query data ', queryData)
-    // invoke update method of model
-    const model = this.models[viewType]
-    if (Array.isArray(model)) {
-      model.forEach(item => {
-        item.fetch(queryData)
-      })
-    } else {
-      model.fetch(queryData)
-    }
-  },
   _initModels: function({ ids }) {
     Object.keys(this.models).forEach(key => {
       const selectorData = {
-        ...this.defaultSelectors[key],
+        ...buildDefaultSelector({
+          type: key,
+        }),
         ids,
       }
       this._processSelectorData({
@@ -114,6 +81,26 @@ Presenter.prototype = {
         selectorData,
       })
     })
+  },
+  _processSelectorData: function({ viewType, selectorData }) {
+    // TODO: debugger
+    console.log('debugger:: selector data ', selectorData)
+    // convert selector data into query data
+    const queryData = queryDataPip({
+      viewType,
+      selectorData,
+    })
+    // TODO: debugger
+    console.log('debugger:: query data ', queryData)
+    // invoke update method of model
+    const model = this.models[viewType]
+    if (Array.isArray(model)) {
+      model.forEach(item => {
+        item.fetch(queryData)
+      })
+    } else {
+      model.fetch(queryData)
+    }
   },
 }
 

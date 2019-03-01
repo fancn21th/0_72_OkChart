@@ -25,7 +25,12 @@ const maxResult = () => ({
 
 const pipeline = [ids, metrics, dimensions, date, sort, maxResult]
 
-const convert = ({ config, selectorData }) => {
+const convert = ({
+  selectorData,
+  context: { buildQueryConverterConfig, viewType },
+}) => {
+  const config = buildQueryConverterConfig({ type: viewType })
+  // TODO: remove later
   if (!config) {
     return {
       ...selectorData,
@@ -35,16 +40,13 @@ const convert = ({ config, selectorData }) => {
     ...config,
     ...selectorData,
   }
-  const query = pipeline.reduce((acc, fn) => {
-    return {
-      ...acc,
-      ...fn(mergedSelectorData),
-    }
-  }, {})
-  // TODO: still need to return selectorData
   return {
-    selectorData,
-    query,
+    query: pipeline.reduce((acc, fn) => {
+      return {
+        ...acc,
+        ...fn(mergedSelectorData),
+      }
+    }, {}),
   }
 }
 
