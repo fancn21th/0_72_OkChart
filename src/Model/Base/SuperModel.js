@@ -11,10 +11,10 @@ const SuperModel = function({ query, config }) {
   Data Flow in Model
     input:
       query, selector, filteredSelector
-      ====> 
+      ====>
       request data from ga
         input:
-          queryParams, cache key
+          queryParams(from query), cache key(from filteredSelector)
         output:
           response, cache state
       ====>
