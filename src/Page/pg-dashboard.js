@@ -1,6 +1,8 @@
 import events from '../Utils/events'
 import buildView from '../Factory/buildView'
 import buildModel from '../Factory/buildModel'
+import buildQueryConverterConfig from '../Factory/buildQueryConverterConfig'
+import buildDefaultSelector from '../Factory/buildDefaultSelector'
 import DashboardPresenter from '../Presenter/p-dashboard'
 
 const Page = function({ viewElements, query }) {
@@ -9,8 +11,10 @@ const Page = function({ viewElements, query }) {
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
-  this.views = []
+  this.views = {}
   this.models = {}
+  this.queryConverterConfigs = {}
+  this.defaultSelectors = {}
 }
 
 Page.prototype = {
@@ -30,21 +34,30 @@ Page.prototype = {
       },
     })
     this.chartsOption.forEach(chart => {
+      const { type } = chart
       // build view based on type
-      this.views[chart.type] = buildView({
-        type: chart.type,
+      this.views[type] = buildView({
+        type,
         containerId: chart.container,
       })
       // build model based on type
-      this.models[chart.type] = buildModel({
-        type: chart.type,
+      this.models[type] = buildModel({
+        type,
         query: this.query,
+      })
+      this.queryConverterConfigs[type] = buildQueryConverterConfig({
+        type,
+      })
+      this.defaultSelectors[type] = buildDefaultSelector({
+        type,
       })
     })
     // single presenter
     const dashboardPresenter = new DashboardPresenter({
       views: this.views,
       models: this.models,
+      queryConverterConfigs: this.queryConverterConfigs,
+      defaultSelectors: this.defaultSelectors,
     })
     dashboardPresenter.init()
   },

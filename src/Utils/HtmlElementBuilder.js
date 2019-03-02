@@ -27,6 +27,13 @@ const createSelect = ({ options, id, multiple, className }) => {
   return select
 }
 
+const createCheckbox = ({ checked }) => {
+  const checkbox = document.createElement('INPUT')
+  checkbox.setAttribute('type', 'checkbox')
+  checkbox.setAttribute('checked', checked)
+  return checkbox
+}
+
 const createDate = () => {
   const date = document.createElement('INPUT')
   date.setAttribute('type', 'date')
@@ -101,6 +108,7 @@ const createSpan = ({ text, className }) => {
 
 export {
   createSelect,
+  createCheckbox,
   createDate,
   createDiv,
   createDiv2,

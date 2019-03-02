@@ -2,6 +2,8 @@ import SuperView, { inheritPrototype } from './Base/SuperView'
 import DistributionChart from '../View/Chart/c-distribution'
 import UserGrowthChart from '../View/Chart/c-user-growth'
 import DistributionSelector from '../View/Selector/sel-distribution'
+import DistributionDataConvert from '../Converter/Data/c-d-distribution'
+import userGrowthDataConvert from '../Converter/Data/c-d-user-growth'
 import { createDiv } from '../Utils/HtmlElementBuilder'
 
 const View = function({ chartContainerId }) {
@@ -22,6 +24,11 @@ const View = function({ chartContainerId }) {
   this.selector = new DistributionSelector({
     chartContainerId: this.selectorWrapperId,
   })
+
+  this.lastTop15 = null
+  this.lastTop15DoubleTimespan = null
+  this.drawLastTop15 = false
+  this.drawLastTop15Growth = false
 }
 
 inheritPrototype(View, SuperView)
@@ -32,9 +39,41 @@ View.prototype = {
     this.chart2.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function({ data1, data2 }) {
-    if (data1) this.chart1.render(data1)
-    if (data2) this.chart2.render(data2)
+  render: function({ top15, top15DoubleTimespan }) {
+    // TODO: complex process logic, consider to refactor
+    if (top15) this.lastTop15 = top15
+    if (top15DoubleTimespan) this.lastTop15DoubleTimespan = top15DoubleTimespan
+
+    if (!this.drawLastTop15 && this.lastTop15) {
+      const data = DistributionDataConvert(this.lastTop15)
+      const { distribution, sourceCountryFilterCollection } = data
+      this.chart1.render(distribution)
+      if (this.lastTop15.isDataUpdate) {
+        this.selector.render({ sourceCountryFilterCollection })
+      }
+      this.drawLastTop15 = true
+    }
+
+    if (
+      !this.drawLastTop15Growth &&
+      this.lastTop15DoubleTimespan &&
+      this.lastTop15
+    ) {
+      this.chart2.render(
+        userGrowthDataConvert({
+          top15: this.lastTop15,
+          top15DoubleTimespan: this.lastTop15DoubleTimespan,
+        })
+      )
+      this.drawLastTop15Growth = true
+    }
+
+    if (this.drawLastTop15 && this.drawLastTop15Growth) {
+      this.lastTop15 = null
+      this.lastTop15DoubleTimespan = null
+      this.drawLastTop15 = false
+      this.drawLastTop15Growth = false
+    }
   },
 }
 

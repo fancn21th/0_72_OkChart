@@ -1,38 +1,105 @@
 import events from '../Utils/events'
-import userGrowthDataConvert from '../Converter/Data/c-d-user-growth'
-import userGrowthQueryConvert from '../Converter/Query/c-q-user-growth'
-import distributionDataConvert from '../Converter/Data/c-d-distribution'
-import distributionQueryConvert from '../Converter/Query/c-q-distribution'
-import { resolve } from 'path'
+import queryConvert from '../Converter/Query/c-q-distribution'
+import filter from '../Filter/Data/f-d-buyer-regist-distribution'
 
 const Model = function(query) {
   this.query = query
+  this.lastTimespan = null
+  this.lastStartDate = null
+  this.lastEndDate = null
+  this.lastPvuv = null
+  this.lastCountryBrowser = null
+  this.lastCollection = null
 }
 
 Model.prototype = {
+  isExpectingUpdate: function({
+    timespan,
+    startDate,
+    endDate,
+    pvuv,
+    countryBrowser,
+  }) {
+    return (
+      timespan !== this.lastTimespan ||
+      startDate !== this.lastStartDate ||
+      endDate !== this.lastEndDate ||
+      countryBrowser !== this.lastCountryBrowser ||
+      pvuv !== this.lastPvuv
+    )
+  },
+  cacheQueryParams: function({
+    timespan,
+    startDate,
+    endDate,
+    countryBrowser,
+    pvuv,
+    collection,
+  }) {
+    this.lastTimespan = timespan
+    this.lastStartDate = startDate
+    this.lastEndDate = endDate
+    this.lastPvuv = pvuv
+    this.lastCountryBrowser = countryBrowser
+    this.lastCollection = collection
+  },
   fetch: function(selectorData) {
-    const params1 = distributionQueryConvert(selectorData)
-    const params2 = userGrowthQueryConvert(selectorData)
-    const timeSpanSelector = Object.assign({ timespan: 30 }, selectorData)
-    const self = this
-    let distribution = null
-    self.query
-      .query(params1)
-      .then(response => {
-        distribution = distributionDataConvert(response.rows, timeSpanSelector)
-        return self.query.query(params2)
+    const {
+      timespan,
+      startDate,
+      endDate,
+      countryBrowser,
+      pvuv,
+      sourceCountry,
+    } = selectorData
+    if (
+      this.isExpectingUpdate({
+        timespan,
+        startDate,
+        endDate,
+        pvuv,
+        countryBrowser,
       })
-      .then(response => {
-        const userGrowth = userGrowthDataConvert(
-          response.rows,
-          distribution,
-          timeSpanSelector
-        )
+    ) {
+      const params = queryConvert({
+        ...selectorData,
+        isDouble: true,
+      })
+      this.query.query(params).then(response => {
+        const collection = response.rows
         events.notify('distribution', {
           key: 'distribution',
-          data: { data2: userGrowth },
+          data: {
+            top15DoubleTimespan: {
+              collection,
+              isDataUpdate: true,
+            },
+          },
+        })
+        this.cacheQueryParams({
+          timespan,
+          startDate,
+          endDate,
+          pvuv,
+          countryBrowser,
+          collection,
         })
       })
+    } else {
+      const filteredData = filter({
+        collection: this.lastCollection,
+        sourceCountry,
+      })
+      events.notify('distribution', {
+        key: 'distribution',
+        data: {
+          top15DoubleTimespan: {
+            collection: filteredData,
+            isDataUpdate: false,
+          },
+        },
+      })
+    }
   },
 }
 

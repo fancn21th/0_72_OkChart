@@ -1,32 +1,30 @@
-const convert = (collection, selectorData) => {
-  let userTotalCount = 0
-  let userOthersCount = 0
-  const timespan = parseInt(selectorData.timespan || 30)
-  collection.forEach(item => {
-    userTotalCount = userTotalCount + parseInt(item[1] / timespan)
+import { timespanDiff } from '../../Utils/TimeHelper'
+
+const convert = ({ collection, timespan, startDate, endDate, pvuv }) => {
+  // TODO: must not use mutate array method
+  let totalCount = 0,
+    sourceCountryFilterCollection = []
+  collection.map(item => {
+    totalCount += parseInt(item[1], 10)
+    sourceCountryFilterCollection.push({
+      text: item[0],
+      value: item[0],
+    })
   })
-
-  const collectionRange = collection.reverse().slice(0, 10)
-
-  const collectionArray = collectionRange.map(item => ({
-    item: item[0],
-    count: parseInt(item[1] / timespan, 10),
-    percent: parseInt(((item[1] / timespan) * 10000) / userTotalCount) / 10000,
-  }))
-
-  collectionArray.forEach(item => {
-    userOthersCount = userOthersCount + item['count']
+  const top10 = collection.slice(0, 10)
+  const days = timespanDiff(timespan || 30, startDate, endDate)
+  let top10Data = top10.map(item => {
+    const count = Math.round(parseInt(item[1], 10) / days)
+    const percent =
+      parseInt((parseInt(item[1], 10) * 10000) / totalCount) / 10000
+    return {
+      item: item[0],
+      count,
+      percent,
+    }
   })
-
-  collectionArray.push({
-    item: 'others',
-    count: userTotalCount - userOthersCount,
-    percent:
-      parseInt(((userTotalCount - userOthersCount) * 10000) / userTotalCount) /
-      10000,
-  })
-
-  return collectionArray
+  console.log(top10Data)
+  return { distribution: top10Data, sourceCountryFilterCollection }
 }
 
 export default convert

@@ -1,5 +1,5 @@
 import events from '../Utils/events'
-import queryConvert from '../Converter/Query/c-q-suppliers-regist-distribution'
+import queryConvert from '../Converter/Query/c-q-buyers-regist-distribution'
 import filter from '../Filter/Data/f-d-buyer-regist-distribution'
 
 const Model = function(query) {
@@ -49,13 +49,16 @@ Model.prototype = {
     if (
       this.isExpectingUpdate({ timespan, startDate, endDate, countryBrowser })
     ) {
-      const params = queryConvert(selectorData)
+      const params = queryConvert({
+        ...selectorData,
+        isDouble: true,
+      })
       this.query.query(params).then(response => {
         const collection = response.rows
-        events.notify('suppliers-regist-distribution', {
-          key: 'suppliers-regist-distribution',
+        events.notify('buyers-regist-distribution', {
+          key: 'buyers-regist-distribution',
           data: {
-            distribution: {
+            distributionDoubleTimespan: {
               collection,
               isDataUpdate: true,
             },
@@ -74,10 +77,10 @@ Model.prototype = {
         collection: this.lastCollection,
         sourceCountry,
       })
-      events.notify('suppliers-regist-distribution', {
-        key: 'suppliers-regist-distribution',
+      events.notify('buyers-regist-distribution', {
+        key: 'buyers-regist-distribution',
         data: {
-          distribution: {
+          distributionDoubleTimespan: {
             collection: filteredData,
             isDataUpdate: false,
           },

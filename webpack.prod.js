@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const config = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     okchart: './src/index.js',
     client: './src/assets/client.js',
@@ -47,8 +47,10 @@ const config = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {},
+            loader: 'url-loader',
+            options: {
+              fallback: 'file-loader',
+            },
           },
         ],
       },

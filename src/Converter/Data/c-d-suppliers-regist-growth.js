@@ -1,15 +1,25 @@
-const convert = (collection, currentData) => {
-    currentData.pop();
-    const growthArr = currentData.map(e => {
-        let changeData = { item: e.item, value: e.count };
-        collection.forEach(element => {
-            if (element[0] === e.item) {
-                const addData = e.count - parseInt(element[1]);
-                changeData = { item: e.item, value: addData }
-            }
-        })
-        return changeData
+const convert = ({ distribution, distributionDoubleTimespan }) => {
+    const { collection: top10collection } = distribution
+    const {
+        collection: top10DoubleTimespanCollection,
+    } = distributionDoubleTimespan
+
+    const top10DoubleTimespanObj = top10DoubleTimespanCollection.reduce(
+        (acc, val) => {
+            acc[val[0]] = parseInt(val[1] || 0, 10)
+            return acc
+        }, {}
+    )
+
+    return top10collection.slice(0, 15).map(item => {
+        const currentCount = parseInt(item[1] || 0, 10)
+        const currentPlusLastCount = top10DoubleTimespanObj[item[0]]
+        const value = currentCount * 2 - currentPlusLastCount
+        return {
+            item: item[0],
+            value,
+        }
     })
-    return growthArr
 }
+
 export default convert

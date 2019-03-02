@@ -12,6 +12,7 @@ GoogleApiQuery.prototype = {
       })
       data
         .once('success', function(response) {
+          console.log('debugger:: response', response)
           resolve(response)
         })
         .once('error', function(response) {
