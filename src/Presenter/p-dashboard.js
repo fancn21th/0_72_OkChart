@@ -1,6 +1,9 @@
 import events from '../Utils/events'
 import { queryDataPip } from '../Utils/pipeline/pip'
-import buildDefaultSelector from '../Factory/buildDefaultSelector'
+import {
+  buildDefaultSelectorData,
+  buildSelectorData,
+} from '../Factory/buildSelectorData'
 
 const Presenter = function({ views, models }) {
   this.views = views
@@ -36,12 +39,11 @@ Presenter.prototype = {
       const view = self.views[viewType]
       view.init({
         onSelectorChange: data => {
-          // merge current selector data with new selector data
-          const selectorData = {
-            ...self.cachedSelectorData[viewType], // cached
-            ids: self.ids, // ids
-            ...data, // current
-          }
+          const selectorData = buildSelectorData({
+            basedSelectorData: self.cachedSelectorData[viewType], // cached
+            ids: self.ids,
+            currentSelectorData: data,
+          })
           self._processSelectorData({
             viewType,
             selectorData,
@@ -65,7 +67,7 @@ Presenter.prototype = {
   },
   _initModels: function({ ids }) {
     Object.keys(this.models).forEach(key => {
-      const selectorData = buildDefaultSelector({
+      const selectorData = buildDefaultSelectorData({
         type: key,
         ids,
       })
