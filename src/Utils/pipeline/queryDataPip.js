@@ -47,7 +47,7 @@ const query_data_pipeline_context = ({ viewType }) => ({
   viewType,
 })
 
-const query_data_pipeline = [queryConverter, filterSelectorData]
+const query_data_pipeline = [filterSelectorData, queryConverter]
 
 const queryDataPip = ({ viewType, selectorData }) => {
   return query_data_pipeline.reduce(
