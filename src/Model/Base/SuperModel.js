@@ -1,6 +1,7 @@
 import events from '../../Utils/events'
 import { viewDataPip } from '../../Utils/pipeline/pip'
 import inheritPrototype from '../../Utils/inheritPrototype'
+import { isArray } from '../../Utils/typeHelper'
 
 const SuperModel = function({ query, modelType }) {
   this.query = query
@@ -8,9 +9,20 @@ const SuperModel = function({ query, modelType }) {
 }
 
 SuperModel.prototype = {
-  fetch: function({ query: queryParams, selectorData, filteredSelectorData }) {
+  fetch: function(queryData) {
+    const queryParams = isArray(queryData)
+      ? queryData.map(
+          ({ query: queryParams, filteredSelectorData: keyData }) => ({
+            queryParams,
+            keyData,
+          })
+        )
+      : {
+          queryParams: queryData.query,
+          keyData: queryData.filteredSelectorData,
+        }
     this.query
-      .query({ params: queryParams, keyData: filteredSelectorData })
+      .query(queryParams)
       .then(
         ({
           rows,

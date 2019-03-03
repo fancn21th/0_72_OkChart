@@ -94,13 +94,7 @@ Presenter.prototype = {
     console.log('debugger:: query data ', queryData)
     // invoke update method of model
     const model = this.models[viewType]
-    if (Array.isArray(model)) {
-      model.forEach(item => {
-        item.fetch(queryData)
-      })
-    } else {
-      model.fetch(queryData)
-    }
+    model.fetch(queryData)
   },
 }
 

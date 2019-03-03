@@ -1,11 +1,13 @@
 import SelectorMap from '../SelectorMap'
+import { isArray } from '../typeHelper'
 
-const GoogleApiQuery = function(gapi) {
+// TODO: move gapi out and make it abstract
+const ChartQuery = function(gapi) {
   this.gapi = gapi
   this.cache = new SelectorMap()
 }
 
-GoogleApiQuery.prototype = {
+ChartQuery.prototype = {
   _hasData: function(keyData) {
     return keyData && this.cache.has(keyData)
   },
@@ -15,7 +17,7 @@ GoogleApiQuery.prototype = {
   _getData: function(keyData) {
     return this.cache.get(keyData)
   },
-  query: function({ params, keyData }) {
+  _getPromise: function({ keyData, queryParams }) {
     const self = this
 
     if (this._hasData(keyData)) {
@@ -26,7 +28,7 @@ GoogleApiQuery.prototype = {
 
     return new Promise(function(resolve, reject) {
       var data = new self.gapi.analytics.report.Data({
-        query: params,
+        query: queryParams,
       })
       data
         .once('success', function(response) {
@@ -41,6 +43,19 @@ GoogleApiQuery.prototype = {
         .execute()
     })
   },
+  query: function(queryParams) {
+    const promises = []
+
+    if (isArray(queryParams)) {
+      queryParams.forEach(item => {
+        promises.push(this._getPromise(item))
+      })
+    } else {
+      promises.push(this._getPromise(queryParams))
+    }
+
+    return Promise.all(promises)
+  },
 }
 
-export default GoogleApiQuery
+export default ChartQuery

@@ -8,7 +8,7 @@ const buildDefaultSelectorData = ({ ids, type }) => {
       return { defaultSelectorConfig, ids }
     case 'source-top-15':
       return [
-        sourceTop15SelectorConfig,
+        { ...sourceTop15SelectorConfig, ids },
         {
           ...sourceTop15SelectorConfig,
           isDoubleTimespan: true,

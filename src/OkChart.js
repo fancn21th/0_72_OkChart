@@ -1,4 +1,4 @@
-import GoogleApiQuery from './Utils/query/GoogleApiQuery'
+import ChartQuery from './Utils/query/ChartQuery'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
 import Dashboard from './Page/pg-dashboard'
@@ -13,7 +13,7 @@ OkChart.prototype = {
 
     gapi.analytics.ready(function() {
       // google api wrapper
-      const googleApiQuery = new GoogleApiQuery(gapi)
+      const chartQuery = new ChartQuery(gapi)
       const googleApiAuthenticator = new GoogleApiAuthenticator({
         gapi,
         containerId: authContainer,
@@ -33,7 +33,7 @@ OkChart.prototype = {
       // dashboard page
       const dashboard = new Dashboard({
         viewElements,
-        query: googleApiQuery,
+        query: chartQuery,
       })
 
       dashboard.init()
