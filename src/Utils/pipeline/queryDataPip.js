@@ -51,7 +51,7 @@ const query_data_pipeline_context = ({ viewType }) => ({
 
 const query_data_pipeline = [filterSelectorData, queryConverter]
 
-const reduce_singleSelectorData = ({ viewType, selectorData }) =>
+const reduce_single_selectorData = ({ viewType, selectorData }) =>
   query_data_pipeline.reduce(
     (acc, fn) => {
       return {
@@ -70,9 +70,9 @@ const reduce_singleSelectorData = ({ viewType, selectorData }) =>
 const queryDataPip = ({ viewType, selectorData }) => {
   return isArray(selectorData)
     ? selectorData.map(item =>
-        reduce_singleSelectorData({ viewType, selectorData: item })
+        reduce_single_selectorData({ viewType, selectorData: item })
       )
-    : reduce_singleSelectorData({ viewType, selectorData })
+    : reduce_single_selectorData({ viewType, selectorData })
 }
 
 export default queryDataPip

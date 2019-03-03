@@ -12,38 +12,32 @@ SuperModel.prototype = {
   fetch: function(queryData) {
     const queryParams = isArray(queryData)
       ? queryData.map(
-          ({ query: queryParams, filteredSelectorData: keyData }) => ({
+          ({
+            query: queryParams,
+            filteredSelectorData: keyData,
+            selectorData,
+          }) => ({
             queryParams,
             keyData,
+            selectorData,
           })
         )
       : {
           queryParams: queryData.query,
           keyData: queryData.filteredSelectorData,
+          selectorData: queryData.selectorData,
         }
-    this.query
-      .query(queryParams)
-      .then(
-        ({
-          rows,
-          totalsForAllResults,
-          totalResults,
-          isResponseDataFromCache = false,
-        }) => {
-          const data = viewDataPip({
-            selectorData,
-            responseData: rows,
-            totals: { totalsForAllResults, totalResults },
-            modelType: this.modelType,
-          })
-          data.isResponseDataFromCache = isResponseDataFromCache
-          console.log('debugger:: view data', data)
-          events.notify(this.modelType, {
-            key: this.modelType,
-            data,
-          })
-        }
-      )
+    this.query.query(queryParams).then(responseData => {
+      const data = viewDataPip({
+        responseData,
+        modelType: this.modelType,
+      })
+      console.log('debugger:: view data', data)
+      events.notify(this.modelType, {
+        key: this.modelType,
+        data,
+      })
+    })
   },
 }
 
