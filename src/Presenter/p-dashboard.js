@@ -65,12 +65,10 @@ Presenter.prototype = {
   },
   _initModels: function({ ids }) {
     Object.keys(this.models).forEach(key => {
-      const selectorData = {
-        ...buildDefaultSelector({
-          type: key,
-        }),
+      const selectorData = buildDefaultSelector({
+        type: key,
         ids,
-      }
+      })
       this._processSelectorData({
         viewType: key,
         selectorData,

@@ -1,9 +1,4 @@
-// helper
-const isFunction = function(functionToCheck) {
-  return (
-    functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
-  )
-}
+import { isFunction } from '../../Utils/typeHelper'
 
 const ids = ({ ids }) => ({ ids })
 const metrics = ({ metrics: metricsConfig, context }) =>

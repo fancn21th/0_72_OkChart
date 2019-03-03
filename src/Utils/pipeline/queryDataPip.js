@@ -4,6 +4,8 @@ import filterSelectorData from './filterSelectorData'
 import buildQueryConverterConfig from '../../Factory/buildQueryConverterConfig'
 import buildFilterSelectorDataConfig from '../../Factory/buildFilterSelectorDataConfig'
 
+import { isArray } from '../typeHelper'
+
 /*
   Data Flow in View
     input:
@@ -49,8 +51,8 @@ const query_data_pipeline_context = ({ viewType }) => ({
 
 const query_data_pipeline = [filterSelectorData, queryConverter]
 
-const queryDataPip = ({ viewType, selectorData }) => {
-  return query_data_pipeline.reduce(
+const reduce_singleSelectorData = ({ viewType, selectorData }) =>
+  query_data_pipeline.reduce(
     (acc, fn) => {
       return {
         ...acc,
@@ -64,6 +66,13 @@ const queryDataPip = ({ viewType, selectorData }) => {
       selectorData,
     }
   )
+
+const queryDataPip = ({ viewType, selectorData }) => {
+  return isArray(selectorData)
+    ? selectorData.map(item =>
+        reduce_singleSelectorData({ viewType, selectorData: item })
+      )
+    : reduce_singleSelectorData({ viewType, selectorData })
 }
 
 export default queryDataPip
