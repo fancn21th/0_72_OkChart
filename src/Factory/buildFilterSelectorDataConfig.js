@@ -1,9 +1,10 @@
-import overview from '../Config/SelectorFilter/cfg-sf-overviews'
+import defaultSelectorFilterConfig from '../Config/SelectorFilter/cfg-sf-default'
 
 const buildSelectorFilter = ({ type }) => {
   switch (type) {
     case 'overview':
-      return overview
+    case 'source-top-15':
+      return defaultSelectorFilterConfig
     default:
       return null
   }

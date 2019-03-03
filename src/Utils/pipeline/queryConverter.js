@@ -1,5 +1,14 @@
+// helper
+const isFunction = function(functionToCheck) {
+  return (
+    functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
+  )
+}
+
 const ids = ({ ids }) => ({ ids })
-const metrics = ({ metrics }) => ({ metrics })
+const metrics = ({ metrics: metricsConfig, context }) =>
+  isFunction(metricsConfig) ? metricsConfig(context) : metricsConfig
+
 const dimensions = ({ workingDate, dimensions }) => {
   if (workingDate === true) {
     return {
@@ -30,15 +39,13 @@ const convert = ({
   context: { buildQueryConverterConfig, viewType },
 }) => {
   const config = buildQueryConverterConfig({ type: viewType })
-  // TODO: remove later
   if (!config) {
-    return {
-      ...selectorData,
-    }
+    throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
   const mergedSelectorData = {
     ...config,
     ...selectorData,
+    context: selectorData,
   }
   return {
     query: pipeline.reduce((acc, fn) => {
