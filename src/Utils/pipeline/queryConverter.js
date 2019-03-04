@@ -1,8 +1,17 @@
 import { isFunction } from '../../Utils/typeHelper'
 
 const ids = ({ ids }) => ({ ids })
-const metrics = ({ metrics: metricsConfig, context }) =>
-  isFunction(metricsConfig) ? metricsConfig(context) : metricsConfig
+
+const metrics = queryData => {
+  const { metrics: metricsConfig } = queryData
+  return isFunction(metricsConfig)
+    ? {
+        metrics: metricsConfig(queryData),
+      }
+    : {
+        metrics: metricsConfig,
+      }
+}
 
 const dimensions = ({ workingDate, dimensions }) => {
   if (workingDate === true) {
@@ -14,6 +23,7 @@ const dimensions = ({ workingDate, dimensions }) => {
     dimensions,
   }
 }
+
 const date = ({ timespan, startDate, endDate }) => {
   const startDateStr = startDate || `${timespan || '30'}daysAgo`
   const enDateStr = endDate || 'yesterday'
@@ -22,7 +32,18 @@ const date = ({ timespan, startDate, endDate }) => {
     'end-date': enDateStr,
   }
 }
-const sort = () => null
+
+const sort = queryData => {
+  const { sort: sortConfig } = queryData
+  return isFunction(sortConfig)
+    ? {
+        sort: sortConfig(queryData),
+      }
+    : {
+        sort: sortConfig,
+      }
+}
+
 const maxResult = () => ({
   'max-results': 10000,
 })
@@ -37,18 +58,17 @@ const convert = ({
   if (!config) {
     throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
-  const mergedSelectorData = {
-    ...config,
-    ...selectorData,
-    context: selectorData,
-  }
   return {
-    query: pipeline.reduce((acc, fn) => {
-      return {
+    query: pipeline.reduce(
+      (acc, fn) => ({
         ...acc,
-        ...fn(mergedSelectorData),
+        ...fn(acc),
+      }),
+      {
+        ...config,
+        ...selectorData,
       }
-    }, {}),
+    ),
   }
 }
 

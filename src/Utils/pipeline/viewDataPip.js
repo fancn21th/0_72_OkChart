@@ -47,7 +47,6 @@ const reduce_single_responseData = ({
 }
 
 const viewDataPip = ({ responseData, modelType }) => {
-  // selectorData, responseData, totals,
   const universal_results = isArray(responseData)
     ? responseData.map(item => reduce_single_responseData(item))
     : reduce_single_responseData(responseData)
