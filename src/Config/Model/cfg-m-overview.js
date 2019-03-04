@@ -1,28 +1,32 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
-const filter = ({
-  responseData,
-  selectorData: { source, country, workingDate },
-}) => {
+const filter = ({ responseDataSolo }) => {
   const isSourceEmpty = !source || source.length === 0,
     isCountryEmpty = !country || country.length === 0,
     idxOffset = workingDate === true ? 1 : 0,
     channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset
+    countryIdx = 1 + idxOffset,
+    { responseData, selectorData } = responseDataSolo,
+    { source, country, workingDate } = selectorData
 
   return {
-    responseData: responseData.filter(
-      item =>
-        (isSourceEmpty || source.includes(item[channelIdx])) &&
-        (isCountryEmpty || country.includes(item[countryIdx]))
-    ),
+    responseDataSolo: {
+      ...responseDataSolo,
+      responseData: responseData.filter(
+        item =>
+          (isSourceEmpty || source.includes(item[channelIdx])) &&
+          (isCountryEmpty || country.includes(item[countryIdx]))
+      ),
+    },
   }
 }
 
 const convert = ({
-  responseData,
-  selectorData: { timespan, startDate, endDate, workingDate },
-  nonWorkingDateCount,
+  responseDataSolo: {
+    responseData,
+    selectorData: { timespan, startDate, endDate, workingDate },
+    nonWorkingDateCount,
+  },
 }) => {
   let pv = 0,
     uv = 0,

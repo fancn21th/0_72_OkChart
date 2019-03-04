@@ -64,8 +64,8 @@ const getTop15Growth = ({ top15, top15DoubleTimespan }) => {
   })
 }
 
-const convert = ({ responseData }) => {
-  const [responseData1, responseData2] = responseData,
+const convert = ({ responseDataArray }) => {
+  const [responseData1, responseData2] = responseDataArray,
     singleResponse = responseData1.isDoubleTimespan ? responseData2 : responseData1,
     doubleResponse = responseData1.isDoubleTimespan ? responseData1 : responseData2
 

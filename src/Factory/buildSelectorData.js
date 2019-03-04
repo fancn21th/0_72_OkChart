@@ -5,7 +5,7 @@ import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-to
 const buildDefaultSelectorData = ({ ids, type }) => {
   switch (type) {
     case 'overview':
-      return { defaultSelectorConfig, ids }
+      return { ...defaultSelectorConfig, ids }
     case 'source-top-15':
       return [
         { ...sourceTop15SelectorConfig, ids },

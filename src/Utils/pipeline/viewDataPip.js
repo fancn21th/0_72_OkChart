@@ -82,10 +82,9 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
       }),
     }),
     {
-      responseData:
-        universal_results.length === 1
-          ? universal_results[0]
-          : universal_results,
+      responseDataSolo:
+        universal_results.length === 1 ? universal_results[0] : null,
+      responseDataArray: universal_results,
       context: viewDataPip_pipeline_context({
         modelType,
       }),
