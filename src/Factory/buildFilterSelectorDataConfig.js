@@ -6,7 +6,7 @@ const buildSelectorFilter = ({ type }) => {
     case 'source-top-15':
       return defaultSelectorFilterConfig
     default:
-      return null
+      throw new Error('OKCHART::ERROR:: no selector filter config is defined.')
   }
 }
 

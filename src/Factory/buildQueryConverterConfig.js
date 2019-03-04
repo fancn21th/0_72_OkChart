@@ -8,7 +8,7 @@ const buildQueryConverterConfig = ({ type }) => {
     case 'source-top-15':
       return sourceTop15
     default:
-      return null
+      throw new Error('OKCHART::ERROR:: no query converter config is defined.')
   }
 }
 

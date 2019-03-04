@@ -16,7 +16,7 @@ const buildDefaultSelectorData = ({ ids, type }) => {
         },
       ]
     default:
-      return null
+      throw new Error('OKCHART::ERROR:: no default selector is defined.')
   }
 }
 

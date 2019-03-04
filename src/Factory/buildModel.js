@@ -36,7 +36,7 @@ const buildModel = ({ type, query }) => {
         new SuppliersRegistDistributionDoubleTimespanModel(query),
       ]
     default:
-      return null
+      throw new Error('OKCHART::ERROR:: no model is defined.')
   }
 }
 
