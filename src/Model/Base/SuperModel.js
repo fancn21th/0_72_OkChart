@@ -27,9 +27,9 @@ SuperModel.prototype = {
           keyData: queryData.filteredSelectorData,
           selectorData: queryData.selectorData,
         }
-    this.query.query(queryParams).then(responseData => {
+    this.query.query(queryParams).then(responseDataArray => {
       const data = viewDataPip({
-        responseData,
+        responseDataArray,
         modelType: this.modelType,
       })
       console.log('debugger:: view data', data)

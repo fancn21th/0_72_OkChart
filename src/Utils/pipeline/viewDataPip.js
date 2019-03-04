@@ -53,7 +53,7 @@ const reduce_single_responseData = ({
   )
 }
 
-const viewDataPip = ({ responseData, modelType }) => {
+const viewDataPip = ({ responseDataArray, modelType }) => {
   const {
       customConverters,
       groupFieldIndex,
@@ -64,13 +64,13 @@ const viewDataPip = ({ responseData, modelType }) => {
     }),
     context = { groupFieldIndex, sumFieldIndex, sumFieldSort }
 
-  const universal_results = isArray(responseData)
-    ? responseData.map(item => reduce_single_responseData({ ...item, context }))
-    : reduce_single_responseData({ ...responseData, context })
+  const universal_results = responseDataArray.map(item =>
+    reduce_single_responseData({ ...item, context })
+  )
 
   // debugger
   console.log(
-    'debugger:: view data - universal data converter',
+    'debugger:: view data:: universal view data converter',
     universal_results
   )
 
@@ -82,7 +82,10 @@ const viewDataPip = ({ responseData, modelType }) => {
       }),
     }),
     {
-      responseData: universal_results,
+      responseData:
+        universal_results.length === 1
+          ? universal_results[0]
+          : universal_results,
       context: viewDataPip_pipeline_context({
         modelType,
       }),
