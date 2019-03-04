@@ -1,13 +1,13 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
 const filter = ({ responseDataSolo }) => {
-  const isSourceEmpty = !source || source.length === 0,
+  const { responseData, selectorData } = responseDataSolo,
+    { source, country, workingDate } = selectorData,
+    isSourceEmpty = !source || source.length === 0,
     isCountryEmpty = !country || country.length === 0,
     idxOffset = workingDate === true ? 1 : 0,
     channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset,
-    { responseData, selectorData } = responseDataSolo,
-    { source, country, workingDate } = selectorData
+    countryIdx = 1 + idxOffset
 
   return {
     responseDataSolo: {
