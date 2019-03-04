@@ -1,4 +1,5 @@
-import { isFunction } from '../../Utils/typeHelper'
+import { isFunction } from '../typeHelper'
+import { doubleTimespanStartDate } from '../TimeHelper'
 
 const ids = ({ ids }) => ({ ids })
 
@@ -24,12 +25,26 @@ const dimensions = ({ workingDate, dimensions }) => {
   }
 }
 
-const date = ({ timespan, startDate, endDate }) => {
-  const startDateStr = startDate || `${timespan || '30'}daysAgo`
-  const enDateStr = endDate || 'yesterday'
+// TODO: isDoubleTimespan moving out
+const date = ({ timespan, startDate, endDate, isDoubleTimespan }) => {
+  let startDateStr, endDateStr
+
+  if (isDoubleTimespan) {
+    timespan = parseInt(timespan || '30', 10) * 2
+    startDate =
+      startDate && endDate
+        ? doubleTimespanStartDate(startDate, endDate)
+        : startDate
+    startDateStr = startDate || `${timespan || '30'}daysAgo`
+    endDateStr = endDate || 'yesterday'
+  } else {
+    startDateStr = startDate || `${timespan || '30'}daysAgo`
+    endDateStr = endDate || 'yesterday'
+  }
+
   return {
     'start-date': startDateStr,
-    'end-date': enDateStr,
+    'end-date': endDateStr,
   }
 }
 
