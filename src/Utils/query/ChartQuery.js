@@ -22,7 +22,13 @@ ChartQuery.prototype = {
 
     if (this._hasData(keyData)) {
       return new Promise(function(resolve) {
-        resolve(self._getData(keyData))
+        // TODO: debugger
+        console.log('debugger:: response data', self._getData(keyData))
+        resolve({
+          response: self._getData(keyData),
+          selectorData,
+          isResponseDataFromCache: true,
+        })
       })
     }
 
@@ -32,13 +38,13 @@ ChartQuery.prototype = {
       })
       data
         .once('success', function(response) {
+          if (keyData) self._cacheData(keyData, response)
           // TODO: debugger
           console.log('debugger:: response data', response)
-          if (keyData) self._cacheData(keyData, { response, selectorData })
-          resolve({ response, selectorData })
+          resolve({ response, selectorData, isResponseDataFromCache: false })
         })
         .once('error', function(response) {
-          reject({ response, selectorData })
+          reject({ response, selectorData, isResponseDataFromCache: false })
         })
         .execute()
     })

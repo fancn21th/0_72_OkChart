@@ -24,7 +24,7 @@ View.prototype = {
     supplierCount,
     source, // TODO: Bad Naming
     country, // TODO: Bad Naming
-    isResponseDataFromCache,
+    responseDataSolo: { isResponseDataFromCache },
   }) {
     this.chart.render({
       pv,

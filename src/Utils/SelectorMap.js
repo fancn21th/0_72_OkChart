@@ -6,10 +6,7 @@ SelectorMap.prototype = {
   set: function(key, value) {
     // TODO: Bad Design
     const keyStr = JSON.stringify(key)
-    this.map[keyStr] = {
-      ...value,
-      isResponseDataFromCache: true,
-    }
+    this.map[keyStr] = value
   },
   has: function(key) {
     const keyStr = JSON.stringify(key)
