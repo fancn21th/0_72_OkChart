@@ -66,8 +66,12 @@ const getTop15Growth = ({ top15, top15DoubleTimespan }) => {
 
 const convert = ({ responseDataArray }) => {
   const [responseData1, responseData2] = responseDataArray,
-    singleResponse = responseData1.isDoubleTimespan ? responseData2 : responseData1,
-    doubleResponse = responseData1.isDoubleTimespan ? responseData1 : responseData2
+    singleResponse = responseData1.isDoubleTimespan
+      ? responseData2
+      : responseData1,
+    doubleResponse = responseData1.isDoubleTimespan
+      ? responseData1
+      : responseData2
 
   return {
     top15: getTop15(singleResponse),
@@ -81,6 +85,6 @@ const convert = ({ responseDataArray }) => {
 export default {
   customConverters: [convert],
   groupFieldIndex: 0,
-  sumFieldIndex: 1,
+  sumFieldIndex: [1, 2],
   sumFieldSort: 'desc',
 }

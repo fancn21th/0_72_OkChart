@@ -1,5 +1,17 @@
 import { isInteger } from '../typeHelper'
 
+const getValuesByIndexs = ({ item, indexs }) => {
+  return indexs.reduce((acc, idx) => {
+    if (item[idx]) {
+      acc.push(parseInt(item[idx], 10))
+    }
+    return acc
+  }, [])
+}
+
+const addValuesByValues = ({ values, addedValues }) =>
+  values.map((val, idx) => val + addedValues[idx])
+
 const groupByFieldIdx = viewData => {
   const {
     context: { groupFieldIndex, sumFieldIndex },
@@ -8,25 +20,33 @@ const groupByFieldIdx = viewData => {
   } = viewData
 
   if (workingDate && isInteger(groupFieldIndex)) {
-    const fixedGoupFieldIndex = workingDate
+    const fixedGroupFieldIndex = workingDate
       ? groupFieldIndex + 1
       : groupFieldIndex
-    const fixedSumFieldIndex = sumFieldIndex ? sumFieldIndex + 1 : sumFieldIndex
+    const fixedSumFieldIndex = sumFieldIndex.map(idx =>
+      workingDate ? idx + 1 : idx
+    )
 
     const map = responseData.reduce((map, item) => {
-        const key = item[fixedGoupFieldIndex]
-        const value = parseInt(item[fixedSumFieldIndex], 10)
+        const key = item[fixedGroupFieldIndex]
+        const values = getValuesByIndexs({ item, indexs: fixedSumFieldIndex })
         if (map.has(key)) {
-          map.set(key, map.get(key) + value)
+          const oldValues = map.get(key),
+            addedValues = values,
+            sumValues = addValuesByValues({
+              values: oldValues,
+              addedValues,
+            })
+          map.set(key, sumValues)
         } else {
-          map.set(key, value)
+          map.set(key, values)
         }
         return map
       }, new Map()),
       arr = []
 
-    map.forEach((value, key) => {
-      arr.push([key, value])
+    map.forEach((values, key) => {
+      arr.push([key, ...values])
     })
 
     return {
@@ -44,13 +64,15 @@ const sortByFieldIdx = viewData => {
     responseData,
   } = viewData
 
-  if (workingDate && isInteger(sumFieldIndex)) {
+  const firstSumFieldIndex = sumFieldIndex && sumFieldIndex[0]
+
+  if (workingDate && isInteger(firstSumFieldIndex)) {
     return {
       ...viewData,
       responseData: responseData.sort((a, b) => {
         return sumFieldSort === 'asc'
-          ? a[sumFieldIndex] - b[sumFieldIndex]
-          : b[sumFieldIndex] - a[sumFieldIndex]
+          ? a[firstSumFieldIndex] - b[firstSumFieldIndex]
+          : b[firstSumFieldIndex] - a[firstSumFieldIndex]
       }),
     }
   }
