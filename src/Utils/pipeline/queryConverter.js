@@ -48,7 +48,14 @@ const maxResult = () => ({
   'max-results': 10000,
 })
 
-const pipeline = [ids, metrics, dimensions, date, sort, maxResult]
+const query_params_gen_pipeline = [
+  ids,
+  metrics,
+  dimensions,
+  date,
+  sort,
+  maxResult,
+]
 
 const convert = ({
   selectorData,
@@ -59,7 +66,7 @@ const convert = ({
     throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
   return {
-    query: pipeline.reduce(
+    query: query_params_gen_pipeline.reduce(
       (acc, fn) => ({
         ...acc,
         ...fn(acc),

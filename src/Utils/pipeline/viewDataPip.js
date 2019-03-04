@@ -1,4 +1,5 @@
-import dateFilter from './dateFilter'
+import filterDateByWorkingDate from './dateFilter'
+import { groupByFieldIdx, sortByFieldIdx } from './dateGrouping'
 import buildModelConfig from '../../Factory/buildModelConfig'
 import { isArray } from '../typeHelper'
 
@@ -21,7 +22,11 @@ import { isArray } from '../typeHelper'
       view data
 */
 
-const viewDataPip_universal_pipeline = [dateFilter]
+const viewDataPip_universal_pipeline = [
+  filterDateByWorkingDate,
+  groupByFieldIdx,
+  sortByFieldIdx,
+]
 
 const viewDataPip_pipeline_context = ({ modelType }) => ({
   modelType,
@@ -30,6 +35,7 @@ const viewDataPip_pipeline_context = ({ modelType }) => ({
 const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
+  context,
 }) => {
   return viewDataPip_universal_pipeline.reduce(
     (acc, fn) => ({
@@ -42,18 +48,31 @@ const reduce_single_responseData = ({
       responseData,
       selectorData,
       totals: { totalsForAllResults, totalResults },
+      context,
     }
   )
 }
 
 const viewDataPip = ({ responseData, modelType }) => {
-  const universal_results = isArray(responseData)
-    ? responseData.map(item => reduce_single_responseData(item))
-    : reduce_single_responseData(responseData)
+  const {
+      customConverters,
+      groupFieldIndex,
+      sumFieldIndex,
+      sumFieldSort,
+    } = buildModelConfig({
+      type: modelType,
+    }),
+    context = { groupFieldIndex, sumFieldIndex, sumFieldSort }
 
-  const { customConverters } = buildModelConfig({
-    type: modelType,
-  })
+  const universal_results = isArray(responseData)
+    ? responseData.map(item => reduce_single_responseData({ ...item, context }))
+    : reduce_single_responseData({ ...responseData, context })
+
+  // debugger
+  console.log(
+    'debugger:: view data - universal data converter',
+    universal_results
+  )
 
   return customConverters.reduce(
     (acc, fn) => ({

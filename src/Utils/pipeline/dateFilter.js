@@ -1,6 +1,6 @@
 import { isWorkingDate } from '../TimeHelper'
 
-const dateFilter = ({ responseData, selectorData: { workingDate } }) => {
+const filterDateByWorkingDate = ({ responseData, selectorData: { workingDate } }) => {
   if (workingDate === true) {
     const filterObj = {} // cache date string already checked
     const filteredCollection = responseData.filter(item => {
@@ -22,4 +22,4 @@ const dateFilter = ({ responseData, selectorData: { workingDate } }) => {
   return { responseData, nonWorkingDateCount: 0 }
 }
 
-export default dateFilter
+export default filterDateByWorkingDate

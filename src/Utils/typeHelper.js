@@ -8,4 +8,8 @@ const isArray = function(arrayToCheck) {
   return Array.isArray(arrayToCheck)
 }
 
-export { isFunction, isArray }
+const isInteger = function(integerToCheck) {
+  return Number.isInteger(integerToCheck)
+}
+
+export { isFunction, isArray, isInteger }

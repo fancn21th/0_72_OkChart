@@ -80,4 +80,7 @@ const convert = ({ responseData }) => {
 
 export default {
   customConverters: [convert],
+  groupFieldIndex: 0,
+  sumFieldIndex: 1,
+  sumFieldSort: 'desc',
 }
