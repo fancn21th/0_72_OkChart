@@ -1,3 +1,10 @@
+const filter = ({ responseData: collection, sourceCountry }) => {
+  const isSourceCountryEmpty = !sourceCountry || sourceCountry.length === 0
+  return collection.filter(item => {
+    return isSourceCountryEmpty || sourceCountry.includes(item[0])
+  })
+}
+
 const getDistribution = ({ responseData: collection }) => {
   // 全部的总数
   let totalCount = 0,
@@ -59,12 +66,23 @@ const convert = ({ responseDataArray }) => {
     doubleResponse = responseData1.isDoubleTimespan
       ? responseData1
       : responseData2,
-    { isResponseDataFromCache } = responseData1
+    {
+      isResponseDataFromCache,
+      responseData,
+      selectorData: { sourceCountry },
+    } = singleResponse,
+    filteredResponseData = {
+      ...singleResponse,
+      responseData: filter({
+        responseData,
+        sourceCountry,
+      }),
+    }
 
   return {
-    ...getDistribution(responseData1),
+    ...getDistribution(filteredResponseData),
     ...getDistributionGrowth({
-      distribution: singleResponse,
+      distribution: filteredResponseData,
       distributionDoubleTimespan: doubleResponse,
     }),
     isResponseDataFromCache,
