@@ -1,6 +1,7 @@
 import { isArray } from '../Utils/typeHelper'
 import defaultSelectorConfig from '../Config/DefaultSelector/cfg-s-default'
 import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-top-15'
+import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyers-regist-distribution'
 
 const buildDefaultSelectorData = ({ ids, type }) => {
   switch (type) {
@@ -14,6 +15,11 @@ const buildDefaultSelectorData = ({ ids, type }) => {
           isDoubleTimespan: true,
           ids,
         },
+      ]
+    case 'buyers-regist-distribution':
+      return [
+        { ...buyerRegistDistributionConfig, ids },
+        { ...buyerRegistDistributionConfig, isDoubleTimespan: true, ids },
       ]
     default:
       throw new Error('OKCHART::ERROR:: no default selector is defined.')
