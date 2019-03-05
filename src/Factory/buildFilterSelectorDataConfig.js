@@ -4,6 +4,7 @@ const buildSelectorFilter = ({ type }) => {
   switch (type) {
     case 'overview':
     case 'source-top-15':
+    case 'buyers-regist-distribution':
       return defaultSelectorFilterConfig
     default:
       throw new Error('OKCHART::ERROR:: no selector filter config is defined.')

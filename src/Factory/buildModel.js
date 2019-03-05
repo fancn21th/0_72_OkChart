@@ -4,7 +4,6 @@ import DistributionModel from '../Model/m-distribution'
 import UserGrowthModel from '../Model/m-user-growth'
 import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributionModel from '../Model/m-buyers-regist-distribution'
-import BuyersRegistDistributionDoubleTimespanModel from '../Model/m-buyers-regist-distribution-double-timespan'
 import SourceTop15Model from '../Model/m-source-top-15-2'
 import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
@@ -23,10 +22,7 @@ const buildModel = ({ type, query }) => {
     case 'buyers-regist':
       return new BuyersRegistModel(query)
     case 'buyers-regist-distribution':
-      return [
-        new BuyersRegistDistributionModel(query),
-        new BuyersRegistDistributionDoubleTimespanModel(query),
-      ]
+      return new BuyersRegistDistributionModel(query)
     case 'suppliers-regist':
       return new SuppliersRegistModel(query)
     case 'suppliers-regist-distribution':
