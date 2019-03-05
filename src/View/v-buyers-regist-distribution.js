@@ -38,8 +38,8 @@ View.prototype = {
     distribution,
     distributionGrowth,
     sourceCountryFilterCollection,
+    isResponseDataFromCache,
   }) {
-    const { isResponseDataFromCache } = distribution
     this.chart1.render(distribution)
     this.chart2.render(distributionGrowth)
     // no need to update selector when fetching data from cache

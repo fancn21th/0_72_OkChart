@@ -58,7 +58,8 @@ const convert = ({ responseDataArray }) => {
       : responseData1,
     doubleResponse = responseData1.isDoubleTimespan
       ? responseData1
-      : responseData2
+      : responseData2,
+    { isResponseDataFromCache } = responseData1
 
   return {
     ...getDistribution(responseData1),
@@ -66,6 +67,7 @@ const convert = ({ responseDataArray }) => {
       distribution: singleResponse,
       distributionDoubleTimespan: doubleResponse,
     }),
+    isResponseDataFromCache,
   }
 }
 
