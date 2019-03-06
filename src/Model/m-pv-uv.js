@@ -1,22 +1,12 @@
-import events from '../Utils/events'
-import dataConvert from '../Converter/Data/c-d-pv-uv'
-import queryConvert from '../Converter/Query/c-q-pv-uv'
+import SuperModel, { inheritPrototype } from './Base/SuperModel'
 
 const Model = function(query) {
-  this.query = query
+  SuperModel.call(this, {
+    query,
+    modelType: 'pv-uv',
+  })
 }
 
-Model.prototype = {
-  fetch: function(selectorData) {
-    const params = queryConvert(selectorData)
-    this.query.query(params).then(response => {
-      const data = dataConvert(response.rows)
-      events.notify('pv-uv', {
-        key: 'pv-uv',
-        data,
-      })
-    })
-  },
-}
+inheritPrototype(Model, SuperModel)
 
 export default Model

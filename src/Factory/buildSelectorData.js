@@ -2,11 +2,14 @@ import { isArray } from '../Utils/typeHelper'
 import defaultSelectorConfig from '../Config/DefaultSelector/cfg-s-default'
 import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-top-15'
 import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyers-regist-distribution'
+import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
 
 const buildDefaultSelectorData = ({ ids, type }) => {
   switch (type) {
     case 'overview':
       return { ...defaultSelectorConfig, ids }
+    case 'pv-uv':
+      return { ...pvUvConfig, ids }
     case 'source-top-15':
       return [
         { ...sourceTop15SelectorConfig, ids },

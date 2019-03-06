@@ -60,11 +60,11 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
       customConverters,
       groupFieldIndex,
       sumFieldIndex,
-      sumFieldSort,
+      sortField,
     } = buildModelConfig({
       type: modelType,
     }),
-    context = { groupFieldIndex, sumFieldIndex, sumFieldSort }
+    context = { groupFieldIndex, sumFieldIndex, sortField }
 
   const universal_results = responseDataArray.map(item =>
     reduce_single_responseData({ ...item, context })

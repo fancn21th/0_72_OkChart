@@ -8,6 +8,7 @@ const defaultConfig = {
 const buildSelectorFilter = ({ type }) => {
   switch (type) {
     case 'source-top-15':
+    case 'pv-uv':
       return defaultConfig
     case 'overview':
       return overview
