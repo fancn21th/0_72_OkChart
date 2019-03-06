@@ -5,6 +5,7 @@ import defaultSelectorConfig from '../Config/DefaultSelector/cfg-s-default'
 import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-top-15'
 import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyers-regist-distribution'
 import buyersRegistConfig from '../Config/DefaultSelector/cfg-s-buyers-regist'
+import suppliersRegistConfig from '../Config/DefaultSelector/cfg-s-supplies-regist'
 import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
 
 const buildDefaultSelectorData = ({
@@ -49,8 +50,11 @@ const buildDefaultSelectorData = ({
         ...buyersRegistConfig,
         ids
       }
-
-
+    case 'suppliers-regist':
+      return {
+        ...suppliersRegistConfig,
+        ids
+      }
     default:
       throw new Error('OKCHART::ERROR:: no default selector is defined.')
   }

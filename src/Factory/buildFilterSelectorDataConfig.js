@@ -12,6 +12,7 @@ const buildSelectorFilter = ({
     case 'source-top-15':
     case 'pv-uv':
     case 'buyers-regist':
+    case 'suppliers-regist':
       return defaultConfig
     case 'overview':
       return overview
