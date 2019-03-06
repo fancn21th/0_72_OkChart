@@ -12,4 +12,8 @@ const isInteger = function(integerToCheck) {
   return Number.isInteger(integerToCheck)
 }
 
-export { isFunction, isArray, isInteger }
+const isDateString = function(dateToCheck) {
+  return /\d{6,8}/.test(dateToCheck)
+}
+
+export { isFunction, isArray, isInteger, isDateString }
