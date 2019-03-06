@@ -4,30 +4,30 @@ okchart.init({
   authContainer: 'embed-api-auth-container',
   viewSelector: 'view-selector-container',
   charts: [
-    {
-      type: 'overview',
-      container: 'overview-container',
-    },
     // {
-    //   type: 'pv-uv',
-    //   container: 'pv-uv-container',
+    //   type: 'overview',
+    //   container: 'overview-container',
     // },
+    {
+      type: 'pv-uv',
+      container: 'pv-uv-container',
+    },
     // {
     //   type: 'distribution',
     //   container: 'distribution-container',
     // },
-    {
-      type: 'source-top-15',
-      container: 'source-top-15-container',
-    },
     // {
-    //   type: 'buyers-regist',
-    //   container: 'buyers-regist-container',
+    //   type: 'source-top-15',
+    //   container: 'source-top-15-container',
     // },
     {
-      type: 'buyers-regist-distribution',
-      container: 'buyers-regist-distribution-container',
+      type: 'buyers-regist',
+      container: 'buyers-regist-container',
     },
+    // {
+    //   type: 'buyers-regist-distribution',
+    //   container: 'buyers-regist-distribution-container',
+    // },
     // {
     //   type: 'suppliers-regist',
     //   container: 'suppliers-regist-container',

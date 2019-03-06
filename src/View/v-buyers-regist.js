@@ -17,7 +17,7 @@ View.prototype = {
     this.chart.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function(data) {
+  render: function({data}) {
     this.chart.render(data)
   },
 }
