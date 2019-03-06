@@ -8,10 +8,10 @@ okchart.init({
       type: 'overview',
       container: 'overview-container',
     },
-    // {
-    //   type: 'pv-uv',
-    //   container: 'pv-uv-container',
-    // },
+    {
+      type: 'pv-uv',
+      container: 'pv-uv-container',
+    },
     // {
     //   type: 'distribution',
     //   container: 'distribution-container',

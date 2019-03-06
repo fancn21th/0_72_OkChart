@@ -93,5 +93,10 @@ export default {
   customConverters: [convert],
   groupFieldIndex: 0,
   sumFieldIndex: [1],
-  sumFieldSort: 'desc',
+  sortField: [
+    {
+      index: 1,
+      order: 'desc',
+    },
+  ],
 }
