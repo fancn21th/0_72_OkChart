@@ -1,4 +1,4 @@
-import { isInteger, isDateString } from '../typeHelper'
+import { isInteger } from '../typeHelper'
 
 const getValuesByIndexs = ({ item, indexs }) => {
   return indexs.reduce((acc, idx) => {
@@ -57,35 +57,23 @@ const groupByFieldIdx = viewData => {
   return viewData
 }
 
-const getSortFunc = (collection, index, order) => {
-  const typeTocheck = collection[0][index]
-  if (isInteger(typeTocheck)) {
-    return (a, b) =>
-      order === 'asc' ? a[index] - b[index] : b[index] - a[index]
+const getSortFunc = (index, order) => {
+  return (a, b) => {
+    const result = a[index] < b[index]
+    return order === 'asc' ? (result ? -1 : 1) : result ? 1 : -1
   }
-  if (isDateString(typeTocheck)) {
-    return (a, b) => {
-      const intA = parseInt(a[index], 10),
-        intB = parseInt(b[index], 10)
-      return order === 'asc' ? intA > intB : intB > intA
-    }
-  }
-  // text compare
-  return (a, b) => (order === 'asc' ? a[index] > b[index] : b[index] < a[index])
 }
 
 const sortByFieldIdx = viewData => {
   const {
-      context: { sortField },
-      selectorData: { workingDate },
-      responseData,
-    } = viewData,
-    { index, order } = sortField && sortField[0]
+    context: { sortField },
+    selectorData: { workingDate },
+    responseData,
+  } = viewData
 
-  console.log(JSON.stringify(responseData))
-
-  if (workingDate && isInteger(index)) {
-    const sortFunc = getSortFunc(responseData, index, order)
+  if (workingDate && sortField) {
+    const { index, order } = sortField && sortField[0],
+      sortFunc = getSortFunc(index, order)
     return {
       ...viewData,
       responseData: responseData.sort(sortFunc),
