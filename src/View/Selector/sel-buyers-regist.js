@@ -22,7 +22,10 @@ Selector.prototype = {
   }) {
     let query = {}
     const onChangeHandler = data => {
-      query = Object.assign(query, data)
+      query = {
+        ...query,
+        ...data,
+      }
       onSelectorChange(query)
     }
     this.selectorList.forEach(selector => {
