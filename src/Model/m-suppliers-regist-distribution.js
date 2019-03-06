@@ -1,6 +1,6 @@
 import events from '../Utils/events'
 import queryConvert from '../Converter/Query/c-q-suppliers-regist-distribution'
-import filter from '../Filter/Data/f-d-buyer-regist-distribution'
+// import filter from '../Filter/Data/f-d-buyer-regist-distribution'
 
 const Model = function(query) {
   this.query = query

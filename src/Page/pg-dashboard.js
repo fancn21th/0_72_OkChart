@@ -1,8 +1,6 @@
 import events from '../Utils/events'
 import buildView from '../Factory/buildView'
 import buildModel from '../Factory/buildModel'
-import buildQueryConverterConfig from '../Factory/buildQueryConverterConfig'
-import buildDefaultSelector from '../Factory/buildDefaultSelector'
 import DashboardPresenter from '../Presenter/p-dashboard'
 
 const Page = function({ viewElements, query }) {
@@ -11,15 +9,14 @@ const Page = function({ viewElements, query }) {
   this.authenticator = authenticator
   this.viewSelector = viewSelector
   this.query = query
+
   this.views = {}
   this.models = {}
-  this.queryConverterConfigs = {}
-  this.defaultSelectors = {}
 }
 
 Page.prototype = {
   init: function() {
-    // common components on page and not under control by presenter
+    // common components that are not under control by presenter
     this.authenticator.init({
       onSignIn: () => {
         this.authenticator.hide()
@@ -45,19 +42,11 @@ Page.prototype = {
         type,
         query: this.query,
       })
-      this.queryConverterConfigs[type] = buildQueryConverterConfig({
-        type,
-      })
-      this.defaultSelectors[type] = buildDefaultSelector({
-        type,
-      })
     })
     // single presenter
     const dashboardPresenter = new DashboardPresenter({
       views: this.views,
       models: this.models,
-      queryConverterConfigs: this.queryConverterConfigs,
-      defaultSelectors: this.defaultSelectors,
     })
     dashboardPresenter.init()
   },

@@ -3,8 +3,6 @@ import SourceTop15Chart from './Chart/c-source-top-15'
 import SourceTop15GrowthChart from './Chart/c-source-top-15-growth'
 import SourceTop15Selector from './Selector/sel-source-top-15'
 import { createDiv } from '../Utils/HtmlElementBuilder'
-import top15DataConverter from '../Converter/Data/c-d-source-top-15'
-import top15GrowthDataConverter from '../Converter/Data/c-d-source-top-15-growth'
 
 const View = function({ chartContainerId }) {
   SuperView.call(this, { chartContainerId, title: '来源排名' })
@@ -24,11 +22,6 @@ const View = function({ chartContainerId }) {
   this.selector = new SourceTop15Selector({
     chartContainerId: this.selectorWrapperId,
   })
-
-  this.lastTop15 = null
-  this.lastTop15DoubleTimespan = null
-  this.drawLastTop15 = false
-  this.drawLastTop15Growth = false
 }
 
 inheritPrototype(View, SuperView)
@@ -39,36 +32,9 @@ View.prototype = {
     this.chart2.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function({ top15, top15DoubleTimespan }) {
-    // TODO: complex process logic, consider to refactor
-    if (top15) this.lastTop15 = top15
-    if (top15DoubleTimespan) this.lastTop15DoubleTimespan = top15DoubleTimespan
-
-    if (!this.drawLastTop15 && this.lastTop15) {
-      this.chart1.render(top15DataConverter(this.lastTop15))
-      this.drawLastTop15 = true
-    }
-
-    if (
-      !this.drawLastTop15Growth &&
-      this.lastTop15DoubleTimespan &&
-      this.lastTop15
-    ) {
-      this.chart2.render(
-        top15GrowthDataConverter({
-          top15: this.lastTop15,
-          top15DoubleTimespan: this.lastTop15DoubleTimespan,
-        })
-      )
-      this.drawLastTop15Growth = true
-    }
-
-    if (this.drawLastTop15 && this.drawLastTop15Growth) {
-      this.lastTop15 = null
-      this.lastTop15DoubleTimespan = null
-      this.drawLastTop15 = false
-      this.drawLastTop15Growth = false
-    }
+  render: function({ top15, top15Growth }) {
+    this.chart1.render(top15)
+    this.chart2.render(top15Growth)
   },
 }
 

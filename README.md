@@ -1,6 +1,6 @@
 # OKCHART
 
-> a chart component for OKCHEM.com
+> a chart component for OKCHEM.COM
 
 ## Code Style
 
@@ -39,26 +39,30 @@
   }
   ```
 
+- Pipeline
+
 ## Architecture Design
 
 - MVP
 
-  - Model (multiple model per view)
-  - View (multiple view per page)
-  - Presenter (1 per page)
+  - Model
+    - One model, multiple views
+    - Pipeline
+  - View
+    - For one model only
+  - Presenter
+    - One presenter for one page
 
 - Type aka key
-  - Key Flow
-    - client key -> view and model/models
 
 ## Bad Design
 
 - Default Model Query
 
-  > By default the model send query to `ga` and it is accidentally in consistency with the default state of view selector which is a bad-convention
+  > fixed by configurable default selector data
 
 - Complex Data Flow
-  - Selector -> Query -> Model -> Raw Data -> Chart Data -> Chart
+  > fixed by pipeline pattern
 
 ## Workflow
 
