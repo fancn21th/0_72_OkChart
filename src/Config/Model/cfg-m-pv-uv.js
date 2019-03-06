@@ -10,4 +10,7 @@ const convert = ({ responseDataSolo: { responseData: collection } }) => {
 
 export default {
   customConverters: [convert],
+  groupFieldIndex: 0,
+  sumFieldIndex: [1, 2],
+  sumFieldSort: 'asc',
 }

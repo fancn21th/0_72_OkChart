@@ -19,7 +19,7 @@ const dimensions = queryData => {
     dimensionsStr = isFunction(dimensionsConfig)
       ? dimensionsConfig(queryData)
       : dimensionsConfig
-  if (workingDate === true && !dimensionsStr.includes('ga:date')) {
+  if (workingDate === true) {
     return {
       dimensions: `ga:date,${dimensionsStr}`,
     }
