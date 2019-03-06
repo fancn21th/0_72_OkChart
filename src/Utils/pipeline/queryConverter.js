@@ -15,11 +15,11 @@ const metrics = queryData => {
 }
 
 const dimensions = queryData => {
-  const { workingDate, dimensions: dimensionsConfig } = queryData
-  const dimensionsStr = isFunction(dimensionsConfig)
-    ? dimensionsConfig(queryData)
-    : dimensionsConfig
-  if (workingDate === true) {
+  const { workingDate, dimensions: dimensionsConfig } = queryData,
+    dimensionsStr = isFunction(dimensionsConfig)
+      ? dimensionsConfig(queryData)
+      : dimensionsConfig
+  if (workingDate === true && !dimensionsStr.includes('ga:date')) {
     return {
       dimensions: `ga:date,${dimensionsStr}`,
     }
