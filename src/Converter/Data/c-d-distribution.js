@@ -23,7 +23,6 @@ const convert = ({ collection, timespan, startDate, endDate, pvuv }) => {
       percent,
     }
   })
-  console.log(top10Data)
   return { distribution: top10Data, sourceCountryFilterCollection }
 }
 

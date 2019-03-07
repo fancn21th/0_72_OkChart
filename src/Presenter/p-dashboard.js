@@ -1,16 +1,14 @@
 import events from '../Utils/events'
-import queryConverter from '../Utils/queryConverter'
+import { queryDataPip } from '../Utils/pipeline/pip'
+import {
+  buildDefaultSelectorData,
+  buildSelectorData,
+} from '../Factory/buildSelectorData'
 
-const Presenter = function({
-  views,
-  models,
-  queryConverterConfigs,
-  defaultSelectors,
-}) {
+const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
-  this.queryConverterConfigs = queryConverterConfigs
-  this.defaultSelectors = defaultSelectors
+
   // cache selector data for each view by default
   this.cachedSelectorData = {}
   this.ids = null
@@ -41,12 +39,11 @@ Presenter.prototype = {
       const view = self.views[viewType]
       view.init({
         onSelectorChange: data => {
-          // merge current selector data with new selector data
-          const selectorData = {
-            ...self.cachedSelectorData[viewType], // cached
-            ids: self.ids, // ids
-            ...data, // current
-          }
+          const selectorData = buildSelectorData({
+            basedSelectorData: self.cachedSelectorData[viewType], // cached
+            ids: self.ids,
+            currentSelectorData: data,
+          })
           self._processSelectorData({
             viewType,
             selectorData,
@@ -68,35 +65,15 @@ Presenter.prototype = {
       this.views[viewType].render(data)
     }
   },
-  _processSelectorData: function({ viewType, selectorData }) {
-    // TODO: debugger
-    console.log('debugger:: selector data ', selectorData)
-    // TODO: convert selector data into query data
-    const queryData = queryConverter({
-      config: this.queryConverterConfigs[viewType],
-      selectorData,
-    })
-    // TODO: debugger
-    console.log('debugger:: query data ', queryData)
-    // invoke update method of model
-    const model = this.models[viewType]
-    if (Array.isArray(model)) {
-      model.forEach(item => {
-        item.fetch(queryData)
-      })
-    } else {
-      model.fetch(queryData)
-    }
-  },
   _initModels: function({ ids }) {
     Object.keys(this.models).forEach(key => {
-      const selectorData = {
-        ...this.defaultSelectors[key],
+      const selectorData = buildDefaultSelectorData({
+        type: key,
         ids,
-      }
+      })
       this._processSelectorData({
-        selectorData,
         viewType: key,
+        selectorData,
       })
       // cache new selector data
       this._cacheSelectorData({
@@ -104,6 +81,20 @@ Presenter.prototype = {
         selectorData,
       })
     })
+  },
+  _processSelectorData: function({ viewType, selectorData }) {
+    // TODO: debugger
+    console.log('debugger:: selector data ', selectorData)
+    // convert selector data into query data
+    const queryData = queryDataPip({
+      viewType,
+      selectorData,
+    })
+    // TODO: debugger
+    console.log('debugger:: query data ', queryData)
+    // invoke update method of model
+    const model = this.models[viewType]
+    model.fetch(queryData)
   },
 }
 

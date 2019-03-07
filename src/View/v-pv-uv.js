@@ -15,8 +15,8 @@ View.prototype = {
     this.chart.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function(data) {
-    this.chart.render(data)
+  render: function({pvuv}) {
+    this.chart.render(pvuv)
   },
 }
 

@@ -1,9 +1,16 @@
-import SuperView, { inheritPrototype } from './Base/SuperView'
+import SuperView, {
+  inheritPrototype
+} from './Base/SuperView'
 import SuppliersRegistChart from './Chart/c-suppliers-regist'
 import SuppliersRegistSelector from './Selector/sel-suppliers-regist'
 
-const View = function({ chartContainerId }) {
-  SuperView.call(this, { chartContainerId, title: '注册卖家数' })
+const View = function ({
+  chartContainerId
+}) {
+  SuperView.call(this, {
+    chartContainerId,
+    title: '注册卖家数'
+  })
   this.chart = new SuppliersRegistChart({
     chartContainerId: this.chartWrapperId,
   })
@@ -15,11 +22,17 @@ const View = function({ chartContainerId }) {
 inheritPrototype(View, SuperView)
 
 View.prototype = {
-  init: function({ onSelectorChange }) {
+  init: function ({
+    onSelectorChange
+  }) {
     this.chart.init()
-    this.selector.init({ onSelectorChange })
+    this.selector.init({
+      onSelectorChange
+    })
   },
-  render: function(data) {
+  render: function ({
+    data
+  }) {
     this.chart.render(data)
   },
 }

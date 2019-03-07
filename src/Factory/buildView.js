@@ -42,7 +42,7 @@ const buildView = ({ type, containerId }) => {
         chartContainerId: containerId,
       })
     default:
-      return null
+      throw new Error('OKCHART::ERROR:: no view is defined.')
   }
 }
 

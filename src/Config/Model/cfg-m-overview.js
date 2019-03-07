@@ -1,12 +1,32 @@
 import { timespanDiff } from '../../Utils/TimeHelper'
 
+const filter = ({ responseDataSolo }) => {
+  const { responseData, selectorData } = responseDataSolo,
+    { source, country, workingDate } = selectorData,
+    isSourceEmpty = !source || source.length === 0,
+    isCountryEmpty = !country || country.length === 0,
+    idxOffset = workingDate === true ? 1 : 0,
+    channelIdx = 0 + idxOffset,
+    countryIdx = 1 + idxOffset
+
+  return {
+    responseDataSolo: {
+      ...responseDataSolo,
+      responseData: responseData.filter(
+        item =>
+          (isSourceEmpty || source.includes(item[channelIdx])) &&
+          (isCountryEmpty || country.includes(item[countryIdx]))
+      ),
+    },
+  }
+}
+
 const convert = ({
-  collection,
-  timespan,
-  startDate,
-  endDate,
-  workingDate,
-  nonWorkingDateCount,
+  responseDataSolo: {
+    responseData,
+    selectorData: { timespan, startDate, endDate, workingDate },
+    nonWorkingDateCount,
+  },
 }) => {
   let pv = 0,
     uv = 0,
@@ -25,11 +45,7 @@ const convert = ({
     buyerCountIdx = 4 + idxOffset,
     supplierCountIdx = 5 + idxOffset
 
-  let days = timespanDiff(timespan || 30, startDate, endDate)
-
-  days = workingDate === true ? days - nonWorkingDateCount : days
-
-  collection.forEach(item => {
+  responseData.forEach(item => {
     pv += parseInt(item[pvIdx], 10)
     uv += parseInt(item[uvIdx], 10)
     buyerCount += parseInt(item[buyerCountIdx])
@@ -41,6 +57,9 @@ const convert = ({
       countryObj[item[countryIdx]] = true
     }
   })
+
+  let days = timespanDiff(timespan || 30, startDate, endDate)
+  days = workingDate === true ? days - nonWorkingDateCount : days
 
   pv = Math.round(pv / days)
   uv = Math.round(uv / days)
@@ -64,4 +83,6 @@ const convert = ({
   return { pv, uv, buyerCount, supplierCount, source, country }
 }
 
-export default convert
+export default {
+  customConverters: [filter, convert],
+}
