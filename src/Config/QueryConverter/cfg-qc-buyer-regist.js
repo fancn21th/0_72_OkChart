@@ -1,5 +1,5 @@
 export default {
-  metrics: 'ga:pageviews,ga:users',
+  metrics: 'ga:goal12Completions',
   dimensions: function ({
     timeUnit
   }) {
