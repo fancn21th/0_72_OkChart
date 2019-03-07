@@ -75,6 +75,7 @@ Model.prototype = {
           key: 'distribution',
           data: {
             top15: {
+              ...selectorData,
               collection,
               isDataUpdate: true,
             },
@@ -98,6 +99,7 @@ Model.prototype = {
         key: 'distribution',
         data: {
           top15: {
+            ...selectorData,
             collection: filteredData,
             isDataUpdate: false,
           },
