@@ -1,5 +1,6 @@
 import overview from '../Config/SelectorFilter/cfg-sf-overview'
 import buyerRegistDistribution from '../Config/SelectorFilter/cfg-sf-buyer-regist-distribution'
+import distribution from '../Config/SelectorFilter/cfg-sf-distribution'
 
 const defaultConfig = {
   filter: null,
@@ -14,6 +15,8 @@ const buildSelectorFilter = ({
     case 'buyers-regist':
     case 'suppliers-regist':
       return defaultConfig
+    case 'distribution':
+      return distribution
     case 'overview':
       return overview
     case 'buyers-regist-distribution':

@@ -3,8 +3,11 @@ import DateRangeSelector from './Control/date-range-selector'
 import PvuvSelector from './Control/pvuv-selector'
 import CountryBrowserSelector from './Control/country-browser-selector'
 import DynamicMultipleSelector from './Control/dynamic-multiple-selector'
+import WorkingDateSelector from './Control/working-date-selector'
 
-const Selector = function({ chartContainerId }) {
+const Selector = function ({
+  chartContainerId
+}) {
   this.chartContainerId = chartContainerId
   this.chartContainer = document.getElementById(this.chartContainerId)
   this.sourceCountrySelector = new DynamicMultipleSelector({
@@ -17,22 +20,29 @@ const Selector = function({ chartContainerId }) {
     new PvuvSelector(),
     new CountryBrowserSelector(),
     this.sourceCountrySelector,
+    new WorkingDateSelector(),
   ]
 }
 
 Selector.prototype = {
-  init: function({ onSelectorChange }) {
+  init: function ({
+    onSelectorChange
+  }) {
     let query = {}
     const onChangeHandler = data => {
       query = Object.assign(query, data)
       onSelectorChange(query)
     }
     this.selectorList.forEach(selector => {
-      selector.init({ onSelectorChange: onChangeHandler })
+      selector.init({
+        onSelectorChange: onChangeHandler
+      })
       selector.appendTo(this.chartContainer)
     })
   },
-  render: function({ sourceCountryFilterCollection }) {
+  render: function ({
+    sourceCountryFilterCollection
+  }) {
     this.sourceCountrySelector.render({
       options: sourceCountryFilterCollection,
     })

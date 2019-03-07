@@ -7,6 +7,7 @@ import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyer
 import buyersRegistConfig from '../Config/DefaultSelector/cfg-s-buyers-regist'
 import suppliersRegistConfig from '../Config/DefaultSelector/cfg-s-supplies-regist'
 import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
+import distributionConfig from '../Config/DefaultSelector/cfg-s-distribution'
 
 const buildDefaultSelectorData = ({
   ids,
@@ -23,6 +24,17 @@ const buildDefaultSelectorData = ({
         ...pvUvConfig,
         ids
       }
+    case 'distribution':
+      return [{
+          ...distributionConfig,
+          ids,
+        },
+        {
+          ...distributionConfig,
+          isDoubleTimespan: true,
+          ids,
+        }
+      ]
     case 'source-top-15':
       return [{
           ...sourceTop15SelectorConfig,

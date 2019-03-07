@@ -1,7 +1,6 @@
 import OverviewModel from '../Model/m-overview2'
 import PvUvModel from '../Model/m-pv-uv'
 import DistributionModel from '../Model/m-distribution'
-import UserGrowthModel from '../Model/m-user-growth'
 import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributionModel from '../Model/m-buyers-regist-distribution'
 import SourceTop15Model from '../Model/m-source-top-15-2'
@@ -9,14 +8,17 @@ import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
 import SuppliersRegistDistributionDoubleTimespanModel from '../Model/m-suppliers-regist-distribution-double-timespan'
 
-const buildModel = ({ type, query }) => {
+const buildModel = ({
+  type,
+  query
+}) => {
   switch (type) {
     case 'overview':
       return new OverviewModel(query)
     case 'pv-uv':
       return new PvUvModel(query)
     case 'distribution':
-      return [new DistributionModel(query), new UserGrowthModel(query)]
+      return new DistributionModel(query)
     case 'source-top-15':
       return new SourceTop15Model(query)
     case 'buyers-regist':
