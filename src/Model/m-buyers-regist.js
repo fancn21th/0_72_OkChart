@@ -1,20 +1,14 @@
-import events from '../Utils/events'
-import convert from '../Converter/Data/c-d-buyers-regist'
-import queryConvert from '../Converter/Query/c-q-buyers-regist'
-const Model = function(query) {
-  this.query = query
+import SuperModel, {
+  inheritPrototype
+} from './Base/SuperModel'
+
+const Model = function (query) {
+  SuperModel.call(this, {
+    query,
+    modelType: 'buyers-regist',
+  })
 }
 
-Model.prototype = {
-  fetch: function(selectorData) {
-    const params = queryConvert(selectorData)
-    this.query.query(params).then(response => {
-      const data = convert(response.rows)
-      events.notify('buyers-regist', {
-        key: 'buyers-regist',
-        data,
-      })
-    })
-  },
-}
+inheritPrototype(Model, SuperModel)
+
 export default Model
