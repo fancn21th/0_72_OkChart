@@ -30,9 +30,9 @@ okchart.init({
       type: 'suppliers-regist',
       container: 'suppliers-regist-container',
     },
-    // {
-    //   type: 'suppliers-regist-distribution',
-    //   container: 'suppliers-regist-distribution-container',
-    // },
+    {
+      type: 'suppliers-regist-distribution',
+      container: 'suppliers-regist-distribution-container',
+    },
   ],
 })
