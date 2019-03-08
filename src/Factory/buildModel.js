@@ -1,9 +1,9 @@
-import OverviewModel from '../Model/m-overview2'
+import OverviewModel from '../Model/m-overview'
 import PvUvModel from '../Model/m-pv-uv'
 import DistributionModel from '../Model/m-distribution'
 import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributionModel from '../Model/m-buyers-regist-distribution'
-import SourceTop15Model from '../Model/m-source-top-15-2'
+import SourceTop15Model from '../Model/m-source-top-15'
 import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
 
