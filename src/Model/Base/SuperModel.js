@@ -29,12 +29,20 @@ SuperModel.prototype = {
         }
 
     this.query.query(queryParams).then(responseDataArray => {
-      console.log('debugger:: response data array', responseDataArray)
+      console.log(
+        `debugger::type::[${
+          responseDataArray[0].selectorData.type
+        }] response data array`,
+        responseDataArray
+      )
       const data = viewDataPip({
         responseDataArray,
         modelType: this.modelType,
       })
-      console.log('debugger:: view data', data)
+      console.log(
+        `debugger::type::[${responseDataArray[0].selectorData.type}] view data`,
+        data
+      )
       events.notify(this.modelType, {
         key: this.modelType,
         data,
