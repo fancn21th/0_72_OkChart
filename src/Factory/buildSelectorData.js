@@ -1,32 +1,46 @@
-import {
-  isArray
-} from '../Utils/typeHelper'
+import { isArray } from '../Utils/typeHelper'
 import defaultSelectorConfig from '../Config/DefaultSelector/cfg-s-default'
 import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-top-15'
 import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyers-regist-distribution'
 import buyersRegistConfig from '../Config/DefaultSelector/cfg-s-buyers-regist'
 import suppliersRegistConfig from '../Config/DefaultSelector/cfg-s-supplies-regist'
 import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
+import distributionConfig from '../Config/DefaultSelector/cfg-s-distribution'
+import suppliersRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-suppliers-regist-distribution'
 
-const buildDefaultSelectorData = ({
-  ids,
-  type
-}) => {
+const buildDefaultSelectorData = ({ ids, type }) => {
+  const selectorData = {
+    ids,
+    type,
+  }
   switch (type) {
     case 'overview':
       return {
+        ...selectorData,
         ...defaultSelectorConfig,
-        ids
       }
     case 'pv-uv':
       return {
+        ...selectorData,
         ...pvUvConfig,
-        ids
       }
+    case 'distribution':
+      return [
+        {
+          ...selectorData,
+          ...distributionConfig,
+        },
+        {
+          ...selectorData,
+          ...distributionConfig,
+          isDoubleTimespan: true,
+        },
+      ]
     case 'source-top-15':
-      return [{
+      return [
+        {
+          ...selectorData,
           ...sourceTop15SelectorConfig,
-          ids
         },
         {
           ...sourceTop15SelectorConfig,
@@ -35,49 +49,56 @@ const buildDefaultSelectorData = ({
         },
       ]
     case 'buyers-regist-distribution':
-      return [{
+      return [
+        {
+          ...selectorData,
           ...buyerRegistDistributionConfig,
-          ids
         },
         {
+          ...selectorData,
           ...buyerRegistDistributionConfig,
           isDoubleTimespan: true,
-          ids
         },
       ]
     case 'buyers-regist':
       return {
+        ...selectorData,
         ...buyersRegistConfig,
-        ids
       }
     case 'suppliers-regist':
       return {
+        ...selectorData,
         ...suppliersRegistConfig,
-        ids
       }
+    case 'suppliers-regist-distribution':
+      return [
+        {
+          ...selectorData,
+          ...suppliersRegistDistributionConfig,
+        },
+        {
+          ...selectorData,
+          ...suppliersRegistDistributionConfig,
+          isDoubleTimespan: true,
+        },
+      ]
     default:
       throw new Error('OKCHART::ERROR:: no default selector is defined.')
   }
 }
 
-const buildSelectorData = ({
-  basedSelectorData,
-  ids,
-  currentSelectorData
-}) => {
-  return isArray(basedSelectorData) ?
-    basedSelectorData.map(item => ({
-      ...item,
-      ids,
-      ...currentSelectorData,
-    })) : {
-      ...basedSelectorData,
-      ids,
-      ...currentSelectorData,
-    }
+const buildSelectorData = ({ basedSelectorData, ids, currentSelectorData }) => {
+  return isArray(basedSelectorData)
+    ? basedSelectorData.map(item => ({
+        ...item,
+        ids,
+        ...currentSelectorData,
+      }))
+    : {
+        ...basedSelectorData,
+        ids,
+        ...currentSelectorData,
+      }
 }
 
-export {
-  buildDefaultSelectorData,
-  buildSelectorData
-}
+export { buildDefaultSelectorData, buildSelectorData }
