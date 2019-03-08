@@ -1,19 +1,12 @@
 export default {
-  metrics: function ({
-    pvuv
-  }) {
+  metrics: function({ pvuv }) {
     return pvuv
   },
-  dimensions: function ({
-    countryBrowser
-  }) {
+  dimensions: function({ countryBrowser }) {
     return countryBrowser
   },
-  sort: function ({
-    metrics,
-    workingDate
-  }) {
-    if (workingDate) return 'ga:pageviews'
-    return metrics === 'ga:pageviews,ga:users' ? '-ga:pageviews' : `-${metrics}`
+  sort: function({ metrics, workingDate }) {
+    if (workingDate) return metrics
+    return `-${metrics}`
   },
 }
