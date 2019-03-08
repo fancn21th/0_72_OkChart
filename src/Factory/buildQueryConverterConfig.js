@@ -5,10 +5,9 @@ import supplierRegist from '../Config/QueryConverter/cfg-qc-supplier-regist'
 import buyerRegistDistribution from '../Config/QueryConverter/cfg-qc-buyer-regist-distribution'
 import pvUv from '../Config/QueryConverter/cfg-qc-pv-uv'
 import distribution from '../Config/QueryConverter/cfg-qc-distribution'
+import suppliersRegistDistribution from '../Config/QueryConverter/cfg-qc-suppliers-regist-distribution'
 
-const buildQueryConverterConfig = ({
-  type
-}) => {
+const buildQueryConverterConfig = ({ type }) => {
   switch (type) {
     case 'overview':
       return overview
@@ -24,6 +23,8 @@ const buildQueryConverterConfig = ({
       return buyerRegist
     case 'suppliers-regist':
       return supplierRegist
+    case 'suppliers-regist-distribution':
+      return suppliersRegistDistribution
     default:
       throw new Error('OKCHART::ERROR:: no query converter config is defined.')
   }

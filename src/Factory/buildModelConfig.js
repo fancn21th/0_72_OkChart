@@ -5,10 +5,9 @@ import supplierRegist from '../Config/Model/cfg-m-supplier-regist'
 import buyerRegistDistribution from '../Config/Model/cfg-m-buyer-regist-distribution'
 import pvUv from '../Config/Model/cfg-m-pv-uv'
 import distribution from '../Config/Model/cfg-m-distribution'
+import suppliersRegistDistribution from '../Config/Model/cfg-m-suppliers-regist-distribution'
 
-const buildModelConfig = ({
-  type
-}) => {
+const buildModelConfig = ({ type }) => {
   switch (type) {
     case 'overview':
       return overview
@@ -24,6 +23,8 @@ const buildModelConfig = ({
       return buyerRegist
     case 'suppliers-regist':
       return supplierRegist
+    case 'suppliers-regist-distribution':
+      return suppliersRegistDistribution
     default:
       throw new Error('OKCHART::ERROR:: no model config is defined.')
   }

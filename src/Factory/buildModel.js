@@ -6,12 +6,8 @@ import BuyersRegistDistributionModel from '../Model/m-buyers-regist-distribution
 import SourceTop15Model from '../Model/m-source-top-15-2'
 import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
-import SuppliersRegistDistributionDoubleTimespanModel from '../Model/m-suppliers-regist-distribution-double-timespan'
 
-const buildModel = ({
-  type,
-  query
-}) => {
+const buildModel = ({ type, query }) => {
   switch (type) {
     case 'overview':
       return new OverviewModel(query)
@@ -28,10 +24,7 @@ const buildModel = ({
     case 'suppliers-regist':
       return new SuppliersRegistModel(query)
     case 'suppliers-regist-distribution':
-      return [
-        new SuppliersRegistDistributiontModel(query),
-        new SuppliersRegistDistributionDoubleTimespanModel(query),
-      ]
+      return new SuppliersRegistDistributiontModel(query)
     default:
       throw new Error('OKCHART::ERROR:: no model is defined.')
   }

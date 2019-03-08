@@ -6,9 +6,7 @@ const defaultConfig = {
   filter: null,
 }
 
-const buildSelectorFilter = ({
-  type
-}) => {
+const buildSelectorFilter = ({ type }) => {
   switch (type) {
     case 'source-top-15':
     case 'pv-uv':
@@ -20,6 +18,7 @@ const buildSelectorFilter = ({
     case 'overview':
       return overview
     case 'buyers-regist-distribution':
+    case 'suppliers-regist-distribution':
       return buyerRegistDistribution
     default:
       throw new Error('OKCHART::ERROR:: no selector filter config is defined.')
