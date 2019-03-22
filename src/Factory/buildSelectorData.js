@@ -87,15 +87,19 @@ const buildDefaultSelectorData = ({ ids, type }) => {
   }
 }
 
-const buildSelectorData = ({ basedSelectorData, ids, currentSelectorData }) => {
-  return isArray(basedSelectorData)
-    ? basedSelectorData.map(item => ({
+const buildSelectorData = ({ type, ids, currentSelectorData }) => {
+  const defaultSelectData = buildDefaultSelectorData({
+    ids,
+    type,
+  })
+  return isArray(defaultSelectData)
+    ? defaultSelectData.map(item => ({
         ...item,
         ids,
         ...currentSelectorData,
       }))
     : {
-        ...basedSelectorData,
+        ...defaultSelectData,
         ids,
         ...currentSelectorData,
       }

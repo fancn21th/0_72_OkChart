@@ -8,9 +8,6 @@ import {
 const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
-
-  // cache selector data for each view by default
-  this.cachedSelectorData = {}
   this.ids = null
 }
 
@@ -40,7 +37,7 @@ Presenter.prototype = {
       view.init({
         onSelectorChange: data => {
           const selectorData = buildSelectorData({
-            basedSelectorData: self.cachedSelectorData[viewType], // cached
+            type: viewType,
             ids: self.ids,
             currentSelectorData: data,
           })
@@ -48,17 +45,9 @@ Presenter.prototype = {
             viewType,
             selectorData,
           })
-          // cache new selector data
-          self._cacheSelectorData({
-            viewType,
-            selectorData,
-          })
         },
       })
     })
-  },
-  _cacheSelectorData: function({ viewType, selectorData }) {
-    this.cachedSelectorData[viewType] = selectorData
   },
   _refresh: function({ key: viewType, data }) {
     if (viewType) {
@@ -72,11 +61,6 @@ Presenter.prototype = {
         ids,
       })
       this._processSelectorData({
-        viewType: key,
-        selectorData,
-      })
-      // cache new selector data
-      this._cacheSelectorData({
         viewType: key,
         selectorData,
       })
