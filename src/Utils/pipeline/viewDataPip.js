@@ -72,7 +72,7 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
 
   // debugger
   console.log(
-    'debugger:: view data:: universal view data converter',
+    `debugger::[${modelType}]::view data::before custom data convert`,
     universal_results
   )
 

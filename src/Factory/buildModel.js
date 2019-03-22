@@ -1,13 +1,11 @@
-import OverviewModel from '../Model/m-overview2'
+import OverviewModel from '../Model/m-overview'
 import PvUvModel from '../Model/m-pv-uv'
 import DistributionModel from '../Model/m-distribution'
-import UserGrowthModel from '../Model/m-user-growth'
 import BuyersRegistModel from '../Model/m-buyers-regist'
 import BuyersRegistDistributionModel from '../Model/m-buyers-regist-distribution'
-import SourceTop15Model from '../Model/m-source-top-15-2'
+import SourceTop15Model from '../Model/m-source-top-15'
 import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
-import SuppliersRegistDistributionDoubleTimespanModel from '../Model/m-suppliers-regist-distribution-double-timespan'
 
 const buildModel = ({ type, query }) => {
   switch (type) {
@@ -16,7 +14,7 @@ const buildModel = ({ type, query }) => {
     case 'pv-uv':
       return new PvUvModel(query)
     case 'distribution':
-      return [new DistributionModel(query), new UserGrowthModel(query)]
+      return new DistributionModel(query)
     case 'source-top-15':
       return new SourceTop15Model(query)
     case 'buyers-regist':
@@ -26,10 +24,7 @@ const buildModel = ({ type, query }) => {
     case 'suppliers-regist':
       return new SuppliersRegistModel(query)
     case 'suppliers-regist-distribution':
-      return [
-        new SuppliersRegistDistributiontModel(query),
-        new SuppliersRegistDistributionDoubleTimespanModel(query),
-      ]
+      return new SuppliersRegistDistributiontModel(query)
     default:
       throw new Error('OKCHART::ERROR:: no model is defined.')
   }
