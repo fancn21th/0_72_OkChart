@@ -84,14 +84,24 @@ Presenter.prototype = {
   },
   _processSelectorData: function({ viewType, selectorData }) {
     // TODO: debugger
-    console.log('debugger:: selector data ', selectorData)
+    console.log(
+      `debugger::type::[${
+        selectorData.length ? selectorData[0].type : selectorData.type
+      }] selector data `,
+      selectorData
+    )
     // convert selector data into query data
     const queryData = queryDataPip({
       viewType,
       selectorData,
     })
     // TODO: debugger
-    console.log('debugger:: query data ', queryData)
+    console.log(
+      `debugger::type::[${
+        selectorData.length ? selectorData[0].type : selectorData.type
+      }] query data `,
+      queryData
+    )
     // invoke update method of model
     const model = this.models[viewType]
     model.fetch(queryData)
