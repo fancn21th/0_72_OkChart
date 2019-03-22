@@ -7,37 +7,7 @@ const filter = ({ responseDataSolo }) => {
     isCountryEmpty = !country || country.length === 0,
     idxOffset = workingDate === true ? 1 : 0,
     channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset,
-    sourceArray = [],
-    countryArray = [],
-    sourceObj = {},
-    countryObj = {}
-
-  // TODO: use reduce for optimization
-  responseData.forEach(item => {
-    if (!(item[channelIdx] in sourceObj)) {
-      sourceObj[item[channelIdx]] = true
-    }
-    if (!(item[countryIdx] in countryObj)) {
-      countryObj[item[countryIdx]] = true
-    }
-  })
-
-  // convert source
-  Object.keys(sourceObj).forEach(item => {
-    sourceArray.push({
-      text: item,
-      value: item,
-    })
-  })
-
-  // convert country
-  Object.keys(countryObj).forEach(item => {
-    countryArray.push({
-      text: item,
-      value: item,
-    })
-  })
+    countryIdx = 1 + idxOffset
 
   return {
     responseDataSolo: {
@@ -48,14 +18,10 @@ const filter = ({ responseDataSolo }) => {
           (isCountryEmpty || country.includes(item[countryIdx]))
       ),
     },
-    source: sourceArray,
-    country: countryArray,
   }
 }
 
 const convert = ({
-  source,
-  country,
   responseDataSolo: {
     responseData,
     selectorData: { timespan, startDate, endDate, workingDate },
@@ -67,7 +33,11 @@ const convert = ({
     buyerCount = 0,
     supplierCount = 0
 
-  const idxOffset = workingDate === true ? 1 : 0,
+  const source = [],
+    country = [],
+    sourceObj = {},
+    countryObj = {},
+    idxOffset = workingDate === true ? 1 : 0,
     channelIdx = 0 + idxOffset,
     countryIdx = 1 + idxOffset,
     pvIdx = 2 + idxOffset,
@@ -80,6 +50,12 @@ const convert = ({
     uv += parseInt(item[uvIdx], 10)
     buyerCount += parseInt(item[buyerCountIdx])
     supplierCount += parseInt(item[supplierCountIdx])
+    if (!(item[channelIdx] in sourceObj)) {
+      sourceObj[item[channelIdx]] = true
+    }
+    if (!(item[countryIdx] in countryObj)) {
+      countryObj[item[countryIdx]] = true
+    }
   })
 
   let days = timespanDiff(timespan || 30, startDate, endDate)
@@ -87,6 +63,22 @@ const convert = ({
 
   pv = Math.round(pv / days)
   uv = Math.round(uv / days)
+
+  // convert source
+  Object.keys(sourceObj).forEach(item => {
+    source.push({
+      text: item,
+      value: item,
+    })
+  })
+
+  // convert country
+  Object.keys(countryObj).forEach(item => {
+    country.push({
+      text: item,
+      value: item,
+    })
+  })
 
   return { pv, uv, buyerCount, supplierCount, source, country }
 }

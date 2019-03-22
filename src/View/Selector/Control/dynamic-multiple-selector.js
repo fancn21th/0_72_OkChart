@@ -33,7 +33,7 @@ DynamicMultipleSelector.prototype = {
     const self = this
     $(`#${this.id}`).on('change', function(evt, params) {
       const selected = getSelectedOptions(self.selector)
-      self.onSelectorChange({ [self.selectorType]: selected })
+      self.onSelectorChange({ [self.selectorType]: selected, isFilter: true })
     })
   },
   render: function({ options }) {
