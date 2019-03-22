@@ -2,6 +2,7 @@ import events from '../../Utils/events'
 import { viewDataPip } from '../../Utils/pipeline/pip'
 import inheritPrototype from '../../Utils/inheritPrototype'
 import { isArray } from '../../Utils/typeHelper'
+import { debuggger } from '../../Utils/Debugger'
 
 const SuperModel = function({ query, modelType }) {
   this.query = query
@@ -29,20 +30,20 @@ SuperModel.prototype = {
         }
 
     this.query.query(queryParams).then(responseDataArray => {
-      console.log(
-        `debugger::type::[${
-          responseDataArray[0].selectorData.type
-        }] response data array`,
-        responseDataArray
-      )
+      debuggger({
+        type: responseDataArray[0].selectorData.type,
+        title: 'response data array',
+        data: responseDataArray,
+      })
       const data = viewDataPip({
         responseDataArray,
         modelType: this.modelType,
       })
-      console.log(
-        `debugger::type::[${responseDataArray[0].selectorData.type}] view data`,
-        data
-      )
+      debuggger({
+        type: responseDataArray[0].selectorData.type,
+        title: 'view data',
+        data,
+      })
       events.notify(this.modelType, {
         key: this.modelType,
         data,

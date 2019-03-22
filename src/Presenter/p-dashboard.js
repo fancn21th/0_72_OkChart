@@ -1,5 +1,6 @@
 import events from '../Utils/events'
 import { queryDataPip } from '../Utils/pipeline/pip'
+import { debuggger } from '../Utils/Debugger'
 import {
   buildDefaultSelectorData,
   buildSelectorData,
@@ -67,25 +68,21 @@ Presenter.prototype = {
     })
   },
   _processSelectorData: function({ viewType, selectorData }) {
-    // TODO: debugger
-    console.log(
-      `debugger::type::[${
-        selectorData.length ? selectorData[0].type : selectorData.type
-      }] selector data `,
-      selectorData
-    )
+    debuggger({
+      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      title: 'selector data',
+      data: selectorData,
+    })
     // convert selector data into query data
     const queryData = queryDataPip({
       viewType,
       selectorData,
     })
-    // TODO: debugger
-    console.log(
-      `debugger::type::[${
-        selectorData.length ? selectorData[0].type : selectorData.type
-      }] query data `,
-      queryData
-    )
+    debuggger({
+      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      title: 'query data',
+      data: queryData,
+    })
     // invoke update method of model
     const model = this.models[viewType]
     model.fetch(queryData)

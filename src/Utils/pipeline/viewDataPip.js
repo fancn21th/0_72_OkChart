@@ -1,7 +1,7 @@
 import filterDateByWorkingDate from './dateFilter'
 import { groupByFieldIdx, sortByFieldIdx } from './dateGrouping'
 import buildModelConfig from '../../Factory/buildModelConfig'
-import { isArray } from '../typeHelper'
+import { debuggger } from '../../Utils/Debugger'
 
 /*
   Data Flow in Model
@@ -70,11 +70,11 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
     reduce_single_responseData({ ...item, context })
   )
 
-  // debugger
-  console.log(
-    `debugger::[${modelType}]::view data::before custom data convert`,
-    universal_results
-  )
+  debuggger({
+    type: modelType,
+    title: 'view data::before custom data convert',
+    data: universal_results,
+  })
 
   return customConverters.reduce(
     (acc, fn) => ({
