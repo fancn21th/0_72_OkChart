@@ -24,6 +24,11 @@
   display: none;
 }
 
+/* chosen-js css - overridden */
+.chosen-container {
+  margin-right: 15px;
+}
+
 /*
   The okchart css style follow BEM naming convention
   refer to http://getbem.com/naming/
