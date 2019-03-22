@@ -21,11 +21,11 @@ const config = {
       template: 'src/assets/index.html',
     }),
     new BundleAnalyzerPlugin(),
-    // to use jQuery
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
+    // // to use jQuery
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery',
+    // }),
   ],
   module: {
     rules: [
@@ -61,6 +61,10 @@ const config = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
+  },
+  externals: {
+    '@antv/g2': 'G2',
+    '@antv/data-set': 'DataSet',
   },
 }
 module.exports = config
