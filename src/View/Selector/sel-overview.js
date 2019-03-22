@@ -27,9 +27,12 @@ const Selector = function({ chartContainerId }) {
 
 inheritPrototype(Selector, SuperSelector)
 
-Selector.prototype.render = function({ source, country }) {
-  this.sourceSelector.render({ options: source })
-  this.countrySelector.render({ options: country })
+Selector.prototype.render = function({
+  sourceFilterCollection,
+  countryFilterCollection,
+}) {
+  this.sourceSelector.render({ options: sourceFilterCollection })
+  this.countrySelector.render({ options: countryFilterCollection })
 }
 
 export default Selector

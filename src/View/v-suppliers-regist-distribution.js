@@ -40,7 +40,6 @@ View.prototype = {
     sourceCountryFilterCollection,
     isResponseDataFromCache,
   }) {
-    // TODO: complex process logic, consider to refactor
     this.chart1.render(distribution)
     this.chart2.render(distributionGrowth)
     // no need to update selector when fetching data from cache

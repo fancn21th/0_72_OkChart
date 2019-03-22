@@ -20,7 +20,6 @@ const getDistribution = ({
     endDate,
   },
 }) => {
-  // TODO: must not use mutate array method
   let totalCount = 0,
     sourceCountryFilterCollection = []
 

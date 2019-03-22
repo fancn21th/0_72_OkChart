@@ -33,8 +33,8 @@ const convert = ({
     buyerCount = 0,
     supplierCount = 0
 
-  const source = [],
-    country = [],
+  const sourceFilterCollection = [],
+    countryFilterCollection = [],
     sourceObj = {},
     countryObj = {},
     idxOffset = workingDate === true ? 1 : 0,
@@ -66,7 +66,7 @@ const convert = ({
 
   // convert source
   Object.keys(sourceObj).forEach(item => {
-    source.push({
+    sourceFilterCollection.push({
       text: item,
       value: item,
     })
@@ -74,13 +74,20 @@ const convert = ({
 
   // convert country
   Object.keys(countryObj).forEach(item => {
-    country.push({
+    countryFilterCollection.push({
       text: item,
       value: item,
     })
   })
 
-  return { pv, uv, buyerCount, supplierCount, source, country }
+  return {
+    pv,
+    uv,
+    buyerCount,
+    supplierCount,
+    sourceFilterCollection,
+    countryFilterCollection,
+  }
 }
 
 export default {
