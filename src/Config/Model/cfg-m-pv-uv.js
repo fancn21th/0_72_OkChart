@@ -80,9 +80,12 @@ const convert = ({
   }, new Map())
 
   map.forEach((value, key) => {
-    pvuv.push({
-      timeUnit: key,
-      ...value,
+    Object.keys(value).forEach(item => {
+      pvuv.push({
+        date: key,
+        type: item,
+        value: value[item],
+      })
     })
   })
 
