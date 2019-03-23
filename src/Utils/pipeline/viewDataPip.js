@@ -37,6 +37,7 @@ const reduce_single_responseData = ({
 const viewDataPip = ({ responseDataArray, modelType }) => {
   const { universal, custom } = buildViewPip({ viewType: modelType }),
     // universal data converter
+    // apply pipeline for each response data
     universal_view_pipeline_results = responseDataArray.map(item =>
       reduce_single_responseData({ ...item, modelType, universal })
     )
