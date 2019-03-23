@@ -24,7 +24,9 @@ View.prototype = {
     supplierCount,
     sourceFilterCollection,
     countryFilterCollection,
-    responseDataSolo: { isResponseDataFromCache },
+    responseDataSolo: {
+      selectorData: { isQuerySelector },
+    },
   }) {
     this.chart.render({
       pv,
@@ -33,7 +35,7 @@ View.prototype = {
       supplierCount,
     })
     // no need to update selector when fetching data from cache
-    if (!isResponseDataFromCache) {
+    if (isQuerySelector) {
       this.selector.render({
         sourceFilterCollection,
         countryFilterCollection,

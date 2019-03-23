@@ -1,11 +1,6 @@
-import {
-  timespanDiff
-} from '../../Utils/TimeHelper'
+import { timespanDiff } from '../../Utils/TimeHelper'
 
-const filter = ({
-  responseData: collection,
-  sourceCountry
-}) => {
+const filter = ({ responseData: collection, sourceCountry }) => {
   const isSourceCountryEmpty = !sourceCountry || sourceCountry.length === 0
   return collection.filter(item => {
     return isSourceCountryEmpty || sourceCountry.includes(item[0])
@@ -14,11 +9,7 @@ const filter = ({
 
 const getDistribution = ({
   responseData: collection,
-  selectorData: {
-    timespan,
-    startDate,
-    endDate,
-  },
+  selectorData: { timespan, startDate, endDate },
 }) => {
   let totalCount = 0,
     sourceCountryFilterCollection = []
@@ -44,26 +35,16 @@ const getDistribution = ({
   })
   return {
     distribution: top10Data,
-    sourceCountryFilterCollection
+    sourceCountryFilterCollection,
   }
 }
 
-const getDistributionGrowth = ({
-  top15,
-  top15DoubleTimespan
-}) => {
+const getDistributionGrowth = ({ top15, top15DoubleTimespan }) => {
   const {
     responseData: top15Collection,
-    selectorData: {
-      timespan,
-      startDate,
-      endDate,
-      pvuv
-    },
+    selectorData: { timespan, startDate, endDate, pvuv },
   } = top15
-  const {
-    responseData: top15DoubleTimespanCollection
-  } = top15DoubleTimespan
+  const { responseData: top15DoubleTimespanCollection } = top15DoubleTimespan
   const isUvDividedByPV = pvuv === 'ga:pageviews,ga:users'
   // TODO: Potential Performance Issue
   const top15DoubleTimespanObj = top15DoubleTimespanCollection.reduce(
@@ -75,7 +56,8 @@ const getDistributionGrowth = ({
         uv,
       }
       return acc
-    }, {}
+    },
+    {}
   )
   const days = timespanDiff(timespan || 30, startDate, endDate)
   // growth data is mainly based on top 15 of data of pageviews
@@ -87,38 +69,35 @@ const getDistributionGrowth = ({
       const currentPlusLastPvOrUv = top15DoubleTimespanObj[item[0]].pv_or_uv
       const currentPlusLastUv = top15DoubleTimespanObj[item[0]].uv
 
-      const value = isUvDividedByPV ? // pv / uv
-        Math.round(currentPvOrUv / currentUv) -
-        // pv / uv in last time span
-        Math.round(
-          (currentPlusLastPvOrUv - currentPvOrUv) /
-          (currentPlusLastUv - currentUv)
-        ) :
-        Math.round((currentPvOrUv * 2 - currentPlusLastPvOrUv) / days)
+      const value = isUvDividedByPV // pv / uv
+        ? Math.round(currentPvOrUv / currentUv) -
+          // pv / uv in last time span
+          Math.round(
+            (currentPlusLastPvOrUv - currentPvOrUv) /
+              (currentPlusLastUv - currentUv)
+          )
+        : Math.round((currentPvOrUv * 2 - currentPlusLastPvOrUv) / days)
       return {
         item: item[0],
         value,
       }
-    })
+    }),
   }
 }
 
-const convert = ({
-  responseDataArray
-}) => {
+const convert = ({ responseDataArray }) => {
   const [responseData1, responseData2] = responseDataArray,
-  singleResponse = responseData1.isDoubleTimespan ?
-    responseData2 :
-    responseData1,
-    doubleResponse = responseData1.isDoubleTimespan ?
-    responseData1 :
-    responseData2, {
-      isResponseDataFromCache,
+    singleResponse = responseData1.isDoubleTimespan
+      ? responseData2
+      : responseData1,
+    doubleResponse = responseData1.isDoubleTimespan
+      ? responseData1
+      : responseData2,
+    {
       responseData,
-      selectorData: {
-        sourceCountry
-      },
-    } = singleResponse, filteredResponseData = {
+      selectorData: { sourceCountry },
+    } = singleResponse,
+    filteredResponseData = {
       ...singleResponse,
       responseData: filter({
         responseData,
@@ -132,7 +111,6 @@ const convert = ({
       top15: filteredResponseData,
       top15DoubleTimespan: doubleResponse,
     }),
-    isResponseDataFromCache
   }
 }
 
@@ -140,8 +118,10 @@ export default {
   customConverters: [convert],
   groupFieldIndex: 0,
   sumFieldIndex: [1, 2],
-  sortField: [{
-    index: 1,
-    order: 'desc',
-  }, ],
+  sortField: [
+    {
+      index: 1,
+      order: 'desc',
+    },
+  ],
 }

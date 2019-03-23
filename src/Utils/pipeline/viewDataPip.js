@@ -35,7 +35,6 @@ const viewDataPip_pipeline_context = ({ modelType }) => ({
 const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
-  isResponseDataFromCache,
   context,
 }) => {
   return viewDataPip_universal_pipeline.reduce(
@@ -49,7 +48,6 @@ const reduce_single_responseData = ({
       responseData,
       selectorData,
       totals: { totalsForAllResults, totalResults },
-      isResponseDataFromCache,
       context,
     }
   )

@@ -67,7 +67,6 @@ const convert = ({ responseDataArray }) => {
       ? responseData1
       : responseData2,
     {
-      isResponseDataFromCache,
       responseData,
       selectorData: { sourceCountry },
     } = singleResponse,
@@ -85,7 +84,6 @@ const convert = ({ responseDataArray }) => {
       distribution: filteredResponseData,
       distributionDoubleTimespan: doubleResponse,
     }),
-    isResponseDataFromCache,
   }
 }
 
