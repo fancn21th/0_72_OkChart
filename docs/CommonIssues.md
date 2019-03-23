@@ -16,3 +16,10 @@ var top10 = collection
     percent: parseInt(item[1], 10) / totalCount,
   }))
 ```
+
+## Selector Coherence
+
+- two categories
+  - query selector
+    - whenever query selector change, the data source of filter selector should be reset
+  - filter selector

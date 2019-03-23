@@ -10,14 +10,17 @@ SuperSelector.prototype.init = function({ onSelectorChange }) {
   let query = {},
     filterKeys = []
   const onChangeHandler = data => {
-    const currentSearchIsFilter = !!data.isFilter
-    if (currentSearchIsFilter) {
-      delete data.isFilter
+    const isFilterSelector = !!data.isFilterSelector
+    const isQuerySelector = !isFilterSelector
+    // append selector type
+    data.isQuerySelector = isQuerySelector
+    data.isFilterSelector = isFilterSelector
+    if (isFilterSelector) {
       Object.keys(data).forEach(key => {
         filterKeys.push(key)
       })
     } else {
-      // remove filterKeys from query when user perform no-filter select action
+      // remove all filter selector
       query = Object.keys(query).reduce((acc, key) => {
         return filterKeys.includes(key)
           ? acc

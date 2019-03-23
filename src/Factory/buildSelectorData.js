@@ -9,29 +9,31 @@ import distributionConfig from '../Config/DefaultSelector/cfg-s-distribution'
 import suppliersRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-suppliers-regist-distribution'
 
 const buildDefaultSelectorData = ({ ids, type }) => {
-  const selectorData = {
+  const commonSelectorData = {
     ids,
     type,
+    isQuerySelector: true,
+    isFilterSelector: false,
   }
   switch (type) {
     case 'overview':
       return {
-        ...selectorData,
+        ...commonSelectorData,
         ...defaultSelectorConfig,
       }
     case 'pv-uv':
       return {
-        ...selectorData,
+        ...commonSelectorData,
         ...pvUvConfig,
       }
     case 'distribution':
       return [
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...distributionConfig,
         },
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...distributionConfig,
           isDoubleTimespan: true,
         },
@@ -39,7 +41,7 @@ const buildDefaultSelectorData = ({ ids, type }) => {
     case 'source-top-15':
       return [
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...sourceTop15SelectorConfig,
         },
         {
@@ -51,33 +53,33 @@ const buildDefaultSelectorData = ({ ids, type }) => {
     case 'buyers-regist-distribution':
       return [
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...buyerRegistDistributionConfig,
         },
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...buyerRegistDistributionConfig,
           isDoubleTimespan: true,
         },
       ]
     case 'buyers-regist':
       return {
-        ...selectorData,
+        ...commonSelectorData,
         ...buyersRegistConfig,
       }
     case 'suppliers-regist':
       return {
-        ...selectorData,
+        ...commonSelectorData,
         ...suppliersRegistConfig,
       }
     case 'suppliers-regist-distribution':
       return [
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...suppliersRegistDistributionConfig,
         },
         {
-          ...selectorData,
+          ...commonSelectorData,
           ...suppliersRegistDistributionConfig,
           isDoubleTimespan: true,
         },
