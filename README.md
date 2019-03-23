@@ -67,7 +67,7 @@
 
   - Data Pipeline
 
-    > the async data request split the pipeline into two pieces
+    > due to the async data request, the data flow is split into two pieces
 
     - query data pipeline
 
