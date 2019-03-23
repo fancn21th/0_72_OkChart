@@ -1,8 +1,6 @@
 export default {
   metrics: 'ga:pageviews,ga:users',
-  dimensions: function ({
-    timeUnit
-  }) {
-    return `ga:${timeUnit || 'date'}`
+  dimensions: function({ timeUnit }) {
+    return `ga:${timeUnit || 'date'},ga:channelGrouping,ga:country`
   },
 }

@@ -4,7 +4,7 @@
 
 ## Code Style
 
-- ES2015 with old fashion code
+- ES2015 intertwined with old fashion code
 
   > say farewell to ES5
 
@@ -39,8 +39,6 @@
   }
   ```
 
-- Pipeline
-
 ## Architecture Design
 
 - MVP
@@ -55,18 +53,116 @@
 
 - Type aka key
 
-## Bad Design
+- Data Flow
 
-- Default Model Query
+  - Flow
 
-  > fixed by configurable default selector data
+    - selector data
+    - filtered selector data
+    - query data
+    - ga response data
+    - universal data processing
+    - custom data processing
+    - view data
 
-- Complex Data Flow
-  > fixed by pipeline pattern
+  - Data Pipeline
 
-## Workflow
+    > the async data request split the pipeline into two pieces
 
-- FR
+    - query data pipeline
+
+      - filterSelectorData
+      - queryConverter
+        - ids
+        - metrics
+        - dimensions
+        - date
+        - sort
+        - maxResult
+
+    - fetch data
+
+      > based on query data
+
+      - cache data
+
+        > based on filtered selector data
+
+      - response data
+        > response data is an array
+
+    - view data pipeline
+
+      > based on response data from fetch data
+
+      - universal view data pipeline
+
+        - filter working date
+
+          > only if workingDate in selector data
+
+        - group by specified field index
+
+          > only if groupByFieldIdx in model config
+
+          > sumFieldIndex is needed
+
+          - field index is based on the array that calculate against
+
+        - sort by specified field (not index)
+
+          > only if sortField in in model config
+
+          - field index is based on the array that calculate against
+
+      - custom view data pipeline
+
+        > based on universal view data
+
+## Okchar Dev Workflow Ver.2
+
+### File Structure
+
+> along with data flow
+
+- default selector
+
+  > at very first time, data flow starts with default selector
+
+  - location
+    - Config/DefaultSelector
+
+- selector filter
+
+  > for ga response data cache, a key must be unique
+
+  - location
+    - Config/SelectorFilter
+
+- query converter
+
+  > define how selector data is about to be converted into query data
+
+  - location
+    - Config/QueryConverter
+
+- model config
+
+  - location
+
+    - Config/Model
+
+  - properties
+    - customConverters
+    - groupFieldIndex
+    - sumFieldIndex
+    - sortField
+
+### Detailed Design
+
+## Okchar Dev Workflow Ver.1
+
+### File Structure
 
 - Code
 
@@ -107,7 +203,7 @@
 
       - URL - https://ga-dev-tools.appspot.com/query-explorer/
 
-## Detailed Design
+### Detailed Design
 
 - View
 
