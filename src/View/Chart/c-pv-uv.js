@@ -40,12 +40,12 @@ PvUvChart.prototype = {
     })
     this.chart
       .line()
-      .position('day*count')
+      .position('timeUnit*count')
       .color('PVUV')
       .shape('line')
     this.chart
       .point()
-      .position('day*count')
+      .position('timeUnit*count')
       .color('PVUV')
       .size(4)
       .shape('circle')

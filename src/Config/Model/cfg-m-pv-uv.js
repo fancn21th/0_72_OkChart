@@ -22,41 +22,73 @@ const filter = ({ responseDataSolo }) => {
 const convert = ({
   responseDataSolo: {
     responseData,
-    selectorData: { timespan, startDate, endDate, workingDate },
+    selectorData: { timespan, startDate, endDate, workingDate, timeUnit },
     nonWorkingDateCount,
   },
 }) => {
-  const dateFieldIndex = 0,
-    pvFieldIndex = 3,
-    uvFieldIndex = 4,
-    result = []
+  const dateFieldIndex = timeUnit === 'date' ? 0 : 1,
+    pvFieldIndex = timeUnit === 'date' ? 3 : 4,
+    uvFieldIndex = timeUnit === 'date' ? 4 : 5,
+    sourceFieldIndex = timeUnit === 'date' ? 1 : 2,
+    countryFieldIndex = timeUnit === 'date' ? 2 : 3,
+    result = [],
+    sourceMap = new Map(),
+    countryMap = new Map(),
+    sourceFilterCollection = [],
+    countryFilterCollection = []
 
-  // group by date
+  // group by time unit
   const map = responseData.reduce((map, item) => {
-    const key = item[dateFieldIndex]
+    const key = item[dateFieldIndex],
+      source = item[sourceFieldIndex],
+      country = item[countryFieldIndex]
     if (map.has(key)) {
       const oldValue = map.get(key)
       map.set(key, {
-        pv: oldValue.pv + parseInt(item[pvFieldIndex], 10),
-        uv: oldValue.uv + parseInt(item[uvFieldIndex], 10),
+        PV: oldValue.PV + parseInt(item[pvFieldIndex], 10),
+        UV: oldValue.UV + parseInt(item[uvFieldIndex], 10),
       })
     } else {
       map.set(key, {
-        pv: parseInt(item[pvFieldIndex], 10),
-        uv: parseInt(item[uvFieldIndex], 10),
+        PV: parseInt(item[pvFieldIndex], 10),
+        UV: parseInt(item[uvFieldIndex], 10),
       })
+    }
+    if (!sourceMap.has(source)) {
+      sourceMap.set(source, true)
+    }
+    if (!countryMap.has(country)) {
+      countryMap.set(country, true)
     }
     return map
   }, new Map())
 
-  map.forEach((values, key) => {
+  map.forEach((value, key) => {
     result.push({
-      day: key,
-      ...values,
+      timeUnit: key,
+      ...value,
     })
   })
 
-  console.log(result)
+  sourceMap.forEach((value, key) => {
+    sourceFilterCollection.push({
+      text: key,
+      value: key,
+    })
+  })
+
+  countryMap.forEach((value, key) => {
+    countryFilterCollection.push({
+      text: key,
+      value: key,
+    })
+  })
+
+  return {
+    pvuv: result,
+    sourceFilterCollection,
+    countryFilterCollection,
+  }
 }
 
 export default {

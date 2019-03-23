@@ -15,8 +15,21 @@ View.prototype = {
     this.chart.init()
     this.selector.init({ onSelectorChange })
   },
-  render: function({pvuv}) {
+  render: function({
+    pvuv,
+    sourceFilterCollection,
+    countryFilterCollection,
+    responseDataSolo: {
+      selectorData: { isQuerySelector },
+    },
+  }) {
     this.chart.render(pvuv)
+    if (isQuerySelector) {
+      this.selector.render({
+        sourceFilterCollection,
+        countryFilterCollection,
+      })
+    }
   },
 }
 
