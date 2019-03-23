@@ -9,16 +9,22 @@ const viewDataPip_pipeline_context = ({ modelType }) => ({
 const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
-  context,
+  universal,
   modelType,
 }) => {
-  return buildViewPip({ viewType: modelType }).reduce(
+  const { groupFieldIndex, sumFieldIndex, sortField } = buildModelConfig({
+      type: modelType,
+    }),
+    context = { groupFieldIndex, sumFieldIndex, sortField }
+
+  return universal.reduce(
     (acc, fn) => ({
       ...acc, // last acc
       ...fn({
         ...acc,
       }),
     }),
+    // init input params
     {
       responseData,
       selectorData,
@@ -29,19 +35,11 @@ const reduce_single_responseData = ({
 }
 
 const viewDataPip = ({ responseDataArray, modelType }) => {
-  const {
-      groupFieldIndex,
-      sumFieldIndex,
-      sortField,
-      customConverters,
-    } = buildModelConfig({
-      type: modelType,
-    }),
-    context = { groupFieldIndex, sumFieldIndex, sortField }
-
-  const universal_view_pipeline_results = responseDataArray.map(item =>
-    reduce_single_responseData({ ...item, context, modelType })
-  )
+  const { universal, custom } = buildViewPip({ viewType: modelType }),
+    // universal data converter
+    universal_view_pipeline_results = responseDataArray.map(item =>
+      reduce_single_responseData({ ...item, modelType, universal })
+    )
 
   debuggger({
     type: modelType,
@@ -69,7 +67,7 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
     data: customConverters_input,
   })
 
-  return customConverters.reduce(
+  return custom.reduce(
     (acc, fn) => ({
       ...acc,
       ...fn({
