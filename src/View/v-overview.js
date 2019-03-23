@@ -22,9 +22,11 @@ View.prototype = {
     uv,
     buyerCount,
     supplierCount,
-    source, // TODO: Bad Naming
-    country, // TODO: Bad Naming
-    responseDataSolo: { isResponseDataFromCache },
+    sourceFilterCollection,
+    countryFilterCollection,
+    responseDataSolo: {
+      selectorData: { isQuerySelector },
+    },
   }) {
     this.chart.render({
       pv,
@@ -33,10 +35,10 @@ View.prototype = {
       supplierCount,
     })
     // no need to update selector when fetching data from cache
-    if (!isResponseDataFromCache) {
+    if (isQuerySelector) {
       this.selector.render({
-        source,
-        country,
+        sourceFilterCollection,
+        countryFilterCollection,
       })
     }
   },

@@ -13,3 +13,11 @@
 - convention into base/core process
 
 - configurable
+
+
+> 2019-03-23
+
+- selector
+  - query selector
+  - filter selector
+- remove usage of isDat

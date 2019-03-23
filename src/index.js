@@ -1,7 +1,4 @@
-// chosen is a 3rd party multiple selection control
-import './assets/css/chosen.css'
 import './assets/css/main.css'
-import 'chosen-js'
 import OkChart from './OkChart'
 
 ;(function(win, doc) {

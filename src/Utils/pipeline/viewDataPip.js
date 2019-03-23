@@ -1,26 +1,7 @@
 import filterDateByWorkingDate from './dateFilter'
 import { groupByFieldIdx, sortByFieldIdx } from './dateGrouping'
 import buildModelConfig from '../../Factory/buildModelConfig'
-import { isArray } from '../typeHelper'
-
-/*
-  Data Flow in Model
-    input:
-      query, selector, filteredSelector
-      ======>
-      request data from ga
-        input:
-          queryParams(from query), cache key(from filteredSelector)
-        output:
-          response, cache state
-      ======>
-      data convert for view
-        input:
-          selector, response, totals, config (customConverters)
-    ======>
-    output:
-      view data
-*/
+import { debuggger } from '../../Utils/Debugger'
 
 const viewDataPip_universal_pipeline = [
   filterDateByWorkingDate,
@@ -35,7 +16,6 @@ const viewDataPip_pipeline_context = ({ modelType }) => ({
 const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
-  isResponseDataFromCache,
   context,
 }) => {
   return viewDataPip_universal_pipeline.reduce(
@@ -49,7 +29,6 @@ const reduce_single_responseData = ({
       responseData,
       selectorData,
       totals: { totalsForAllResults, totalResults },
-      isResponseDataFromCache,
       context,
     }
   )
@@ -70,11 +49,27 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
     reduce_single_responseData({ ...item, context })
   )
 
-  // debugger
-  console.log(
-    `debugger::[${modelType}]::view data::before custom data convert`,
-    universal_results
-  )
+  debuggger({
+    type: modelType,
+    title: 'universal results',
+    data: universal_results,
+  })
+
+  const customConverters_input = {
+    responseDataSolo:
+      universal_results.length === 1 ? universal_results[0] : null,
+    responseDataArray:
+      universal_results.length === 1 ? null : universal_results,
+    context: viewDataPip_pipeline_context({
+      modelType,
+    }),
+  }
+
+  debuggger({
+    type: modelType,
+    title: 'custom converter input',
+    data: customConverters_input,
+  })
 
   return customConverters.reduce(
     (acc, fn) => ({
@@ -83,15 +78,7 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
         ...acc,
       }),
     }),
-    {
-      responseDataSolo:
-        universal_results.length === 1 ? universal_results[0] : null,
-      responseDataArray:
-        universal_results.length === 1 ? null : universal_results,
-      context: viewDataPip_pipeline_context({
-        modelType,
-      }),
-    }
+    customConverters_input
   )
 }
 

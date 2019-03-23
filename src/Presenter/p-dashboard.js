@@ -1,5 +1,6 @@
 import events from '../Utils/events'
 import { queryDataPip } from '../Utils/pipeline/pip'
+import { debuggger } from '../Utils/Debugger'
 import {
   buildDefaultSelectorData,
   buildSelectorData,
@@ -8,9 +9,6 @@ import {
 const Presenter = function({ views, models }) {
   this.views = views
   this.models = models
-
-  // cache selector data for each view by default
-  this.cachedSelectorData = {}
   this.ids = null
 }
 
@@ -40,7 +38,7 @@ Presenter.prototype = {
       view.init({
         onSelectorChange: data => {
           const selectorData = buildSelectorData({
-            basedSelectorData: self.cachedSelectorData[viewType], // cached
+            type: viewType,
             ids: self.ids,
             currentSelectorData: data,
           })
@@ -48,17 +46,9 @@ Presenter.prototype = {
             viewType,
             selectorData,
           })
-          // cache new selector data
-          self._cacheSelectorData({
-            viewType,
-            selectorData,
-          })
         },
       })
     })
-  },
-  _cacheSelectorData: function({ viewType, selectorData }) {
-    this.cachedSelectorData[viewType] = selectorData
   },
   _refresh: function({ key: viewType, data }) {
     if (viewType) {
@@ -75,33 +65,24 @@ Presenter.prototype = {
         viewType: key,
         selectorData,
       })
-      // cache new selector data
-      this._cacheSelectorData({
-        viewType: key,
-        selectorData,
-      })
     })
   },
   _processSelectorData: function({ viewType, selectorData }) {
-    // TODO: debugger
-    console.log(
-      `debugger::type::[${
-        selectorData.length ? selectorData[0].type : selectorData.type
-      }] selector data `,
-      selectorData
-    )
+    debuggger({
+      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      title: 'selector data',
+      data: selectorData,
+    })
     // convert selector data into query data
     const queryData = queryDataPip({
       viewType,
       selectorData,
     })
-    // TODO: debugger
-    console.log(
-      `debugger::type::[${
-        selectorData.length ? selectorData[0].type : selectorData.type
-      }] query data `,
-      queryData
-    )
+    debuggger({
+      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      title: 'query data',
+      data: queryData,
+    })
     // invoke update method of model
     const model = this.models[viewType]
     model.fetch(queryData)

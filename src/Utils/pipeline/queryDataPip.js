@@ -6,43 +6,6 @@ import buildFilterSelectorDataConfig from '../../Factory/buildFilterSelectorData
 
 import { isArray } from '../typeHelper'
 
-/*
-  Data Flow in View
-    input:
-      selectorData
-      context (
-        viewType,
-        buildQueryConverterConfig,
-        buildFilterSelectorDataConfig
-      )
-      ======>
-        queryConverter
-          input:
-            selectorData
-            context (
-              viewType,
-              buildQueryConverterConfig,
-            )
-          output:
-            query
-      ======>
-        filterSelectorData
-          input:
-            selectorData
-            context (
-              viewType,
-              buildFilterSelectorDataConfig,
-            )
-          output:
-            filteredSelectorData
-    ======>
-    output:
-      query,
-      filteredSelectorData,
-      selectorData,
-      context
-*/
-
 const query_data_pipeline_context = ({ viewType }) => ({
   buildQueryConverterConfig,
   buildFilterSelectorDataConfig,

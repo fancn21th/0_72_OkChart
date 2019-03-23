@@ -1,19 +1,13 @@
-import SuperView, {
-  inheritPrototype
-} from './Base/SuperView'
+import SuperView, { inheritPrototype } from './Base/SuperView'
 import DistributionChart from '../View/Chart/c-distribution'
 import UserGrowthChart from '../View/Chart/c-user-growth'
 import DistributionSelector from '../View/Selector/sel-distribution'
-import {
-  createDiv
-} from '../Utils/HtmlElementBuilder'
+import { createDiv } from '../Utils/HtmlElementBuilder'
 
-const View = function ({
-  chartContainerId
-}) {
+const View = function({ chartContainerId }) {
   SuperView.call(this, {
     chartContainerId,
-    title: '访问分布'
+    title: '访问分布',
   })
 
   const chartId1 = `${chartContainerId}-distribution-container`
@@ -26,10 +20,10 @@ const View = function ({
   chartWrapper.appendChild(chartContainer2)
 
   this.chart1 = new DistributionChart({
-    chartContainerId: chartId1
+    chartContainerId: chartId1,
   })
   this.chart2 = new UserGrowthChart({
-    chartContainerId: chartId2
+    chartContainerId: chartId2,
   })
 
   this.selector = new DistributionSelector({
@@ -40,25 +34,22 @@ const View = function ({
 inheritPrototype(View, SuperView)
 
 View.prototype = {
-  init: function ({
-    onSelectorChange
-  }) {
+  init: function({ onSelectorChange }) {
     this.chart1.init()
     this.chart2.init()
     this.selector.init({
-      onSelectorChange
+      onSelectorChange,
     })
   },
-  render: function ({
+  render: function({
     distribution,
     distributionGrowth,
     sourceCountryFilterCollection,
-    isResponseDataFromCache,
+    responseDataArray: [first],
   }) {
     this.chart1.render(distribution)
     this.chart2.render(distributionGrowth)
-    // no need to update selector when fetching data from cache
-    if (!isResponseDataFromCache) {
+    if (first.selectorData.isQuerySelector) {
       this.selector.render({
         sourceCountryFilterCollection,
       })
