@@ -19,6 +19,8 @@ const filter = ({ responseDataSolo }) => {
   }
 }
 
+const isFreeSource = source => !source.toLowerCase().includes('paid')
+
 const convert = ({
   responseDataSolo: {
     responseData,
@@ -32,7 +34,7 @@ const convert = ({
     uvFieldIndex = fieldOffset ? 4 : 5,
     sourceFieldIndex = fieldOffset ? 1 : 2,
     countryFieldIndex = fieldOffset ? 2 : 3,
-    result = [],
+    pvuv = [],
     sourceMap = new Map(),
     countryMap = new Map(),
     sourceFilterCollection = [],
@@ -42,30 +44,43 @@ const convert = ({
   const map = responseData.reduce((map, item) => {
     const key = item[dateFieldIndex],
       source = item[sourceFieldIndex],
-      country = item[countryFieldIndex]
+      country = item[countryFieldIndex],
+      currentPv = parseInt(item[pvFieldIndex], 10),
+      currentUv = parseInt(item[uvFieldIndex], 10),
+      isFree = isFreeSource(source),
+      currentFreePv = isFree ? currentPv : 0,
+      currentFreeUv = isFree ? currentUv : 0
+
     if (map.has(key)) {
       const oldValue = map.get(key)
       map.set(key, {
-        PV: oldValue.PV + parseInt(item[pvFieldIndex], 10),
-        UV: oldValue.UV + parseInt(item[uvFieldIndex], 10),
+        PV: oldValue.PV + currentPv,
+        UV: oldValue.UV + currentUv,
+        FPV: oldValue.FPV + currentFreePv,
+        FUV: oldValue.FUV + currentFreeUv,
       })
     } else {
       map.set(key, {
-        PV: parseInt(item[pvFieldIndex], 10),
-        UV: parseInt(item[uvFieldIndex], 10),
+        PV: currentPv,
+        UV: currentUv,
+        FPV: currentFreePv,
+        FUV: currentFreeUv,
       })
     }
+
     if (!sourceMap.has(source)) {
       sourceMap.set(source, true)
     }
+
     if (!countryMap.has(country)) {
       countryMap.set(country, true)
     }
+
     return map
   }, new Map())
 
   map.forEach((value, key) => {
-    result.push({
+    pvuv.push({
       timeUnit: key,
       ...value,
     })
@@ -86,7 +101,7 @@ const convert = ({
   })
 
   return {
-    pvuv: result,
+    pvuv,
     sourceFilterCollection,
     countryFilterCollection,
   }
