@@ -1,13 +1,6 @@
-import filterDateByWorkingDate from './dateFilter'
-import { groupByFieldIdx, sortByFieldIdx } from './dateGrouping'
+import buildViewPip from '../../Factory/buildViewPip'
 import buildModelConfig from '../../Factory/buildModelConfig'
 import { debuggger } from '../../Utils/Debugger'
-
-const viewDataPip_universal_pipeline = [
-  filterDateByWorkingDate,
-  groupByFieldIdx,
-  sortByFieldIdx,
-]
 
 const viewDataPip_pipeline_context = ({ modelType }) => ({
   modelType,
@@ -17,8 +10,9 @@ const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
   context,
+  modelType,
 }) => {
-  return viewDataPip_universal_pipeline.reduce(
+  return buildViewPip({ viewType: modelType }).reduce(
     (acc, fn) => ({
       ...acc, // last acc
       ...fn({
@@ -36,30 +30,34 @@ const reduce_single_responseData = ({
 
 const viewDataPip = ({ responseDataArray, modelType }) => {
   const {
-      customConverters,
       groupFieldIndex,
       sumFieldIndex,
       sortField,
+      customConverters,
     } = buildModelConfig({
       type: modelType,
     }),
     context = { groupFieldIndex, sumFieldIndex, sortField }
 
-  const universal_results = responseDataArray.map(item =>
-    reduce_single_responseData({ ...item, context })
+  const universal_view_pipeline_results = responseDataArray.map(item =>
+    reduce_single_responseData({ ...item, context, modelType })
   )
 
   debuggger({
     type: modelType,
     title: 'universal results',
-    data: universal_results,
+    data: universal_view_pipeline_results,
   })
 
   const customConverters_input = {
     responseDataSolo:
-      universal_results.length === 1 ? universal_results[0] : null,
+      universal_view_pipeline_results.length === 1
+        ? universal_view_pipeline_results[0]
+        : null,
     responseDataArray:
-      universal_results.length === 1 ? null : universal_results,
+      universal_view_pipeline_results.length === 1
+        ? null
+        : universal_view_pipeline_results,
     context: viewDataPip_pipeline_context({
       modelType,
     }),
