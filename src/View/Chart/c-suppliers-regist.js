@@ -14,6 +14,7 @@ BuyersRegistChart.prototype = {
       container: this.chartContainerId,
       forceFit: true,
       height: 400,
+      padding: [40, 30, 60, 55], // 上右下左
     })
   },
   // function 3: render
