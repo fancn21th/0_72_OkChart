@@ -6,16 +6,16 @@ const filterDateByWorkingDate = ({
 }) => {
   const dateFieldIndex = 0
   if (workingDate === true) {
-    const filterObj = {} // cache date string already checked
-    const filteredCollection = responseData.filter(item => {
-      const dateStr = item[dateFieldIndex]
-      if (dateStr in filterObj) {
-        return filterObj[dateStr]
-      }
-      const filterState = isWorkingDate(dateStr)
-      filterObj[dateStr] = filterState
-      return filterState
-    })
+    const filterObj = {}, // cache date string already checked
+      filteredCollection = responseData.filter(item => {
+        const dateStr = item[dateFieldIndex]
+        if (dateStr in filterObj) {
+          return filterObj[dateStr]
+        }
+        const filterState = isWorkingDate(dateStr)
+        filterObj[dateStr] = filterState
+        return filterState
+      })
     return {
       responseData: filteredCollection,
       nonWorkingDateCount: Object.keys(filterObj).filter(
