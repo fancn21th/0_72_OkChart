@@ -2,10 +2,6 @@ import buildViewPip from '../../Factory/buildViewPip'
 import buildModelConfig from '../../Factory/buildModelConfig'
 import { debuggger } from '../../Utils/Debugger'
 
-const viewDataPip_pipeline_context = ({ modelType }) => ({
-  modelType,
-})
-
 const reduce_single_responseData = ({
   response: { rows: responseData, totalsForAllResults, totalResults },
   selectorData,
@@ -57,9 +53,9 @@ const viewDataPip = ({ responseDataArray, modelType }) => {
       universal_view_pipeline_results.length === 1
         ? null
         : universal_view_pipeline_results,
-    context: viewDataPip_pipeline_context({
+    context: {
       modelType,
-    }),
+    },
   }
 
   debuggger({
