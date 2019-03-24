@@ -1,21 +1,17 @@
-import queryConverter from './queryConverter'
-import filterSelectorData from './filterSelectorData'
-
+import buildQueryPip from '../../Factory/buildQueryPip'
 import buildQueryConverterConfig from '../../Factory/buildQueryConverterConfig'
 import buildFilterSelectorDataConfig from '../../Factory/buildFilterSelectorDataConfig'
 
 import { isArray } from '../typeHelper'
 
-const query_data_pipeline_context = ({ viewType }) => ({
+const build_query_data_pipeline_context = ({ viewType }) => ({
   buildQueryConverterConfig,
   buildFilterSelectorDataConfig,
   viewType,
 })
 
-const query_data_pipeline = [filterSelectorData, queryConverter]
-
 const reduce_single_selectorData = ({ viewType, selectorData }) =>
-  query_data_pipeline.reduce(
+  buildQueryPip({ viewType }).reduce(
     (acc, fn) => {
       return {
         ...acc,
@@ -25,7 +21,7 @@ const reduce_single_selectorData = ({ viewType, selectorData }) =>
       }
     },
     {
-      context: query_data_pipeline_context({ viewType }),
+      context: build_query_data_pipeline_context({ viewType }),
       selectorData,
     }
   )
