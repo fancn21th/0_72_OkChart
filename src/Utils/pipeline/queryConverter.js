@@ -22,10 +22,12 @@ const dimensions = queryData => {
   if (workingDate === true && !dimensionsStr.includes('ga:date')) {
     return {
       dimensions: `ga:date,${dimensionsStr}`,
+      gaDateAppend: true,
     }
   }
   return {
     dimensions: dimensionsStr,
+    gaDateAppend: false,
   }
 }
 

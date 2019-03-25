@@ -7,6 +7,7 @@ const reduce_single_responseData = ({
   selectorData,
   universal,
   modelType,
+  queryData,
 }) => {
   const { groupFieldIndex, sumFieldIndex, sortField } = buildModelConfig({
       type: modelType,
@@ -24,18 +25,19 @@ const reduce_single_responseData = ({
     {
       responseData,
       selectorData,
+      queryData,
       totals: { totalsForAllResults, totalResults },
       context,
     }
   )
 }
 
-const viewDataPip = ({ responseDataArray, modelType }) => {
+const viewDataPip = ({ responseDataArray, modelType, queryData }) => {
   const { universal, custom } = buildViewPip({ viewType: modelType }),
     // universal data converter
     // apply pipeline for each response data
     universal_view_pipeline_results = responseDataArray.map(item =>
-      reduce_single_responseData({ ...item, modelType, universal })
+      reduce_single_responseData({ ...item, modelType, universal, queryData })
     )
 
   debuggger({

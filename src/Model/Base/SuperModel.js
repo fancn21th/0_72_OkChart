@@ -38,6 +38,7 @@ SuperModel.prototype = {
       const data = viewDataPip({
         responseDataArray,
         modelType: this.modelType,
+        queryData: queryData.query, // insert the query data back to pipeline
       })
       debuggger({
         type: responseDataArray[0].selectorData.type,
