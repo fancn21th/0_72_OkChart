@@ -10,8 +10,12 @@ const build_query_data_pipeline_context = ({ viewType }) => ({
   viewType,
 })
 
-const reduce_single_selectorData = ({ viewType, selectorData }) =>
-  buildQueryPip({ viewType }).reduce(
+const reduce_single_selectorData = data => {
+  const {
+      selectorData: { type: viewType },
+    } = data,
+    context = build_query_data_pipeline_context({ viewType })
+  return buildQueryPip({ viewType }).reduce(
     (acc, fn) => {
       return {
         ...acc,
@@ -21,17 +25,16 @@ const reduce_single_selectorData = ({ viewType, selectorData }) =>
       }
     },
     {
-      context: build_query_data_pipeline_context({ viewType }),
-      selectorData,
+      ...data,
+      context,
     }
   )
+}
 
-const queryDataPip = ({ viewType, selectorData }) => {
-  return isArray(selectorData)
-    ? selectorData.map(item =>
-        reduce_single_selectorData({ viewType, selectorData: item })
-      )
-    : reduce_single_selectorData({ viewType, selectorData })
+const queryDataPip = data => {
+  return isArray(data)
+    ? selectorData.map(item => reduce_single_selectorData(item))
+    : reduce_single_selectorData(data)
 }
 
 export default queryDataPip

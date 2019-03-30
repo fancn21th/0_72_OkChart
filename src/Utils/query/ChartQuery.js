@@ -18,7 +18,14 @@ ChartQuery.prototype = {
   _getData: function(keyData) {
     return this.cache.get(keyData)
   },
-  _getPromise: function({ keyData, queryParams, selectorData }) {
+  _getPromise: function(queryData) {
+    const {
+      filteredSelectorData: keyData,
+      query: queryParams,
+      selectorData,
+      context,
+    } = queryData
+
     const self = this
 
     if (this._hasData(keyData)) {
@@ -28,10 +35,15 @@ ChartQuery.prototype = {
           title: 'ga response data',
           data: self._getData(keyData),
         })
+        const response = self._getData(keyData)
         resolve({
-          response: self._getData(keyData),
-          selectorData,
-          isResponseDataFromCache: true,
+          ...queryData,
+          response,
+          responseData: response.rows,
+          context: {
+            ...context,
+            isResponseDataFromCache: true,
+          },
         })
       })
     }
@@ -48,23 +60,31 @@ ChartQuery.prototype = {
             title: 'ga response data',
             data: response,
           })
-          resolve({ response, selectorData, isResponseDataFromCache: false })
+          resolve({
+            ...queryData,
+            response,
+            responseData: response.rows,
+            context: {
+              ...context,
+              isResponseDataFromCache: false,
+            },
+          })
         })
         .once('error', function(response) {
-          reject({ response, selectorData, isResponseDataFromCache: false })
+          reject({ response, error: 'Chart Query Error' })
         })
         .execute()
     })
   },
-  query: function(queryParams) {
+  query: function(queryData) {
     const promises = []
 
-    if (isArray(queryParams)) {
-      queryParams.forEach(item => {
+    if (isArray(queryData)) {
+      queryData.forEach(item => {
         promises.push(this._getPromise(item))
       })
     } else {
-      promises.push(this._getPromise(queryParams))
+      promises.push(this._getPromise(queryData))
     }
 
     return Promise.all(promises)

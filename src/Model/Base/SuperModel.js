@@ -11,35 +11,13 @@ const SuperModel = function({ query, modelType }) {
 
 SuperModel.prototype = {
   fetch: function(queryData) {
-    const queryParams = isArray(queryData)
-      ? queryData.map(
-          ({
-            query: queryParams,
-            filteredSelectorData: keyData,
-            selectorData,
-          }) => ({
-            queryParams,
-            keyData,
-            selectorData,
-          })
-        )
-      : {
-          queryParams: queryData.query,
-          keyData: queryData.filteredSelectorData,
-          selectorData: queryData.selectorData,
-        }
-
-    this.query.query(queryParams).then(responseDataArray => {
+    this.query.query(queryData).then(responseDataArray => {
       debuggger({
         type: responseDataArray[0].selectorData.type,
         title: 'response data array',
         data: responseDataArray,
       })
-      const data = viewDataPip({
-        responseDataArray,
-        modelType: this.modelType,
-        queryData: queryData.query, // insert the query data back to pipeline
-      })
+      const data = viewDataPip(responseDataArray)
       debuggger({
         type: responseDataArray[0].selectorData.type,
         title: 'view data',

@@ -7,12 +7,12 @@ import distribution from '../Config/Model/cfg-m-distribution'
 import buyerRegistDistribution from '../Config/Model/cfg-m-buyer-regist-distribution'
 import suppliersRegistDistribution from '../Config/Model/cfg-m-suppliers-regist-distribution'
 
-import filterDateByWorkingDate from '../Utils/pipeline/dateFilter'
-import { groupByFieldIdx, sortByFieldIdx } from '../Utils/pipeline/dateGrouping'
+import workingDateFilter from '../Utils/pipeline/workingDateFilter'
+import workingDateFixer from '../Utils/pipeline/workingDateFixer'
 
 const buildViewPip = ({ viewType }) => {
   const common = {
-    universal: [filterDateByWorkingDate, groupByFieldIdx, sortByFieldIdx],
+    universal: [workingDateFilter, workingDateFixer],
   }
   switch (viewType) {
     case 'overview':

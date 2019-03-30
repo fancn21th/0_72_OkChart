@@ -75,7 +75,6 @@ Presenter.prototype = {
     })
     // convert selector data into query data
     const queryData = queryDataPip({
-      viewType,
       selectorData,
     })
     debuggger({

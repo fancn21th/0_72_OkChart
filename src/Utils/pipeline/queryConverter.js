@@ -78,23 +78,23 @@ const query_params_gen_pipeline = [
   maxResult,
 ]
 
-const convert = ({
-  selectorData,
-  context: { buildQueryConverterConfig, viewType },
-}) => {
-  const config = buildQueryConverterConfig({ type: viewType })
+const convert = data => {
+  const {
+      context: { buildQueryConverterConfig, viewType },
+    } = data,
+    config = buildQueryConverterConfig({ type: viewType })
   if (!config) {
     throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
   return {
-    query: query_params_gen_pipeline.reduce(
+    ...data,
+    ...query_params_gen_pipeline.reduce(
       (acc, fn) => ({
         ...acc,
         ...fn(acc),
       }),
       {
         ...config,
-        ...selectorData,
       }
     ),
   }

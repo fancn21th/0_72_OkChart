@@ -1,18 +1,11 @@
 import buildViewPip from '../../Factory/buildViewPip'
-import buildModelConfig from '../../Factory/buildModelConfig'
 import { debuggger } from '../../Utils/Debugger'
 
-const reduce_single_responseData = ({
-  response: { rows: responseData, totalsForAllResults, totalResults },
-  selectorData,
-  universal,
-  modelType,
-  queryData,
-}) => {
-  const { groupFieldIndex, sumFieldIndex, sortField } = buildModelConfig({
-      type: modelType,
-    }),
-    context = { groupFieldIndex, sumFieldIndex, sortField }
+const reduce_single_responseData = data => {
+  const {
+      selectorData: { type: viewType },
+    } = data,
+    { universal } = buildViewPip({ viewType })
 
   return universal.reduce(
     (acc, fn) => ({
@@ -22,26 +15,17 @@ const reduce_single_responseData = ({
       }),
     }),
     // init input params
-    {
-      responseData,
-      selectorData,
-      queryData,
-      totals: { totalsForAllResults, totalResults },
-      context,
-    }
+    data
   )
 }
 
-const viewDataPip = ({ responseDataArray, modelType, queryData }) => {
-  const { universal, custom } = buildViewPip({ viewType: modelType }),
-    // universal data converter
-    // apply pipeline for each response data
-    universal_view_pipeline_results = responseDataArray.map(item =>
-      reduce_single_responseData({ ...item, modelType, universal, queryData })
-    )
+const viewDataPip = responseDataArray => {
+  const universal_view_pipeline_results = responseDataArray.map(item =>
+    reduce_single_responseData(item)
+  )
 
   debuggger({
-    type: modelType,
+    type: viewType,
     title: 'universal results',
     data: universal_view_pipeline_results,
   })
@@ -56,12 +40,12 @@ const viewDataPip = ({ responseDataArray, modelType, queryData }) => {
         ? null
         : universal_view_pipeline_results,
     context: {
-      modelType,
+      viewType,
     },
   }
 
   debuggger({
-    type: modelType,
+    type: viewType,
     title: 'custom converter input',
     data: customConverters_input,
   })
