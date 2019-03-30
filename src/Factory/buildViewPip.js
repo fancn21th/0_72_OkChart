@@ -8,11 +8,18 @@ import buyerRegistDistribution from '../Config/Model/cfg-m-buyer-regist-distribu
 import suppliersRegistDistribution from '../Config/Model/cfg-m-suppliers-regist-distribution'
 
 import workingDateFilter from '../Utils/pipeline/workingDateFilter'
-import workingDateFixer from '../Utils/pipeline/workingDateFixer'
+import workingDateContext from '../Utils/pipeline/workingDateContext'
+import workingDateGroup from '../Utils/pipeline/workingDateGroup'
+import workingDateSort from '../Utils/pipeline/workingDateSort'
 
 const buildViewPip = ({ viewType }) => {
   const common = {
-    universal: [workingDateFilter, workingDateFixer],
+    universal: [
+      workingDateFilter,
+      workingDateContext,
+      workingDateGroup,
+      workingDateSort,
+    ],
   }
   switch (viewType) {
     case 'overview':
