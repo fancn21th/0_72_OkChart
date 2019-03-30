@@ -2,12 +2,11 @@ import { timespanDiff } from '../../Utils/TimeHelper'
 
 const filter = ({ responseDataSolo }) => {
   const { responseData, selectorData } = responseDataSolo,
-    { source, country, workingDate } = selectorData,
+    { source, country } = selectorData,
     isSourceEmpty = !source || source.length === 0,
     isCountryEmpty = !country || country.length === 0,
-    idxOffset = workingDate === true ? 1 : 0,
-    channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset
+    channelIdx = 0,
+    countryIdx = 1
 
   return {
     responseDataSolo: {
@@ -25,7 +24,7 @@ const convert = ({
   responseDataSolo: {
     responseData,
     selectorData: { timespan, startDate, endDate, workingDate },
-    nonWorkingDateCount,
+    context: { nonWorkingDateCount },
   },
 }) => {
   let pv = 0,
@@ -37,13 +36,12 @@ const convert = ({
     countryFilterCollection = [],
     sourceObj = {},
     countryObj = {},
-    idxOffset = workingDate === true ? 1 : 0,
-    channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset,
-    pvIdx = 2 + idxOffset,
-    uvIdx = 3 + idxOffset,
-    buyerCountIdx = 4 + idxOffset,
-    supplierCountIdx = 5 + idxOffset
+    channelIdx = 0,
+    countryIdx = 1,
+    pvIdx = 2,
+    uvIdx = 3,
+    buyerCountIdx = 4,
+    supplierCountIdx = 5
 
   responseData.forEach(item => {
     pv += parseInt(item[pvIdx], 10)
