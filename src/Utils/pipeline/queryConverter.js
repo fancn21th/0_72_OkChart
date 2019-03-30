@@ -22,12 +22,12 @@ const dimensions = queryData => {
   if (workingDate === true && !dimensionsStr.includes('ga:date')) {
     return {
       dimensions: `ga:date,${dimensionsStr}`,
-      gaDateAppend: true,
+      context: { gaDateAppend: true },
     }
   }
   return {
     dimensions: dimensionsStr,
-    gaDateAppend: false,
+    context: { gaDateAppend: false },
   }
 }
 
@@ -69,7 +69,7 @@ const maxResult = () => ({
   'max-results': 10000,
 })
 
-const query_params_gen_pipeline = [
+const query_converter_pipeline = [
   ids,
   metrics,
   dimensions,
@@ -80,23 +80,39 @@ const query_params_gen_pipeline = [
 
 const convert = data => {
   const {
-      context: { buildQueryConverterConfig, viewType },
+      context,
+      selectorData: { ids },
     } = data,
+    { buildQueryConverterConfig, viewType } = context,
     config = buildQueryConverterConfig({ type: viewType })
+
   if (!config) {
     throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
-  return {
-    ...data,
-    ...query_params_gen_pipeline.reduce(
+  // the reducer below does not conform to the pattern
+  // that output of per-function will be the input of next-function
+  const query = query_converter_pipeline.reduce(
       (acc, fn) => ({
         ...acc,
         ...fn(acc),
       }),
       {
+        ids,
         ...config,
+        context: {},
       }
     ),
+    { context: queryConverterContext } = query
+
+  delete query.context
+
+  return {
+    ...data,
+    query,
+    context: {
+      ...context,
+      ...queryConverterContext,
+    },
   }
 }
 
