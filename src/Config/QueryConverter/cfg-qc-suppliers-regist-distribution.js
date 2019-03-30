@@ -1,9 +1,9 @@
 export default {
   metrics: 'ga:goal7Completions',
-  dimensions: function({ countryBrowser }) {
+  dimensions: function({ selectorData: { countryBrowser } }) {
     return countryBrowser
   },
-  sort: function({ workingDate }) {
+  sort: function({ selectorData: { workingDate } }) {
     if (workingDate) return 'ga:goal7Completions'
     return '-ga:goal7Completions'
   },

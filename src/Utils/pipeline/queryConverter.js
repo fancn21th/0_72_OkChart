@@ -1,24 +1,26 @@
 import { isFunction } from '../typeHelper'
 import { doubleTimespanStartDate } from '../TimeHelper'
 
-const ids = ({ ids }) => ({ ids })
+const ids = ({ selectorData: { ids } }) => ({ ids })
 
 const metrics = queryData => {
-  const { metrics: metricsConfig } = queryData
-  return isFunction(metricsConfig)
+  const { metrics } = queryData
+  return isFunction(metrics)
     ? {
-        metrics: metricsConfig(queryData),
+        metrics: metrics(queryData),
       }
     : {
-        metrics: metricsConfig,
+        metrics: metrics,
       }
 }
 
 const dimensions = queryData => {
-  const { workingDate, dimensions: dimensionsConfig } = queryData,
-    dimensionsStr = isFunction(dimensionsConfig)
-      ? dimensionsConfig(queryData)
-      : dimensionsConfig
+  const {
+      selectorData: { workingDate },
+      dimensions,
+    } = queryData,
+    dimensionsStr = isFunction(dimensions) ? dimensions(queryData) : dimensions
+
   if (workingDate === true && !dimensionsStr.includes('ga:date')) {
     return {
       dimensions: `ga:date,${dimensionsStr}`,
@@ -32,7 +34,9 @@ const dimensions = queryData => {
 }
 
 // TODO: isDoubleTimespan moving out
-const date = ({ timespan, startDate, endDate, isDoubleTimespan }) => {
+const date = ({
+  selectorData: { timespan, startDate, endDate, isDoubleTimespan },
+}) => {
   let startDateStr, endDateStr
 
   if (isDoubleTimespan) {
@@ -55,13 +59,13 @@ const date = ({ timespan, startDate, endDate, isDoubleTimespan }) => {
 }
 
 const sort = queryData => {
-  const { sort: sortConfig } = queryData
-  return isFunction(sortConfig)
+  const { sort } = queryData
+  return isFunction(sort)
     ? {
-        sort: sortConfig(queryData),
+        sort: sort(queryData),
       }
     : {
-        sort: sortConfig,
+        sort: sort,
       }
 }
 
@@ -79,14 +83,11 @@ const query_converter_pipeline = [
 ]
 
 const convert = data => {
-  const {
-      context,
-      selectorData: { ids },
-    } = data,
+  const { selectorData, context } = data,
     { buildQueryConverterConfig, viewType } = context,
-    config = buildQueryConverterConfig({ type: viewType })
+    queryConverterConfig = buildQueryConverterConfig({ type: viewType })
 
-  if (!config) {
+  if (!queryConverterConfig) {
     throw new Error('OKCHART::ERROR:: query converter is not defined.')
   }
   // the reducer below does not conform to the pattern
@@ -97,15 +98,17 @@ const convert = data => {
         ...fn(acc),
       }),
       {
-        ids,
-        ...config,
+        selectorData,
+        ...queryConverterConfig, // spread config other than putting it into the context is for simplicity of the query converter pipeline
         context: {},
       }
     ),
     { context: queryConverterContext } = query
 
   delete query.context
+  delete query.selectorData
 
+  // merge all data
   return {
     ...data,
     query,

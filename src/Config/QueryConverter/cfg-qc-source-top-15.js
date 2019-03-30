@@ -3,7 +3,7 @@ export default {
     return pvuv
   },
   dimensions: 'ga:source',
-  sort: function({ metrics, workingDate }) {
+  sort: function({ metrics, selectorData: { workingDate } }) {
     if (workingDate) return 'ga:source'
     return metrics === 'ga:pageviews,ga:users' ? '-ga:pageviews' : `-${metrics}`
   },
