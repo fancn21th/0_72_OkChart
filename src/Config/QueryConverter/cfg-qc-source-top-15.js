@@ -1,5 +1,5 @@
 export default {
-  metrics: function({ pvuv }) {
+  metrics: function({ selectorData: { pvuv } }) {
     return pvuv
   },
   dimensions: 'ga:source',
