@@ -7,14 +7,14 @@ const getSortFunc = (index, order) => {
 
 const sort = data => {
   const {
-    context: { dateSortFieldIndex },
+    context: { gaDateAppend, dateSortFieldIndexes, dateSortOrders },
     selectorData: { workingDate },
     responseData,
   } = data
 
-  if (workingDate && dateSortFieldIndex) {
-    const { index, order } = sortField && sortField[0],
-      sortFunc = getSortFunc(index, order)
+  // TODO: only one field to sort
+  if (workingDate && gaDateAppend && dateSortFieldIndexes) {
+    const sortFunc = getSortFunc(dateSortFieldIndexes[0], dateSortOrders[0] - 1)
     return {
       ...data,
       responseData: responseData.sort(sortFunc),

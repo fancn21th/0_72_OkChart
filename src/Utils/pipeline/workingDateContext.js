@@ -8,7 +8,7 @@ const workingDateContext = viewData => {
     context,
     response: {
       columnHeaders,
-      query: { metrics, dimensions },
+      query: { metrics, dimensions, sort },
     },
   } = viewData
 
@@ -28,7 +28,13 @@ const workingDateContext = viewData => {
         flatColumnHeaders,
         filteredDimensions
       ),
-      dateSortFieldIndex = null
+      resolvedSort = sort ? sort.map(item => item.replace('-', '')) : null,
+      dateSortFieldIndexes = sort
+        ? getIndexes(flatColumnHeaders, resolvedSort)
+        : null,
+      dateSortOrders = sort
+        ? sort.map(item => (item.startsWith('-') ? 'des' : 'asc'))
+        : null
 
     return {
       ...viewData,
@@ -37,7 +43,8 @@ const workingDateContext = viewData => {
         dateFieldIndex,
         dateGroupFieldIndexes,
         dateSumFieldIndexes, // metric field index array
-        dateSortFieldIndex,
+        dateSortFieldIndexes,
+        dateSortOrders,
       },
     }
   }
