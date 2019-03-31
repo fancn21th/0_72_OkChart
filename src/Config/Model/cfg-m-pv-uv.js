@@ -25,7 +25,7 @@ const convert = ({
   responseDataSolo: {
     responseData,
     selectorData: { timespan, startDate, endDate, workingDate, timeUnit },
-    nonWorkingDateCount,
+    context: { nonWorkingDateCount },
   },
 }) => {
   const fieldOffset = timeUnit === 'date' || !workingDate,

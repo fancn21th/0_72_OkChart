@@ -3,8 +3,5 @@ export default {
   dimensions: function({ selectorData: { countryBrowser } }) {
     return countryBrowser
   },
-  sort: function({ selectorData: { workingDate } }) {
-    if (workingDate) return 'ga:goal7Completions'
-    return '-ga:goal7Completions'
-  },
+  sort: '-ga:goal7Completions',
 }

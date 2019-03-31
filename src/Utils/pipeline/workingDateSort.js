@@ -14,7 +14,7 @@ const sort = data => {
 
   // TODO: only one field to sort
   if (workingDate && gaDateAppend && dateSortFieldIndexes) {
-    const sortFunc = getSortFunc(dateSortFieldIndexes[0], dateSortOrders[0] - 1)
+    const sortFunc = getSortFunc(dateSortFieldIndexes[0] - 1, dateSortOrders[0])
     return {
       ...data,
       responseData: responseData.sort(sortFunc),

@@ -5,8 +5,7 @@ export default {
   dimensions: function({ selectorData: { countryBrowser } }) {
     return countryBrowser
   },
-  sort: function({ metrics, selectorData: { workingDate } }) {
-    if (workingDate) return metrics
+  sort: function({ metrics }) {
     return `-${metrics}`
   },
 }
