@@ -1,8 +1,6 @@
 export default {
   metrics: 'ga:goal7Completions',
-  dimensions: function ({
-    timeUnit
-  }) {
+  dimensions: function({ selectorData: { timeUnit } }) {
     return `ga:${timeUnit || 'date'}`
   },
 }

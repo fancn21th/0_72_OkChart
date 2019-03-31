@@ -1,12 +1,11 @@
 export default {
-  metrics: function({ pvuv }) {
+  metrics: function({ selectorData: { pvuv } }) {
     return pvuv
   },
-  dimensions: function({ countryBrowser }) {
+  dimensions: function({ selectorData: { countryBrowser } }) {
     return countryBrowser
   },
-  sort: function({ metrics, workingDate }) {
-    if (workingDate) return metrics
+  sort: function({ metrics }) {
     return `-${metrics}`
   },
 }
