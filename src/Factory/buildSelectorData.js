@@ -1,4 +1,3 @@
-import { isArray } from '../Utils/typeHelper'
 import defaultSelectorConfig from '../Config/DefaultSelector/cfg-s-default'
 import sourceTop15SelectorConfig from '../Config/DefaultSelector/cfg-s-source-top-15'
 import buyerRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-buyers-regist-distribution'
@@ -17,15 +16,19 @@ const buildDefaultSelectorData = ({ ids, type }) => {
   }
   switch (type) {
     case 'overview':
-      return {
-        ...commonSelectorData,
-        ...defaultSelectorConfig,
-      }
+      return [
+        {
+          ...commonSelectorData,
+          ...defaultSelectorConfig,
+        },
+      ]
     case 'pv-uv':
-      return {
-        ...commonSelectorData,
-        ...pvUvConfig,
-      }
+      return [
+        {
+          ...commonSelectorData,
+          ...pvUvConfig,
+        },
+      ]
     case 'distribution':
       return [
         {
@@ -45,9 +48,9 @@ const buildDefaultSelectorData = ({ ids, type }) => {
           ...sourceTop15SelectorConfig,
         },
         {
+          ...commonSelectorData,
           ...sourceTop15SelectorConfig,
           isDoubleTimespan: true,
-          ids,
         },
       ]
     case 'buyers-regist-distribution':
@@ -63,15 +66,19 @@ const buildDefaultSelectorData = ({ ids, type }) => {
         },
       ]
     case 'buyers-regist':
-      return {
-        ...commonSelectorData,
-        ...buyersRegistConfig,
-      }
+      return [
+        {
+          ...commonSelectorData,
+          ...buyersRegistConfig,
+        },
+      ]
     case 'suppliers-regist':
-      return {
-        ...commonSelectorData,
-        ...suppliersRegistConfig,
-      }
+      return [
+        {
+          ...commonSelectorData,
+          ...suppliersRegistConfig,
+        },
+      ]
     case 'suppliers-regist-distribution':
       return [
         {
@@ -94,17 +101,11 @@ const buildSelectorData = ({ type, ids, currentSelectorData }) => {
     ids,
     type,
   })
-  return isArray(defaultSelectData)
-    ? defaultSelectData.map(item => ({
-        ...item,
-        ids,
-        ...currentSelectorData,
-      }))
-    : {
-        ...defaultSelectData,
-        ids,
-        ...currentSelectorData,
-      }
+  return defaultSelectData.map(item => ({
+    ...item,
+    ids,
+    ...currentSelectorData,
+  }))
 }
 
 export { buildDefaultSelectorData, buildSelectorData }

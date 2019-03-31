@@ -11,6 +11,7 @@ const buildQueryPip = ({ viewType }) => {
     case 'overview':
     case 'buyers-regist-distribution':
     case 'suppliers-regist-distribution':
+      // the execution order of pipeline matters
       return [filterSelectorData, queryConverter]
     default:
       throw new Error('OKCHART::ERROR:: no selector filter config is defined.')

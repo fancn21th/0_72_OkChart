@@ -134,7 +134,7 @@
 
 - selector filter
 
-  > for ga response data cache, a key must be unique
+  > for ga response data cache, a unique key is a must
 
   - location
     - Config/SelectorFilter

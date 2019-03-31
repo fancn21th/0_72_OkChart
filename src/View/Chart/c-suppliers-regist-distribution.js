@@ -15,6 +15,7 @@ SuppliersRegistChartDistribution.prototype = {
             forceFit: true,
             height: 400,
             animate: false,
+            padding: [40, 30, 60, 55], // 上右下左
         })
     },
     // function 3: render

@@ -89,12 +89,4 @@ const convert = ({ responseDataArray }) => {
 
 export default {
   customConverters: [convert],
-  groupFieldIndex: 0,
-  sumFieldIndex: [1],
-  sortField: [
-    {
-      index: 1,
-      order: 'desc',
-    },
-  ],
 }
