@@ -37,14 +37,14 @@ Presenter.prototype = {
       const view = self.views[viewType]
       view.init({
         onSelectorChange: data => {
-          const selectorData = buildSelectorData({
+          const selectorDataArray = buildSelectorData({
             type: viewType,
             ids: self.ids,
             currentSelectorData: data,
           })
           self._processSelectorData({
             viewType,
-            selectorData,
+            selectorDataArray,
           })
         },
       })
@@ -57,28 +57,28 @@ Presenter.prototype = {
   },
   _initModels: function({ ids }) {
     Object.keys(this.models).forEach(key => {
-      const selectorData = buildDefaultSelectorData({
+      const selectorDataArray = buildDefaultSelectorData({
         type: key,
         ids,
       })
       this._processSelectorData({
         viewType: key,
-        selectorData,
+        selectorDataArray,
       })
     })
   },
-  _processSelectorData: function({ viewType, selectorData }) {
+  _processSelectorData: function({ viewType, selectorDataArray }) {
     debuggger({
-      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      type: viewType,
       title: 'selector data',
-      data: selectorData,
+      data: selectorDataArray,
     })
     // convert selector data into query data
     const queryData = queryDataPip({
-      selectorData,
+      selectorDataArray,
     })
     debuggger({
-      type: selectorData.length ? selectorData[0].type : selectorData.type,
+      type: viewType,
       title: 'query data',
       data: queryData,
     })
