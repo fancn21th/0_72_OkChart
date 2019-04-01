@@ -1,11 +1,10 @@
 const filter = ({ responseDataSolo }) => {
   const { responseData, selectorData } = responseDataSolo,
-    { source, country, workingDate } = selectorData,
+    { source, country } = selectorData,
     isSourceEmpty = !source || source.length === 0,
     isCountryEmpty = !country || country.length === 0,
-    idxOffset = workingDate === true ? 1 : 0,
-    channelIdx = 0 + idxOffset,
-    countryIdx = 1 + idxOffset
+    channelIdx = 1,
+    countryIdx = 2
 
   return {
     responseDataSolo: {
@@ -28,12 +27,11 @@ const convert = ({
     context: { nonWorkingDateCount },
   },
 }) => {
-  const fieldOffset = timeUnit === 'date' || !workingDate,
-    dateFieldIndex = fieldOffset ? 0 : 1,
-    pvFieldIndex = fieldOffset ? 3 : 4,
-    uvFieldIndex = fieldOffset ? 4 : 5,
-    sourceFieldIndex = fieldOffset ? 1 : 2,
-    countryFieldIndex = fieldOffset ? 2 : 3,
+  const dateFieldIndex = 0,
+    sourceFieldIndex = 1,
+    countryFieldIndex = 2,
+    pvFieldIndex = 3,
+    uvFieldIndex = 4,
     pvuv = [],
     sourceMap = new Map(),
     countryMap = new Map(),
