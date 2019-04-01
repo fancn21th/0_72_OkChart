@@ -106,6 +106,32 @@ const createSpan = ({ text, className }) => {
   return span
 }
 
+const createTable = ({ titles, data, className }) => {
+  const table = document.createElement('TABLE')
+  const trTitle = document.createElement('TR')
+  titles.forEach(title => {
+    const thTitle = document.createElement('TH'),
+      txt = createText({ text: title })
+    thTitle.appendChild(txt)
+    trTitle.appendChild(thTitle)
+  })
+  table.appendChild(trTitle)
+  data.reduce((tb, item) => {
+    const tr = document.createElement('TR')
+    item.reduce((tr, val) => {
+      const td = document.createElement('TD'),
+        txt = createText({ text: val })
+      td.appendChild(txt)
+      tr.appendChild(td)
+      return tr
+    }, tr)
+    tb.appendChild(tr)
+    return tb
+  }, table)
+  table.setAttribute('class', className)
+  return table
+}
+
 export {
   createSelect,
   createCheckbox,
@@ -116,4 +142,5 @@ export {
   createUnorderedList,
   createUnorderedListItem,
   createSpan,
+  createTable,
 }
