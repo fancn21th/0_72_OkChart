@@ -30,6 +30,7 @@ const doubleTimespanStartDate = (startDate, endDate) => {
 
 // expected format: yyyyMMdd e.g. 20190101
 const getDate = date => {
+  if (!date) return null
   const dateArray = date.split('')
   dateArray.splice(4, 0, '-')
   dateArray.splice(7, 0, '-')
@@ -61,16 +62,22 @@ function getDateOfISOWeek(w, y) {
 //  startDateStr: yyyyMMdd e.g. 20190101
 //  endDateStr: yyyyMMdd e.g. 20190101
 const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
+  return _getWorkingDateCountByMonth(
+    yearMonth,
+    getDate(startDateStr),
+    getDate(endDateStr)
+  )
+}
+
+const _getWorkingDateCountByMonth = (yearMonth, startingDate, endingDate) => {
   if (yearMonth.length > 6) throw new Error('invalid year-month value')
 
   const year = yearMonth.substring(0, 4),
     month = yearMonth.substring(4),
     m = parseInt(month) - 1, // month is 0-based
-    startDate = startDateStr ? getDate(startDateStr) : 0,
+    startDate = startingDate ? startingDate : 0,
     startDateTime = startDate && startDate.getTime(),
-    endDate = endDateStr
-      ? getDate(endDateStr)
-      : new Date(year, parseInt(month), 1),
+    endDate = endingDate ? endingDate : new Date(year, parseInt(month), 1),
     endDateTime = endDate.getTime() + 8 * 3600, // default 8 hours offset
     firstDateOfMonth = new Date(year, m, 1),
     firstDateOfMonthTime = firstDateOfMonth.getTime()
@@ -95,8 +102,14 @@ const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
 //  startDateStr: yyyyMMdd e.g. 20190101
 //  endDateStr: yyyyMMdd e.g. 20190101
 const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
-  if (yearWeek.length > 6) throw new Error('invalid year-week value')
+  return _getWorkingDateCountByWeek(
+    yearWeek,
+    getDate(startDateStr),
+    getDate(endDateStr)
+  )
+}
 
+const _getWorkingDateCountByWeek = (yearWeek, startingDate, endingDate) => {
   const year = yearWeek.substring(0, 4),
     week = yearWeek.substring(4),
     firstDateOfWeek = getDateOfISOWeek(parseInt(week), parseInt(year)),
@@ -106,10 +119,10 @@ const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
   lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 6)
 
   const lastDateOfWeekTime = lastDateOfWeek.getTime(),
-    startDate = startDateStr ? getDate(startDateStr) : 0,
+    startDate = startingDate ? startingDate : 0,
     startDateTime = startDate && startDate.getTime()
 
-  let endDate = endDateStr ? getDate(endDateStr) : lastDateOfWeek,
+  let endDate = endingDate ? endingDate : lastDateOfWeek,
     endDateTime = endDate.getTime() + 8 * 3600
 
   endDate = endDateTime < lastDateOfWeekTime ? endDate : lastDateOfWeek
@@ -135,18 +148,18 @@ const getStartEndDateStrByTimespan = timespan => {
   switch (timespan) {
     case 1:
       return {
-        startDateStr: '',
-        endDateStr: '',
+        startDate: null,
+        endDate: null,
       }
     case 7:
       return {
-        startDateStr: '',
-        endDateStr: '',
+        startDate: null,
+        endDate: null,
       }
     case 30:
       return {
-        startDateStr: '',
-        endDateStr: '',
+        startDate: null,
+        endDate: null,
       }
     default:
       throw new Error('unexpected timespan')
