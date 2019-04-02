@@ -1,7 +1,6 @@
 import events from '../../Utils/events'
 import { viewDataPip } from '../../Utils/pipeline/pip'
 import inheritPrototype from '../../Utils/inheritPrototype'
-import { isArray } from '../../Utils/typeHelper'
 import { debuggger } from '../../Utils/Debugger'
 
 const SuperModel = function({ query, modelType }) {

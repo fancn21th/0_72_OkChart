@@ -1,5 +1,4 @@
 import SelectorMap from '../SelectorMap'
-import { isArray } from '../typeHelper'
 import { debuggger } from '../../Utils/Debugger'
 
 // TODO: move gapi out and make it abstract
@@ -77,17 +76,7 @@ ChartQuery.prototype = {
     })
   },
   query: function(queryData) {
-    const promises = []
-
-    if (isArray(queryData)) {
-      queryData.forEach(item => {
-        promises.push(this._getPromise(item))
-      })
-    } else {
-      promises.push(this._getPromise(queryData))
-    }
-
-    return Promise.all(promises)
+    return Promise.all(queryData.map(item => this._getPromise(item)))
   },
 }
 

@@ -1,5 +1,5 @@
 import SuperView, { inheritPrototype } from './Base/SuperView'
-import OverviewChart from './Chart/c-overview'
+import OverviewChart from './Chart/c-overview2'
 import OverviewSelector from './Selector/sel-overview'
 
 const View = function({ chartContainerId }) {
@@ -18,10 +18,7 @@ View.prototype = {
     this.selector.init({ onSelectorChange })
   },
   render: function({
-    pv,
-    uv,
-    buyerCount,
-    supplierCount,
+    data,
     sourceFilterCollection,
     countryFilterCollection,
     responseDataSolo: {
@@ -29,10 +26,7 @@ View.prototype = {
     },
   }) {
     this.chart.render({
-      pv,
-      uv,
-      buyerCount,
-      supplierCount,
+      data,
     })
     // no need to update selector when fetching data from cache
     if (isQuerySelector) {

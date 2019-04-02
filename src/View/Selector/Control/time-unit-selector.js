@@ -10,7 +10,7 @@ const TimeUnitSelector = function() {
       },
       {
         text: '周',
-        value: 'yearWeek',
+        value: 'isoYearIsoWeek',
       },
       {
         text: '月',
