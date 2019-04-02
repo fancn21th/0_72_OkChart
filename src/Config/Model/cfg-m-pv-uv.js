@@ -23,8 +23,7 @@ const isFreeSource = source => !source.toLowerCase().includes('paid')
 const convert = ({
   responseDataSolo: {
     responseData,
-    selectorData: { timespan, startDate, endDate, workingDate, timeUnit },
-    context: { nonWorkingDateCount },
+    selectorData: { timespan, startDate, endDate, timeUnit },
   },
 }) => {
   const dateFieldIndex = 0,

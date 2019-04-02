@@ -7,6 +7,7 @@ const dateDiff = (startDate, endDate) => {
 
 // expected format:
 //  startDate  yyyy-MM-dd e.g. 2019-01-01
+//  endDate  yyyy-MM-dd e.g. 2019-01-01
 const timespanDiff = (timespan, startDate, endDate) => {
   if (startDate && endDate) return dateDiff(startDate, endDate) + 1
   return parseInt(timespan, 10)
@@ -56,6 +57,9 @@ function getDateOfISOWeek(w, y) {
   return ISOweekStart
 }
 
+// expected format:
+//  startDateStr: yyyyMMdd e.g. 20190101
+//  endDateStr: yyyyMMdd e.g. 20190101
 const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
   if (yearMonth.length > 6) throw new Error('invalid year-month value')
 
@@ -87,6 +91,9 @@ const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
   return { workingDateCount, nonWorkingDateCount }
 }
 
+// expected format:
+//  startDateStr: yyyyMMdd e.g. 20190101
+//  endDateStr: yyyyMMdd e.g. 20190101
 const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
   if (yearWeek.length > 6) throw new Error('invalid year-week value')
 
@@ -124,10 +131,33 @@ const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
   return { workingDateCount, nonWorkingDateCount }
 }
 
+const getStartEndDateStrByTimespan = timespan => {
+  switch (timespan) {
+    case 1:
+      return {
+        startDateStr: '',
+        endDateStr: '',
+      }
+    case 7:
+      return {
+        startDateStr: '',
+        endDateStr: '',
+      }
+    case 30:
+      return {
+        startDateStr: '',
+        endDateStr: '',
+      }
+    default:
+      throw new Error('unexpected timespan')
+  }
+}
+
 export {
   timespanDiff,
   doubleTimespanStartDate,
   isWorkingDate,
   getWorkingDateCountByMonth,
   getWorkingDateCountByWeek,
+  getStartEndDateStrByTimespan,
 }
