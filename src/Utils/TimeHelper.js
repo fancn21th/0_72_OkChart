@@ -33,21 +33,25 @@ const getDate = date => {
   return new Date(dateArray.join(''))
 }
 
-// expected format: yyyyMMdd e.g. 20190101
-const getDay = date => {
-  return getDate(date).getDay()
-}
-
-// expected format: yyyyMMdd e.g. 20190101
-const isWorkingDate = date => {
-  const day = getDay(date)
-  return day !== 0 && day !== 6
-}
-
 // expected format: Date Object
 const isWorkingDate2 = date => {
   const day = date.getDay()
   return day !== 0 && day !== 6
+}
+
+// expected format: yyyyMMdd e.g. 20190101
+const isWorkingDate = dateStr => {
+  return isWorkingDate2(getDate(dateStr))
+}
+
+// refer to https://stackoverflow.com/questions/16590500/javascript-calculate-date-from-week-number
+function getDateOfISOWeek(w, y) {
+  var simple = new Date(y, 0, 1 + (w - 1) * 7)
+  var dow = simple.getDay()
+  var ISOweekStart = simple
+  if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1)
+  else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay())
+  return ISOweekStart
 }
 
 const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
@@ -55,13 +59,14 @@ const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
 
   const year = yearMonth.substring(0, 4),
     month = yearMonth.substring(4),
+    m = parseInt(month) - 1, // month is 0-based
     startDate = startDateStr ? getDate(startDateStr) : 0,
     startDateTime = startDate && startDate.getTime(),
     endDate = endDateStr
       ? getDate(endDateStr)
       : new Date(year, parseInt(month), 1),
-    endDateTime = endDate.getTime() + 8 * 3600,
-    firstDateOfMonth = new Date(year, parseInt(month) - 1, 1),
+    endDateTime = endDate.getTime() + 8 * 3600, // default 8 hours offset
+    firstDateOfMonth = new Date(year, m, 1),
     firstDateOfMonthTime = firstDateOfMonth.getTime()
 
   let currentDate =
@@ -69,8 +74,6 @@ const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
     workingDateCount = 0,
     nonWorkingDateCount = 0,
     d = currentDate.getDate()
-
-  const m = parseInt(month) - 1
 
   while (currentDate.getMonth() === m && currentDate.getTime() < endDateTime) {
     if (isWorkingDate2(currentDate)) workingDateCount++
@@ -82,7 +85,42 @@ const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
   return { workingDateCount, nonWorkingDateCount }
 }
 
-const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {}
+const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
+  if (yearWeek.length > 6) throw new Error('invalid year-week value')
+
+  const year = yearWeek.substring(0, 4),
+    week = yearWeek.substring(4),
+    firstDateOfWeek = getDateOfISOWeek(parseInt(week), parseInt(year)),
+    firstDateOfWeekTime = firstDateOfWeek.getTime(),
+    lastDateOfWeek = new Date(firstDateOfWeek.valueOf())
+
+  lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 6)
+
+  const lastDateOfWeekTime = lastDateOfWeek.getTime(),
+    startDate = startDateStr ? getDate(startDateStr) : 0,
+    startDateTime = startDate && startDate.getTime()
+
+  let endDate = endDateStr ? getDate(endDateStr) : lastDateOfWeek,
+    endDateTime = endDate.getTime() + 8 * 3600
+
+  endDate = endDateTime < lastDateOfWeekTime ? endDate : lastDateOfWeek
+  endDateTime = endDate.getTime() + 8 * 3600
+
+  let currentDate =
+      startDateTime > firstDateOfWeekTime ? startDate : firstDateOfWeek,
+    workingDateCount = 0,
+    nonWorkingDateCount = 0,
+    d = currentDate.getDate()
+
+  while (currentDate.getTime() < endDateTime) {
+    if (isWorkingDate2(currentDate)) workingDateCount++
+    else nonWorkingDateCount++
+
+    currentDate.setDate(++d)
+  }
+
+  return { workingDateCount, nonWorkingDateCount }
+}
 
 export {
   timespanDiff,
