@@ -5,6 +5,8 @@ const dateDiff = (startDate, endDate) => {
   return Math.ceil(timeDiff / (1000 * 3600 * 24))
 }
 
+// expected format:
+//  startDate  yyyy-MM-dd e.g. 2019-01-01
 const timespanDiff = (timespan, startDate, endDate) => {
   if (startDate && endDate) return dateDiff(startDate, endDate) + 1
   return parseInt(timespan, 10)
