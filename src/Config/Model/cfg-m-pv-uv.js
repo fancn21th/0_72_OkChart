@@ -1,3 +1,9 @@
+import {
+  getWorkingDateCountByMonth,
+  getWorkingDateCountByWeek,
+  getStartEndDateStrByTimespan,
+} from '../../Utils/TimeHelper'
+
 const filter = ({ responseDataSolo }) => {
   const { responseData, selectorData } = responseDataSolo,
     { source, country } = selectorData,
@@ -35,7 +41,21 @@ const convert = ({
     sourceMap = new Map(),
     countryMap = new Map(),
     sourceFilterCollection = [],
-    countryFilterCollection = []
+    countryFilterCollection = [],
+    getWorkingDateCountFunc =
+      timeUnit === 'isoYearIsoWeek'
+        ? getWorkingDateCountByWeek
+        : timeUnit === 'yearMonth'
+        ? getWorkingDateCountByMonth
+        : null
+
+  let {
+    startDate: startingDate,
+    endDate: endingDate,
+  } = getStartEndDateStrByTimespan(timespan)
+
+  startingDate = startDate ? startDate : startingDate
+  endingDate = endDate ? endDate : endingDate
 
   // group by time unit
   const map = responseData.reduce((map, item) => {
@@ -77,11 +97,18 @@ const convert = ({
   }, new Map())
 
   map.forEach((value, key) => {
+    let workingDateCount = 1
+
+    if (getWorkingDateCountFunc) {
+      workingDateCount = getWorkingDateCountFunc(key, startingDate, endingDate)
+        .workingDateCount
+    }
+
     Object.keys(value).forEach(item => {
       pvuv.push({
         date: key,
         type: item,
-        value: value[item],
+        value: Math.round(value[item] / workingDateCount),
       })
     })
   })

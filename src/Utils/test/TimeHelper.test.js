@@ -31,7 +31,7 @@ describe('测试 getWorkingDateCountByWeek', () => {
     })
   })
 
-  test('201913 20190202 20190227 应该有 0 个 工作日 和 0 个 非工作日', () => {
+  test('201913 2019002 20190227 应该有 0 个 工作日 和 0 个 非工作日', () => {
     expect(getWorkingDateCountByWeek('201913', '20190202', '20190227')).toEqual(
       {
         workingDateCount: 0,

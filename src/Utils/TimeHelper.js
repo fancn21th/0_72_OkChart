@@ -1,3 +1,5 @@
+import { isDateString, isDate } from './typeHelper'
+
 const dateDiff = (startDate, endDate) => {
   const date1 = new Date(startDate)
   const date2 = new Date(endDate)
@@ -61,12 +63,19 @@ function getDateOfISOWeek(w, y) {
 // expected format:
 //  startDateStr: yyyyMMdd e.g. 20190101
 //  endDateStr: yyyyMMdd e.g. 20190101
-const getWorkingDateCountByMonth = (yearMonth, startDateStr, endDateStr) => {
-  return _getWorkingDateCountByMonth(
-    yearMonth,
-    getDate(startDateStr),
-    getDate(endDateStr)
-  )
+const getWorkingDateCountByMonth = (yearMonth, startDate, endDate) => {
+  let startingDate = isDate(startDate)
+      ? startDate
+      : isDateString(startDate)
+      ? getDate(startDate)
+      : null,
+    endingDate = isDate(endDate)
+      ? endDate
+      : isDateString(endDate)
+      ? getDate(endDate)
+      : null
+
+  return _getWorkingDateCountByMonth(yearMonth, startingDate, endingDate)
 }
 
 const _getWorkingDateCountByMonth = (yearMonth, startingDate, endingDate) => {
@@ -101,15 +110,24 @@ const _getWorkingDateCountByMonth = (yearMonth, startingDate, endingDate) => {
 // expected format:
 //  startDateStr: yyyyMMdd e.g. 20190101
 //  endDateStr: yyyyMMdd e.g. 20190101
-const getWorkingDateCountByWeek = (yearWeek, startDateStr, endDateStr) => {
-  return _getWorkingDateCountByWeek(
-    yearWeek,
-    getDate(startDateStr),
-    getDate(endDateStr)
-  )
+const getWorkingDateCountByWeek = (yearWeek, startDate, endDate) => {
+  let startingDate = isDate(startDate)
+      ? startDate
+      : isDateString(startDate)
+      ? getDate(startDate)
+      : null,
+    endingDate = isDate(endDate)
+      ? endDate
+      : isDateString(endDate)
+      ? getDate(endDate)
+      : null
+
+  return _getWorkingDateCountByWeek(yearWeek, startingDate, endingDate)
 }
 
 const _getWorkingDateCountByWeek = (yearWeek, startingDate, endingDate) => {
+  if (yearWeek.length > 6) throw new Error('invalid year-week value')
+
   const year = yearWeek.substring(0, 4),
     week = yearWeek.substring(4),
     firstDateOfWeek = getDateOfISOWeek(parseInt(week), parseInt(year)),
@@ -145,24 +163,16 @@ const _getWorkingDateCountByWeek = (yearWeek, startingDate, endingDate) => {
 }
 
 const getStartEndDateStrByTimespan = timespan => {
-  switch (timespan) {
-    case 1:
-      return {
-        startDate: null,
-        endDate: null,
-      }
-    case 7:
-      return {
-        startDate: null,
-        endDate: null,
-      }
-    case 30:
-      return {
-        startDate: null,
-        endDate: null,
-      }
-    default:
-      throw new Error('unexpected timespan')
+  if (!timespan) throw new Error('unexpected timespan')
+
+  const timespanCount = parseInt(timespan, 10),
+    startingDate = new Date(),
+    endingDate = new Date(startingDate.valueOf())
+  startingDate.setDate(startingDate.getDate() - timespanCount)
+  endingDate.setDate(endingDate.getDate() - 1)
+  return {
+    startDate: startingDate,
+    endDate: endingDate,
   }
 }
 
