@@ -1,5 +1,4 @@
 import { Chart } from '@antv/g2'
-import DataSet from '@antv/data-set'
 
 // function 1: constructor
 const PvUvChart = function({ chartContainerId }) {
@@ -78,7 +77,7 @@ PvUvChart.prototype = {
     chart
       .line()
       .position('date*value')
-      .color('type')
+      .color('type', ['#1c70c9', '#c97a1c', '#73adf6', '#f6c973'])
     chart.render()
     chart.showTooltip({
       x: $('#mountNode').width() - 20,
