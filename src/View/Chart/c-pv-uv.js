@@ -1,5 +1,4 @@
 import { Chart } from '@antv/g2'
-import DataSet from '@antv/data-set'
 
 // function 1: constructor
 const PvUvChart = function({ chartContainerId }) {
