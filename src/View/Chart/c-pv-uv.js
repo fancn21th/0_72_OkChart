@@ -77,7 +77,7 @@ PvUvChart.prototype = {
     chart
       .line()
       .position('date*value')
-      .color('type')
+      .color('type', ['#1c70c9', '#c97a1c', '#73adf6', '#f6c973'])
     chart.render()
     chart.showTooltip({
       x: $('#mountNode').width() - 20,
