@@ -222,6 +222,10 @@
   background-color: #ddd;
 }
 
+.overview tr:last-child {
+  font-weight: 1000;
+}
+
 .overview th {
   padding-top: 12px;
   padding-bottom: 12px;
