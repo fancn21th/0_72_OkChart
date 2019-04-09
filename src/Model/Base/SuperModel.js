@@ -10,6 +10,12 @@ const SuperModel = function({ query, modelType }) {
 
 SuperModel.prototype = {
   fetch: function(queryData) {
+    // $.get(
+    //   'http://www.devokchem2.com/admin/member/member_search?keyword=joe',
+    //   function(data) {
+    //     console.log(data)
+    //   }
+    // )
     this.query.query(queryData).then(responseDataArray => {
       debuggger({
         type: responseDataArray[0].selectorData.type,
