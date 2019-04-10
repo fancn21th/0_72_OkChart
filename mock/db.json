@@ -1,3 +1,42 @@
-[
-  
-]
+{
+  "data": {
+    "query": {
+      "start-date": "30daysAgo",
+      "end-date": "yesterday",
+      "ids": "ga:135222464",
+      "dimensions": "ga:date,ga:channelGrouping,ga:country",
+      "metrics": [
+        "ga:pageviews",
+        "ga:users",
+        "ga:goal12Completions",
+        "ga:goal7Completions"
+      ],
+      "start-index": 1,
+      "max-results": 10000
+    },
+    "itemsPerPage": 10000,
+    "totalResults": 2,
+    "columnHeaders": [
+      {
+        "name": "ok:yearMonth",
+        "columnType": "DIMENSION",
+        "dataType": "STRING"
+      },
+      {
+        "name": "ok:buyer",
+        "columnType": "METRIC",
+        "dataType": "STRING"
+      },
+      {
+        "name": "ok:supplier",
+        "columnType": "METRIC",
+        "dataType": "STRING"
+      }
+    ],
+    "totalsForAllResults": {
+      "ok:buyer": "0",
+      "ok:supplier": "0"
+    },
+    "rows": [["201901", "1", "2"], ["201902", "3", "4"]]
+  }
+}
