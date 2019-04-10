@@ -9,6 +9,17 @@ const OkChart = function({ willMount }) {
 
 OkChart.prototype = {
   init: function({ clientId, authContainer, viewSelector, charts }) {
+    // jquery ajax setup for custom api request
+    $.ajaxSetup({
+      traditional: true,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      xhrFields: {
+        withCredentials: true,
+      },
+    })
+
     this.willMount()
 
     gapi.analytics.ready(function() {
