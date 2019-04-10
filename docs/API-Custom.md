@@ -2,8 +2,8 @@
 
 ## API 规范
 
-- Restful
-- JSON
+- single API
+- in JSON
 
 ## Query
 
@@ -49,7 +49,7 @@
 
 - 范例
 
-  ```JSON
+  ```javascript
   {
     dimensions: "ok:buyer,ok:supplier"
     end-date: "2019-01-01"
@@ -90,6 +90,8 @@
     - object
 
 - 范例
+
+  - TBD
 
 ## Dimensions & Metrics
 
@@ -155,7 +157,7 @@
 
     - example
 
-    ```javacript
+    ```javascript
     {
       "query": {
         ... // as same as query request
@@ -183,6 +185,86 @@
         "ok:buyer": "0",
         "ok:supplier": "0"
       },
-      "rows": [["201901", "1", "2"], ["201902", "3", "4"]]
+      "rows": [["201901", "1", "2"], ["201902", "3", "4"]...]
+    }
+    ```
+
+- Buyer/Supplier Line
+
+  - query
+
+    - table
+
+    | Key         | Value                                              |
+    | ----------- | -------------------------------------------------- |
+    | metrics     | "ok:buyer,ok:supplier"                             |
+    | dimensions  | "ok:date" or "ok:isoYearIsoWeek" or "ok:yearMonth" |
+    | start-date  | "2019-01-01"                                       |
+    | end-date    | "2019-01-02"                                       |
+    | max-results | n/a                                                |
+    | sort        | n/a                                                |
+
+    - example
+
+    ```javascript
+     {
+       "query": {
+        "start-date": "2019-01-01",
+        "end-date": "2019-01-02",
+        "dimensions": "ok:yearMonth", // "ok:date" or "ok:isoYearIsoWeek" or "ok:yearMonth"
+        "metrics": "ok:buyer,ok:supplier", // "ok:buyer" or  "ok:supplier"
+        "max-results": 10000
+      },
+     }
+    ```
+
+  - response
+
+    - table
+
+    | Key                 | Value            |
+    | ------------------- | ---------------- |
+    | query               | refer to example |
+    | itemsPerPage        | refer to example |
+    | totalResults        | refer to example |
+    | columnHeaders       | refer to example |
+    | totalsForAllResults | refer to example |
+    | rows                | refer to example |
+
+
+    - example
+
+    ```javascript
+    {
+      "query": {
+        ... // as same as query request
+      },
+      "itemsPerPage": 10000,
+      "totalResults": 2,
+      "columnHeaders": [
+        {
+          "name": "ok:yearMonth", // "ok:date" or "ok:isoYearIsoWeek" or "ok:yearMonth"
+          "columnType": "DIMENSION",
+          "dataType": "STRING"
+        },
+        {
+          "name": "ok:buyer",
+          "columnType": "METRIC",
+          "dataType": "STRING"
+        },
+        {
+          "name": "ok:supplier",
+          "columnType": "METRIC",
+          "dataType": "STRING"
+        }
+      ],
+      "totalsForAllResults": {
+        "ok:buyer": "0",
+        "ok:supplier": "0"
+      },
+      // when DIMENSION is "ok:isoYearIsoWeek" or "ok:yearMonth"
+      "rows": [["201901", "1", "2"], ["201902", "3", "4"]...],
+      // when DIMENSION is "ok:date"
+      "rows": [["20190102", "1", "2"], ["20190102", "3", "4"]...]
     }
     ```

@@ -7,7 +7,7 @@ const debuggger = function({ type, title, data }) {
     if (filter.title === '*' || filter.title.includes(title)) {
       console.log(
         `data flow::[view type:${type}]::[data type:${title}]::`,
-        JSON.stringify(data)
+        data
       )
     }
 }
