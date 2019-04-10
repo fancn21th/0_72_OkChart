@@ -143,6 +143,16 @@
 
     - table
 
+    | Key                 | Value            |
+    | ------------------- | ---------------- |
+    | query               | refer to example |
+    | itemsPerPage        | refer to example |
+    | totalResults        | refer to example |
+    | columnHeaders       | refer to example |
+    | totalsForAllResults | refer to example |
+    | rows                | refer to example |
+
+
     - example
 
     ```javacript
