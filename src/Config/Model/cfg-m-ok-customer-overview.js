@@ -1,8 +1,10 @@
-// TODO: model configuration - custom view data converter
-const filter = () => {}
-
-const convert = () => {}
+const convert = ({ responseDataSolo: { responseData } }) => {
+  responseData.push(['合计', '2', '3'])
+  return {
+    data: responseData,
+  }
+}
 
 export default {
-  customConverters: [filter, convert],
+  customConverters: [convert],
 }

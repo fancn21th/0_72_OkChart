@@ -19,9 +19,9 @@ View.prototype = {
     this.selector.init({ onSelectorChange })
   },
   render: function(
-    { data2Deconstruct } // TODO: change render parameter
+    { data } // TODO: change render parameter
   ) {
-    this.chart.render(data2Deconstruct) // TODO: change render parameter
+    this.chart.render({ data }) // TODO: change render parameter
   },
 }
 
