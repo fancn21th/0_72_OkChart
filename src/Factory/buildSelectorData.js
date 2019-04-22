@@ -6,6 +6,7 @@ import suppliersRegistConfig from '../Config/DefaultSelector/cfg-s-supplies-regi
 import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
 import distributionConfig from '../Config/DefaultSelector/cfg-s-distribution'
 import suppliersRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-suppliers-regist-distribution'
+import okCustomerOverviewConfig from '../Config/DefaultSelector/cfg-s-ok-customer-overview'
 
 const buildDefaultSelectorData = ({ ids, type }) => {
   const commonSelectorData = {
@@ -19,7 +20,7 @@ const buildDefaultSelectorData = ({ ids, type }) => {
       return [
         {
           ...commonSelectorData,
-          ...defaultSelectorConfig,
+          ...okCustomerOverviewConfig,
         },
       ]
     case 'overview':
