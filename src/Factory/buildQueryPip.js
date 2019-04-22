@@ -11,6 +11,7 @@ const buildQueryPip = ({ viewType }) => {
     case 'overview':
     case 'buyers-regist-distribution':
     case 'suppliers-regist-distribution':
+    case 'ok-customer-overview':
       // the execution order of pipeline matters
       return [filterSelectorData, queryConverter]
     default:

@@ -6,9 +6,12 @@ import buyerRegistDistribution from '../Config/QueryConverter/cfg-qc-buyer-regis
 import pvUv from '../Config/QueryConverter/cfg-qc-pv-uv'
 import distribution from '../Config/QueryConverter/cfg-qc-distribution'
 import suppliersRegistDistribution from '../Config/QueryConverter/cfg-qc-suppliers-regist-distribution'
+import okCustomerOverview from '../Config/QueryConverter/cfg-qc-ok-customer-overview'
 
 const buildQueryConverterConfig = ({ type }) => {
   switch (type) {
+    case 'ok-customer-overview':
+      return okCustomerOverview
     case 'overview':
       return overview
     case 'pv-uv':

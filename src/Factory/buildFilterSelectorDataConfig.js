@@ -3,6 +3,7 @@ import buyerRegistDistribution from '../Config/SelectorFilter/cfg-sf-buyer-regis
 import supplierRegistDistribution from '../Config/SelectorFilter/cfg-sf-supplier-regist-distribution'
 import distribution from '../Config/SelectorFilter/cfg-sf-distribution'
 import pvuv from '../Config/SelectorFilter/cfg-sf-pv-uv'
+import okCustomerOverview from '../Config/SelectorFilter/cfg-sf-ok-customer-overview'
 
 const commonConfig = {
   filter: ['isQuerySelector', 'isFilterSelector'],
@@ -21,6 +22,11 @@ const buildSelectorFilter = ({ type }) => {
     case 'buyers-regist':
     case 'suppliers-regist':
       return commonConfig
+    case 'ok-customer-overview':
+      return mergeConfig({
+        default: commonConfig,
+        custom: okCustomerOverview,
+      })
     case 'pv-uv':
       return mergeConfig({
         default: commonConfig,
