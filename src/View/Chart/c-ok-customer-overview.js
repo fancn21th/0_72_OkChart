@@ -1,4 +1,3 @@
-// TODO: finish Chart logic
 const Chart = function({ chartContainerId }) {
   this.chartContainerId = chartContainerId
   this.chart = null
