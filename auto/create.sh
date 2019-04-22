@@ -12,8 +12,8 @@ createFiles() {
   cp "./templates/config/selectorFilter.js" "$basePath/Config/SelectorFilter/cfg-sf-$1.js"
 
   # other files need to be modifed accordingly
-  echo "update assets/client.js"
-  echo "update assets/index.html"
+  echo "you may need to update assets/client.js manually"
+  echo "you may need to update assets/index.html manually"
 }
 
 echo "a new module named '$1' will be created ..."
