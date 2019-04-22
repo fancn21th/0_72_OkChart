@@ -10,6 +10,10 @@ createFiles() {
   cp "./templates/config/model.js" "$basePath/Config/Model/cfg-m-$1.js"
   cp "./templates/config/queryConverter.js" "$basePath/Config/QueryConverter/cfg-qc-$1.js"
   cp "./templates/config/selectorFilter.js" "$basePath/Config/SelectorFilter/cfg-sf-$1.js"
+
+  # other files need to be modifed accordingly
+  echo "update assets/client.js"
+  echo "update assets/index.html"
 }
 
 echo "a new module named '$1' will be created ..."
