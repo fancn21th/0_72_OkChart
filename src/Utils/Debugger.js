@@ -1,7 +1,7 @@
 const debuggger = function({ type, title, data }) {
   const filter = {
-    type: ['overview'],
-    title: ['ga response data'],
+    type: '*',
+    title: '*',
   }
   if (filter.type === '*' || filter.type.includes(type))
     if (filter.title === '*' || filter.title.includes(title)) {

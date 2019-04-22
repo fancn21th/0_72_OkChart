@@ -15,6 +15,13 @@ const buildDefaultSelectorData = ({ ids, type }) => {
     isFilterSelector: false,
   }
   switch (type) {
+    case 'ok-customer-overview':
+      return [
+        {
+          ...commonSelectorData,
+          ...defaultSelectorConfig,
+        },
+      ]
     case 'overview':
       return [
         {
