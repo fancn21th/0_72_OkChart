@@ -1,7 +1,6 @@
 import SelectorMap from '../SelectorMap'
-import { debuggger } from '../../Utils/Debugger'
+import { debuggger } from '../Debugger'
 
-// TODO: move gapi out and make it abstract
 const ChartQuery = function(gapi) {
   this.gapi = gapi
   this.cache = new SelectorMap()

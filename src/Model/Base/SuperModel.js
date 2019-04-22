@@ -17,23 +17,25 @@ SuperModel.prototype = {
     //     console.log(data)
     //   }
     // )
-    this.query.query(queryData).then(responseDataArray => {
-      debuggger({
-        type: responseDataArray[0].selectorData.type,
-        title: 'response data array',
-        data: responseDataArray,
+    this.query(this.modelType)
+      .query(queryData)
+      .then(responseDataArray => {
+        debuggger({
+          type: responseDataArray[0].selectorData.type,
+          title: 'response data array',
+          data: responseDataArray,
+        })
+        const data = viewDataPip(responseDataArray)
+        debuggger({
+          type: responseDataArray[0].selectorData.type,
+          title: 'view data',
+          data,
+        })
+        events.notify(this.modelType, {
+          key: this.modelType,
+          data,
+        })
       })
-      const data = viewDataPip(responseDataArray)
-      debuggger({
-        type: responseDataArray[0].selectorData.type,
-        title: 'view data',
-        data,
-      })
-      events.notify(this.modelType, {
-        key: this.modelType,
-        data,
-      })
-    })
   },
 }
 

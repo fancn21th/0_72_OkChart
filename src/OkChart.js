@@ -1,4 +1,4 @@
-import ChartQuery from './Utils/query/ChartQuery'
+import { buildQuery } from './Utils/query/queryBuilder'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
 import Dashboard from './Page/pg-dashboard'
@@ -23,8 +23,6 @@ OkChart.prototype = {
     this.willMount()
 
     gapi.analytics.ready(function() {
-      // google api wrapper
-      const chartQuery = new ChartQuery(gapi)
       const googleApiAuthenticator = new GoogleApiAuthenticator({
         gapi,
         containerId: authContainer,
@@ -44,7 +42,7 @@ OkChart.prototype = {
       // dashboard page
       const dashboard = new Dashboard({
         viewElements,
-        query: chartQuery,
+        query: buildQuery({ gapi }),
       })
 
       dashboard.init()
