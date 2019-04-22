@@ -1,5 +1,6 @@
 import SelectorMap from '../SelectorMap'
 import { debuggger } from '../../Utils/Debugger'
+import fixQuery from '../../Utils/OkQueryFixer'
 
 const ChartQuery = function() {
   this.cache = new SelectorMap()
@@ -46,18 +47,21 @@ ChartQuery.prototype = {
     }
 
     return new Promise(function(resolve, reject) {
-      const queryString = Object.keys(queryParams)
-        .map(key => {
-          return (
-            encodeURIComponent(key) + '=' + encodeURIComponent(queryParams[key])
-          )
-        })
+      const fixedQueryParams = fixQuery(queryParams, selectorData)
+
+      const queryString = Object.keys(fixedQueryParams)
+        .map(
+          key =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(
+              fixedQueryParams[key]
+            )}`
+        )
         .join('&')
 
       $.ajax({
         type: 'GET',
-        // url: `http://www.yangwei.com/api/report/user?${queryString}`,
-        url: `http://localhost:3000/data`,
+        url: `http://www.devokchem2.com/api/report/user?${queryString}`,
+        // url: `http://localhost:3000/data`,
         // contentType: 'application/json; charset=utf-8',
         // dataType: 'json',
         success: function(response) {
