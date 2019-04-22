@@ -1,6 +1,6 @@
 import SuperView, { inheritPrototype } from './Base/SuperView'
-import Chart from '../View/Chart/c-pv-uv' // TODO: change Chart path
-import Selector from '../View/Selector/sel-pv-uv' // TODO: change Selector path
+import Chart from '../View/Chart/c-name2change' // TODO: change Chart path
+import Selector from '../View/Selector/c-name2change' // TODO: change Selector path
 
 const View = function({ chartContainerId }) {
   SuperView.call(this, { chartContainerId, title: 'Title to change' }) // TODO: change view title
