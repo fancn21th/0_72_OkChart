@@ -5,6 +5,10 @@ okchart.init({
   viewSelector: 'view-selector-container',
   charts: [
     {
+      type: 'ok-customer-overview',
+      container: 'ok-customer-overview-container',
+    },
+    {
       type: 'overview',
       container: 'overview-container',
     },
