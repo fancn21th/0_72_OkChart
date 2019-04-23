@@ -1,7 +1,8 @@
+import { withColsSum } from '../../Utils/dataTableCal'
+
 const convert = ({ responseDataSolo: { responseData } }) => {
-  responseData.push(['合计', '2', '3'])
   return {
-    data: responseData,
+    data: withColsSum({ tableData: responseData, ignoreColIndexes: [0] }),
   }
 }
 

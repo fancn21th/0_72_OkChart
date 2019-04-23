@@ -60,7 +60,7 @@ ChartQuery.prototype = {
 
       $.ajax({
         type: 'GET',
-        url: `http://www.devokchem2.com/api/report/user?${queryString}`,
+        url: `http://www.devokchem2.com/analytic/v1/data/oka?${queryString}`,
         // url: `http://localhost:3000/data`,
         // contentType: 'application/json; charset=utf-8',
         // dataType: 'json',

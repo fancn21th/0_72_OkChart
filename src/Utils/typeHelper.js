@@ -4,9 +4,9 @@ const isFunction = function(functionToCheck) {
   )
 }
 
-// const isArray = function(arrayToCheck) {
-//   return Array.isArray(arrayToCheck)
-// }
+const isArray = function(arrayToCheck) {
+  return Array.isArray(arrayToCheck)
+}
 
 // const isInteger = function(integerToCheck) {
 //   return Number.isInteger(integerToCheck)
@@ -20,4 +20,4 @@ const isDate = function(dateToCheck) {
   return Object.prototype.toString.call(dateToCheck) === '[object Date]'
 }
 
-export { isFunction, isDate, isDateString }
+export { isFunction, isDate, isDateString, isArray }
