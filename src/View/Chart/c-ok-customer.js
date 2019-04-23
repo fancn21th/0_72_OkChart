@@ -35,12 +35,12 @@ OkCustomerChart.prototype = {
     })
     this.chart
       .line()
-      .position('day*buyers')
+      .position('day*count')
       .color('#35B7FD')
       .shape('line')
     this.chart
       .point()
-      .position('day*buyers')
+      .position('day*count')
       .color('#35B7FD')
       .size(4)
       .shape('circle')
