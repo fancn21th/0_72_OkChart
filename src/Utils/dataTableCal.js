@@ -18,11 +18,12 @@ const mergeArrayBySum = (targetArray, mergedArray, ignoreColIndexes) => {
     if (ignoreColIndexes.includes(index)) {
       return item
     }
-    return item + parseInt(mergedArray[index], 10)
+    return parseInt(item, 10) + parseInt(mergedArray[index], 10)
   })
   return merged
 }
 
+// append a column of sum values of each item ahead of the row at the end of the table
 const withColsSum = ({ tableData, ignoreColIndexes }) => {
   if (!isArray(tableData)) {
     throw new Error('expect a parameter of array')
@@ -30,8 +31,9 @@ const withColsSum = ({ tableData, ignoreColIndexes }) => {
   return tableData.map(item => [...item, getSum(item, ignoreColIndexes)])
 }
 
+// append a row of sum values of every item in each column at very bottom of the table
 const withRowsSum = ({ tableData, ignoreColIndexes }) => {
-  if (!isArray(tableData) && tableData.length > 0) {
+  if (!isArray(tableData) || tableData.length <= 0) {
     throw new Error(
       'expect a parameter of array and its length is larger than 0'
     )
@@ -45,4 +47,26 @@ const withRowsSum = ({ tableData, ignoreColIndexes }) => {
   return [...tableData, lastRow]
 }
 
-export { withColsSum, withRowsSum }
+const withRowsAccumulationValue = ({
+  tableData,
+  ignoreColIndexes,
+  ignoreRowLastIndexes,
+}) => {
+  if (!isArray(tableData) || tableData.length <= 0) {
+    throw new Error(
+      'expect a parameter of array and its length is larger than 0'
+    )
+  }
+  let sums = new Array(tableData[0].length)
+  sums.fill(0)
+  return tableData.map((row, rowIndex) => {
+    const lastRowIndex = tableData.length - (rowIndex + 1)
+    if (!ignoreRowLastIndexes.includes(lastRowIndex)) {
+      sums = mergeArrayBySum(row, sums, ignoreColIndexes)
+      return sums
+    }
+    return row
+  })
+}
+
+export { withColsSum, withRowsSum, withRowsAccumulationValue }
