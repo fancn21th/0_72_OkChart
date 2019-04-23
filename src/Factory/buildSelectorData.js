@@ -7,6 +7,7 @@ import pvUvConfig from '../Config/DefaultSelector/cfg-s-pv-uv'
 import distributionConfig from '../Config/DefaultSelector/cfg-s-distribution'
 import suppliersRegistDistributionConfig from '../Config/DefaultSelector/cfg-s-suppliers-regist-distribution'
 import okCustomerOverviewConfig from '../Config/DefaultSelector/cfg-s-ok-customer-overview'
+import okCustomerConfig from '../Config/DefaultSelector/cfg-s-ok-customer'
 
 const buildDefaultSelectorData = ({ ids, type }) => {
   const commonSelectorData = {
@@ -16,6 +17,13 @@ const buildDefaultSelectorData = ({ ids, type }) => {
     isFilterSelector: false,
   }
   switch (type) {
+    case 'ok-customer':
+      return [
+        {
+          ...commonSelectorData,
+          ...okCustomerConfig,
+        },
+      ]
     case 'ok-customer-overview':
       return [
         {

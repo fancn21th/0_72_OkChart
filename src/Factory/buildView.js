@@ -7,9 +7,14 @@ import BuyersRegistDistributionView from '../View/v-buyers-regist-distribution'
 import SuppliersRegistView from '../View/v-suppliers-regist'
 import SuppliersRegistDistributionView from '../View/v-suppliers-regist-distribution'
 import OkCustomerOverviewView from '../View/v-ok-customer-overview'
+import OkCustomerView from '../View/v-ok-customer'
 
 const buildView = ({ type, containerId }) => {
   switch (type) {
+    case 'ok-customer':
+      return new OkCustomerView({
+        chartContainerId: containerId,
+      })
     case 'ok-customer-overview':
       return new OkCustomerOverviewView({
         chartContainerId: containerId,

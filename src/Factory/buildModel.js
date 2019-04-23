@@ -7,11 +7,14 @@ import SourceTop15Model from '../Model/m-source-top-15'
 import SuppliersRegistModel from '../Model/m-suppliers-regist'
 import SuppliersRegistDistributiontModel from '../Model/m-suppliers-regist-distribution'
 import OkCustomerOverviewModel from '../Model/m-ok-customer-overview'
+import OkCustomerModel from '../Model/m-ok-customer'
 
 const buildModel = ({ type, query }) => {
   switch (type) {
     case 'ok-customer-overview':
       return new OkCustomerOverviewModel(query)
+    case 'ok-customer':
+      return new OkCustomerModel(query)
     case 'overview':
       return new OverviewModel(query)
     case 'pv-uv':
