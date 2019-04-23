@@ -3,4 +3,5 @@ export default {
   workingDate: false,
   timeUnit: 'date',
   accumulative: false,
+  okCustomerType: 'ok:buyer',
 }

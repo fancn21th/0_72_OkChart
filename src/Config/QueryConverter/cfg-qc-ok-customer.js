@@ -1,4 +1,8 @@
 export default {
-  metrics: 'ok:buyer',
-  dimensions: 'ok:yearMonth',
+  metrics: function({ selectorData: { okCustomerType } }) {
+    return okCustomerType
+  },
+  dimensions: function({ selectorData: { timeUnit } }) {
+    return `ok:${timeUnit || 'date'}`
+  },
 }
