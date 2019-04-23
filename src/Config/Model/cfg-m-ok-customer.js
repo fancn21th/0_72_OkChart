@@ -1,6 +1,9 @@
 const convert = ({ responseDataSolo: { responseData } }) => {
   return {
-    data: responseData,
+    data: responseData.map(item => ({
+      day: item[0],
+      buyers: parseInt(item[1], 10),
+    })),
   }
 }
 
