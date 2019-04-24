@@ -12,6 +12,10 @@ const PvuvPuSelector = function() {
         text: '卖家',
         value: 'ok:supplier',
       },
+      {
+        text: '买家/卖家',
+        value: 'ok:buyer,ok:supplier',
+      },
     ],
   })
 }
