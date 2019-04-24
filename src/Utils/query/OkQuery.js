@@ -2,8 +2,9 @@ import SelectorMap from '../SelectorMap'
 import { debuggger } from '../../Utils/Debugger'
 import fixQuery from '../../Utils/OkQueryFixer'
 
-const ChartQuery = function() {
+const ChartQuery = function(okBaseUrl) {
   this.cache = new SelectorMap()
+  this.okBaseUrl = okBaseUrl
 }
 
 ChartQuery.prototype = {
@@ -60,7 +61,7 @@ ChartQuery.prototype = {
 
       $.ajax({
         type: 'GET',
-        url: `http://www.devokchem2.com/analytics/v1/data/oka?${queryString}`,
+        url: `${self.okBaseUrl}/analytics/v1/data/oka?${queryString}`,
         // url: `http://localhost:3000/data`,
         // contentType: 'application/json; charset=utf-8',
         // dataType: 'json',

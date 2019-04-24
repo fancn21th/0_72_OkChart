@@ -8,7 +8,7 @@ const OkChart = function({ willMount }) {
 }
 
 OkChart.prototype = {
-  init: function({ clientId, authContainer, viewSelector, charts }) {
+  init: function({ clientId, authContainer, viewSelector, charts, okBaseUrl }) {
     // jquery ajax setup for custom api request
     $.ajaxSetup({
       traditional: true,
@@ -42,7 +42,7 @@ OkChart.prototype = {
       // dashboard page
       const dashboard = new Dashboard({
         viewElements,
-        query: buildQuery({ gapi }),
+        query: buildQuery({ gapi, okBaseUrl }),
       })
 
       dashboard.init()
