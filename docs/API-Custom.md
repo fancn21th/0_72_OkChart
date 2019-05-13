@@ -5,95 +5,102 @@
 - single API
 - in JSON
 
-## Query
+### Query and Response Design
 
-> https://developers.google.com/analytics/devguides/reporting/core/v3/reference#q_summary
+- Query
 
-- 字段
+  > https://developers.google.com/analytics/devguides/reporting/core/v3/reference#q_summary
 
-  > dimensions, metrics 字段详细设计参考 相应的章节
+  - 字段
 
-  - metrics // 指标 - v1 迭代必要
+    > dimensions, metrics 字段详细设计参考 相应的章节
 
-    - string
-    - optional
+    - metrics // 指标 - v1 迭代必要
 
-  - dimensions // 维度 - v1 迭代必要
+      - string
+      - optional
 
-    - string
-    - required
+    - dimensions // 维度 - v1 迭代必要
 
-  - start-date // 起始日期 - v1 迭代必要
+      - string
+      - required
 
-    - string
-    - required
-    - 格式
-      - `2019-01-01` // yyyy-MM-dd
+    - start-date // 起始日期 - v1 迭代必要
 
-  - end-date // 结束日期 - v1 迭代必要
+      - string
+      - required
+      - 格式
+        - `2019-01-01` // yyyy-MM-dd
 
-    - string
-    - required
-    - 格式
-      - `2019-01-01` // yyyy-MM-dd
+    - end-date // 结束日期 - v1 迭代必要
 
-  - max-results // 分页记录数
+      - string
+      - required
+      - 格式
+        - `2019-01-01` // yyyy-MM-dd
 
-    - number
-    - optional
+    - max-results // 分页记录数
 
-  - sort // 排序
+      - number
+      - optional
 
-    - string
-    - optional
+    - sort // 排序
 
-- 范例
+      - string
+      - optional
 
-  ```javascript
-  {
-    dimensions: "ok:buyer,ok:supplier"
-    end-date: "2019-01-01"
-    max-results: 10000
-    metrics: "ok:buyer,ok:supplier"
-    sort: undefined
-    start-date: "2019-01-01"
-  }
-  ```
+  - 范例
 
-## Response
+    ```javascript
+    {
+      dimensions: "ok:buyer,ok:supplier"
+      end-date: "2019-01-01"
+      max-results: 10000
+      metrics: "ok:buyer,ok:supplier"
+      sort: undefined
+      start-date: "2019-01-01"
+    }
+    ```
 
-> https://developers.google.com/analytics/devguides/reporting/core/v3/reference#data_response
+- Response
 
-- 字段
+  > https://developers.google.com/analytics/devguides/reporting/core/v3/reference#data_response
 
-  - columnHeaders // 返回表列信息 - v1 迭代必要
+  - 字段
 
-    - array of object
+    - columnHeaders // 返回表列信息 - v1 迭代必要
 
-  - rows // 返回表列信息 - v1 迭代必要
+      - array of object
 
-    - array of array of string
+    - rows // 返回表列信息 - v1 迭代必要
 
-  - itemsPerPage
+      - array of array of string
 
-    - number
+    - itemsPerPage
 
-  - query
+      - number
 
-    - object
+    - query
 
-  - totalResults
+      - object
 
-    - number
+    - totalResults
 
-  - totalsForAllResults
-    - object
+      - number
 
-- 范例
+    - totalsForAllResults
 
-  - TBD
+      - object
 
-## Dimensions & Metrics
+    - totalsForPreResults
+      > this is a okchem specific field that contains data indicating the total results before the start date
+      - object
+
+  - 范例
+
+    - TBD
+
+### Dimensions & Metrics Design
 
 - metrics
 
@@ -110,7 +117,9 @@
   - date
     - `ga:date`
 
-## Detailed Design
+### Detailed Design
+
+> real world cases
 
 - Buyer/Supplier Overview
 
@@ -182,6 +191,10 @@
         }
       ],
       "totalsForAllResults": {
+        "ok:buyer": "0",
+        "ok:supplier": "0"
+      },
+      "totalsForPreResults":{ // experimental
         "ok:buyer": "0",
         "ok:supplier": "0"
       },
@@ -259,6 +272,10 @@
         }
       ],
       "totalsForAllResults": {
+        "ok:buyer": "0",
+        "ok:supplier": "0"
+      },
+      "totalsForPreResults":{ // experimental
         "ok:buyer": "0",
         "ok:supplier": "0"
       },
