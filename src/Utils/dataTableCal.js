@@ -49,6 +49,7 @@ const withRowsSum = ({ tableData, ignoreColIndexes }) => {
 
 const withRowsAccumulationValue = ({
   tableData,
+  initData, // tableData will be calculated based on initData
   ignoreColIndexes,
   ignoreRowLastIndexes,
 }) => {
@@ -57,15 +58,16 @@ const withRowsAccumulationValue = ({
       'expect a parameter of array and its length is larger than 0'
     )
   }
-  let sums = new Array(tableData[0].length)
-  sums.fill(0)
+  let sums = initData || new Array(tableData[0].length).fill(0)
   return tableData.map((row, rowIndex) => {
     const lastRowIndex = tableData.length - (rowIndex + 1)
+    // current row is not ignored
     if (!ignoreRowLastIndexes.includes(lastRowIndex)) {
       sums = mergeArrayBySum(row, sums, ignoreColIndexes)
       return sums
     }
-    return row
+    // current row is ignore then append initData if provided
+    return mergeArrayBySum(row, initData, ignoreColIndexes)
   })
 }
 

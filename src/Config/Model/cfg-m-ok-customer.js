@@ -2,19 +2,25 @@ import { withRowsAccumulationValue } from '../../Utils/dataTableCal'
 
 const convert = ({
   responseDataSolo: {
+    response: { totalsForPreResults },
     responseData,
     selectorData: { accumulative, okCustomerType },
   },
 }) => {
-  const data = accumulative
-    ? withRowsAccumulationValue({
-        tableData: responseData,
-        ignoreColIndexes: [0],
-        ignoreRowLastIndexes: [],
-      })
-    : responseData
-
-  const twoMetrics = okCustomerType === 'ok:buyer,ok:supplier'
+  const twoMetrics = okCustomerType === 'ok:buyer,ok:supplier',
+    preBuyer = parseInt(totalsForPreResults['ok:buyer'] || 0, 10),
+    preSupplier = parseInt(totalsForPreResults['ok:supplier'] || 0, 10),
+    preData = twoMetrics
+      ? [0, preBuyer, preSupplier]
+      : [0, preBuyer + preSupplier], // a trick there, use preBuyer + preSupplier always due to the other one must be 0
+    data = accumulative
+      ? withRowsAccumulationValue({
+          tableData: responseData,
+          initData: preData,
+          ignoreColIndexes: [0],
+          ignoreRowLastIndexes: [],
+        })
+      : responseData
 
   return {
     data: data.map(item => ({
