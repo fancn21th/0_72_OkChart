@@ -1,10 +1,10 @@
 import SelectorMap from '../SelectorMap'
 import { debuggger } from '../../Utils/Debugger'
+import fixQuery from '../../Utils/OkQueryFixer'
 
-// TODO: move gapi out and make it abstract
-const ChartQuery = function(gapi) {
-  this.gapi = gapi
+const ChartQuery = function(okBaseUrl) {
   this.cache = new SelectorMap()
+  this.okBaseUrl = okBaseUrl
 }
 
 ChartQuery.prototype = {
@@ -31,7 +31,7 @@ ChartQuery.prototype = {
       return new Promise(function(resolve) {
         debuggger({
           type: selectorData.type,
-          title: 'ga response data',
+          title: 'okchem response data',
           data: self._getData(keyData),
         })
         const response = self._getData(keyData)
@@ -48,17 +48,32 @@ ChartQuery.prototype = {
     }
 
     return new Promise(function(resolve, reject) {
-      var data = new self.gapi.analytics.report.Data({
-        query: queryParams,
-      })
-      data
-        .once('success', function(response) {
+      const fixedQueryParams = fixQuery(queryParams, selectorData)
+
+      const queryString = Object.keys(fixedQueryParams)
+        .map(
+          key =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(
+              fixedQueryParams[key]
+            )}`
+        )
+        .join('&')
+
+      $.ajax({
+        type: 'GET',
+        url: `${self.okBaseUrl}/analytics/v1/data/oka?${queryString}`,
+        // url: `http://localhost:3000/data`,
+        // contentType: 'application/json; charset=utf-8',
+        // dataType: 'json',
+        success: function(response) {
           if (keyData) self._cacheData(keyData, response)
+
           debuggger({
             type: selectorData.type,
             title: 'ga response data',
             data: response,
           })
+
           resolve({
             ...queryData,
             response,
@@ -68,11 +83,11 @@ ChartQuery.prototype = {
               isResponseDataFromCache: false,
             },
           })
-        })
-        .once('error', function(response) {
+        },
+        failure: function(response) {
           reject({ response, error: 'Chart Query Error' })
-        })
-        .execute()
+        },
+      })
     })
   },
   query: function(queryData) {

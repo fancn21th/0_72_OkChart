@@ -10,23 +10,32 @@ const SuperModel = function({ query, modelType }) {
 
 SuperModel.prototype = {
   fetch: function(queryData) {
-    this.query.query(queryData).then(responseDataArray => {
-      debuggger({
-        type: responseDataArray[0].selectorData.type,
-        title: 'response data array',
-        data: responseDataArray,
+    // TODO: this is for test purpose only
+    // $.get(
+    //   'http://www.devokchem2.com/admin/member/member_search?keyword=joe',
+    //   function(data) {
+    //     console.log(data)
+    //   }
+    // )
+    this.query(this.modelType)
+      .query(queryData)
+      .then(responseDataArray => {
+        debuggger({
+          type: responseDataArray[0].selectorData.type,
+          title: 'response data array',
+          data: responseDataArray,
+        })
+        const data = viewDataPip(responseDataArray)
+        debuggger({
+          type: responseDataArray[0].selectorData.type,
+          title: 'view data',
+          data,
+        })
+        events.notify(this.modelType, {
+          key: this.modelType,
+          data,
+        })
       })
-      const data = viewDataPip(responseDataArray)
-      debuggger({
-        type: responseDataArray[0].selectorData.type,
-        title: 'view data',
-        data,
-      })
-      events.notify(this.modelType, {
-        key: this.modelType,
-        data,
-      })
-    })
   },
 }
 

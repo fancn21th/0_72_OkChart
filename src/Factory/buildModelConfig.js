@@ -6,9 +6,15 @@ import buyerRegistDistribution from '../Config/Model/cfg-m-buyer-regist-distribu
 import pvUv from '../Config/Model/cfg-m-pv-uv'
 import distribution from '../Config/Model/cfg-m-distribution'
 import suppliersRegistDistribution from '../Config/Model/cfg-m-suppliers-regist-distribution'
+import okCustomerOverview from '../Config/Model/cfg-m-ok-customer-overview'
+import okCustomer from '../Config/Model/cfg-m-ok-customer'
 
 const buildModelConfig = ({ type }) => {
   switch (type) {
+    case 'ok-customer-overview':
+      return okCustomerOverview
+    case 'ok-customer':
+      return okCustomer
     case 'overview':
       return overview
     case 'pv-uv':

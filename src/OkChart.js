@@ -1,4 +1,4 @@
-import ChartQuery from './Utils/query/ChartQuery'
+import { buildQuery } from './Utils/query/queryBuilder'
 import GoogleApiAuthenticator from './Utils/GoogleApiAuthenticator'
 import GoogleApiViewSelector from './Utils/GoogleApiViewSelector'
 import Dashboard from './Page/pg-dashboard'
@@ -8,12 +8,21 @@ const OkChart = function({ willMount }) {
 }
 
 OkChart.prototype = {
-  init: function({ clientId, authContainer, viewSelector, charts }) {
+  init: function({ clientId, authContainer, viewSelector, charts, okBaseUrl }) {
+    // jquery ajax setup for custom api request
+    $.ajaxSetup({
+      traditional: true,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+      xhrFields: {
+        withCredentials: true,
+      },
+    })
+
     this.willMount()
 
     gapi.analytics.ready(function() {
-      // google api wrapper
-      const chartQuery = new ChartQuery(gapi)
       const googleApiAuthenticator = new GoogleApiAuthenticator({
         gapi,
         containerId: authContainer,
@@ -33,7 +42,7 @@ OkChart.prototype = {
       // dashboard page
       const dashboard = new Dashboard({
         viewElements,
-        query: chartQuery,
+        query: buildQuery({ gapi, okBaseUrl }),
       })
 
       dashboard.init()

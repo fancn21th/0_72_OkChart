@@ -2,6 +2,30 @@
 
 > a chart component for OKCHEM.COM
 
+## Dev Env Setup
+
+- editor
+
+  - vscode is preferred
+  - prettier is a MUST
+
+- install
+
+  - run `npm i`
+
+- hosts
+
+  - due to the custom okchem api request, a fake host domain need to be appended in local dev environment
+
+    - for windows
+
+      > host file located at `C:\Windows\System32\drivers\etc`
+
+      ```text
+      # append to host file
+      127.0.0.1 abc.devokchem2.com
+      ```
+
 ## Code Style
 
 - ES2015 intertwined with old fashion code

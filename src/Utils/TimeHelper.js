@@ -15,6 +15,15 @@ const timespanDiff = (timespan, startDate, endDate) => {
   return parseInt(timespan, 10)
 }
 
+const getDateBySelectorFormat = dateTime => {
+  const year = dateTime.getFullYear()
+  let month = dateTime.getMonth() + 1
+  month = month.toString().padStart(2, '0')
+  let day = dateTime.getDate()
+  day = day.toString().padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 const doubleTimespanStartDate = (startDate, endDate) => {
   const date1 = new Date(startDate)
   const date2 = new Date(endDate)
@@ -22,12 +31,7 @@ const doubleTimespanStartDate = (startDate, endDate) => {
     Math.abs(date2.getTime() - date1.getTime()) + 1000 * 3600 * 24
   const doubleTimespanStartDateTime = date1.getTime() - timeDiff
   const doubleTimespanStartDate = new Date(doubleTimespanStartDateTime)
-  const year = doubleTimespanStartDate.getFullYear()
-  let month = doubleTimespanStartDate.getMonth() + 1
-  month = month.toString().padStart(2, '0')
-  let day = doubleTimespanStartDate.getDate()
-  day = day.toString().padStart(2, '0')
-  return `${year}-${month}-${day}`
+  return getDateBySelectorFormat(doubleTimespanStartDate)
 }
 
 // expected format: yyyyMMdd e.g. 20190101
@@ -183,4 +187,5 @@ export {
   getWorkingDateCountByMonth,
   getWorkingDateCountByWeek,
   getStartEndDateStrByTimespan,
+  getDateBySelectorFormat,
 }

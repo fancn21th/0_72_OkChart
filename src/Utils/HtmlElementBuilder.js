@@ -30,7 +30,7 @@ const createSelect = ({ options, id, multiple, className }) => {
 const createCheckbox = ({ checked }) => {
   const checkbox = document.createElement('INPUT')
   checkbox.setAttribute('type', 'checkbox')
-  checkbox.setAttribute('checked', checked)
+  if (checked) checkbox.setAttribute('checked', checked)
   return checkbox
 }
 

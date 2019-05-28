@@ -74,12 +74,24 @@ const convert = ({
     return acc
   }, new Map())
 
-  let data = []
+  let data = [],
+    sum = {
+      pv: 0,
+      uv: 0,
+      buyerCount: 0,
+      supplierCount: 0,
+    }
 
   let days = timespanDiff(timespan || 30, startDate, endDate)
   days = workingDate === true ? days - nonWorkingDateCount : days
 
   map.forEach(({ pv, uv, buyerCount, supplierCount }, key) => {
+    const avgPv = Math.round(pv / days),
+      avgUv = Math.round(uv / days)
+    sum.pv += avgPv
+    sum.uv += avgUv
+    sum.buyerCount += buyerCount
+    sum.supplierCount += supplierCount
     data.push([
       key,
       Math.round(pv / days),
@@ -90,6 +102,8 @@ const convert = ({
   })
 
   data.sort((a, b) => b[1] - a[1])
+
+  data.push(['合计', sum.pv, sum.uv, sum.buyerCount, sum.supplierCount])
 
   // convert source
   Object.keys(sourceObj).forEach(item => {

@@ -6,6 +6,8 @@ import supplierRegist from '../Config/Model/cfg-m-supplier-regist'
 import distribution from '../Config/Model/cfg-m-distribution'
 import buyerRegistDistribution from '../Config/Model/cfg-m-buyer-regist-distribution'
 import suppliersRegistDistribution from '../Config/Model/cfg-m-suppliers-regist-distribution'
+import okCustomerOverview from '../Config/Model/cfg-m-ok-customer-overview'
+import okCustomer from '../Config/Model/cfg-m-ok-customer'
 
 import workingDateFilter from '../Utils/pipeline/workingDateFilter'
 import workingDateContext from '../Utils/pipeline/workingDateContext'
@@ -22,6 +24,16 @@ const buildViewPip = ({ viewType }) => {
     ],
   }
   switch (viewType) {
+    case 'ok-customer-overview':
+      return {
+        ...common,
+        custom: okCustomerOverview.customConverters,
+      }
+    case 'ok-customer':
+      return {
+        ...common,
+        custom: okCustomer.customConverters,
+      }
     case 'overview':
       return {
         ...common,
